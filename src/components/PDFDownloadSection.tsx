@@ -23,7 +23,7 @@ const PDFDownloadSection = () => {
   const gridRef = useScrollReveal({ threshold: 0.05 });
 
   return (
-    <section className="px-5 md:px-10 py-16 md:py-24 bg-card">
+    <section className="px-5 md:px-10 py-16 md:py-24 bg-white">
       <div className="max-w-5xl mx-auto">
         <div ref={headerRef} className="reveal mb-10">
           <p className="section-label mb-3">— Dokumente</p>
@@ -39,7 +39,7 @@ const PDFDownloadSection = () => {
               key={i}
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="group flex flex-col justify-between gap-8 p-6 md:p-7 bg-card hover:bg-primary transition-colors duration-200"
+              className="group flex flex-col justify-between gap-8 p-6 md:p-7 bg-white hover:bg-primary transition-colors duration-200"
             >
               <div>
                 <p className="font-body text-[11px] font-semibold tracking-[0.18em] uppercase text-foreground group-hover:text-primary-foreground transition-colors duration-200 leading-tight">
@@ -55,7 +55,7 @@ const PDFDownloadSection = () => {
 
           {/* Fill last row so no empty gap cells show */}
           {Array.from({ length: fillers }).map((_, i) => (
-            <div key={`filler-${i}`} className="bg-card hidden lg:block" />
+            <div key={`filler-${i}`} className="bg-white hidden lg:block" />
           ))}
         </div>
       </div>

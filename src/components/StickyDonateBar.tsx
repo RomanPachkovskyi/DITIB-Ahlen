@@ -7,6 +7,7 @@ const PERCENTAGE = Math.round((CURRENT / GOAL) * 100);
 
 const StickyDonateBar = () => {
   const [visible, setVisible] = useState(false);
+  const [ctaVisible, setCtaVisible] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.7);
@@ -14,10 +15,21 @@ const StickyDonateBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const cta = document.getElementById("final-cta");
+    if (!cta) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setCtaVisible(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(cta);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
+        visible && !ctaVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       }`}
     >
       {/* Progress line at top of bar */}

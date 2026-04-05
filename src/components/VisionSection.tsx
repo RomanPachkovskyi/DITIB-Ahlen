@@ -48,7 +48,7 @@ const VisionSection = () => {
           {features.map((feature, i) => (
             <div
               key={feature.title}
-              className="bg-background p-8 lg:p-10 flex flex-col gap-6 group hover:bg-card transition-colors duration-300"
+              className="bg-background p-8 lg:p-10 flex flex-col gap-6 group hover:bg-[#f0f0f0] transition-colors duration-300"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               {/* Large number watermark */}

@@ -1,21 +1,22 @@
 import heroImage from "@/assets/hero-render.jpg";
-import { Heart } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[100svh] flex items-end">
-      <img
-        src={heroImage}
-        alt="Architekturvisualisierung des DITIB Ahlen Kulturzentrums"
-        width={1920}
-        height={1080}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-foreground/10" />
+    <section className="relative min-h-[100svh] flex items-end p-3 md:p-5">
+      <div className="absolute inset-3 md:inset-5 rounded-2xl overflow-hidden">
+        <img
+          src={heroImage}
+          alt="Architekturvisualisierung des DITIB Ahlen Kulturzentrums"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-foreground/10" />
+      </div>
 
       {/* Top bar */}
-      <div className="absolute top-0 left-0 right-0 z-10 px-5 py-5 md:px-10 md:py-6 flex items-center justify-between">
+      <div className="absolute top-3 md:top-5 left-3 md:left-5 right-3 md:right-5 z-10 px-5 py-5 md:px-8 md:py-6 flex items-center justify-between">
         <span className="font-body text-xs font-medium tracking-[0.15em] uppercase text-primary-foreground/80">
           DITIB Ahlen
         </span>
@@ -34,18 +35,11 @@ const HeroSection = () => {
           <br />
           für Ahlen
         </h1>
-        <p className="font-body text-sm md:text-base leading-relaxed text-primary-foreground/70 max-w-lg mb-8">
+        <p className="font-body text-sm md:text-base leading-relaxed text-primary-foreground/70 max-w-lg">
           Ein Ort der Begegnung, Bildung und Gemeinschaft. 
           Unterstützen Sie den Bau eines modernen Kultur- und Gemeindezentrums — 
           für alle Menschen in Ahlen.
         </p>
-        <a
-          href="#spenden"
-          className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-7 py-3.5 rounded-sm transition-all duration-200 hover:shadow-lg"
-        >
-          <Heart className="w-4 h-4" />
-          Ich möchte spenden
-        </a>
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ const ImageGallery = () => {
           {images.map((image, i) => (
             <div
               key={i}
-              className={`${image.span} rounded-sm overflow-hidden group relative`}
+              className={`${image.span} rounded-xl overflow-hidden group relative`}
             >
               <img
                 src={image.src}

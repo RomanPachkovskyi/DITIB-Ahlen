@@ -1,5 +1,6 @@
 import HeroSection from "@/components/HeroSection";
 import ProjectIntro from "@/components/ProjectIntro";
+import ProjectPartners from "@/components/ProjectPartners";
 import VisionSection from "@/components/VisionSection";
 import ImageGallery from "@/components/ImageGallery";
 import PDFDownloadSection from "@/components/PDFDownloadSection";

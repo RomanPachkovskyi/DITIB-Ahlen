@@ -11,7 +11,6 @@ const HeroSection = () => {
           height={1080}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-foreground/10" />
       </div>
 
@@ -35,11 +34,25 @@ const HeroSection = () => {
           <br />
           für Ahlen
         </h1>
-        <p className="font-body text-sm md:text-base leading-relaxed text-primary-foreground/70 max-w-lg">
-          Ein Ort der Begegnung, Bildung und Gemeinschaft. 
-          Unterstützen Sie den Bau eines modernen Kultur- und Gemeindezentrums — 
+        <p className="font-body text-sm md:text-base leading-relaxed text-primary-foreground/70 max-w-lg mb-8">
+          Ein Ort der Begegnung, Bildung und Gemeinschaft.
+          Unterstützen Sie den Bau eines modernen Kultur- und Gemeindezentrums —
           für alle Menschen in Ahlen.
         </p>
+        <a
+          href="#spenden"
+          className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-7 py-3.5 rounded-sm transition-all duration-200"
+        >
+          Ich möchte spenden
+        </a>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 md:bottom-10 right-8 md:right-10 z-10 flex flex-col items-center gap-2">
+        <span className="font-body text-[10px] tracking-[0.2em] uppercase text-primary-foreground/40 [writing-mode:vertical-rl]">
+          Scroll
+        </span>
+        <div className="w-px h-10 bg-gradient-to-b from-primary-foreground/30 to-transparent" />
       </div>
     </section>
   );

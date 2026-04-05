@@ -5,7 +5,7 @@ const FinalCTA = () => {
   const ref = useScrollReveal();
 
   return (
-    <section className="px-5 md:px-10 py-20 md:py-32 geometric-pattern">
+    <section className="px-5 md:px-10 py-20 md:py-32 bg-card">
       <div ref={ref} className="reveal max-w-2xl mx-auto text-center">
         {/* Thin ornamental line */}
         <div className="flex items-center justify-center gap-4 mb-10">

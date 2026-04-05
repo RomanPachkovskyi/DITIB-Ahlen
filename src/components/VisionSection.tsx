@@ -52,7 +52,7 @@ const VisionSection = () => {
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               {/* Large number watermark */}
-              <span className="font-display text-6xl font-semibold text-muted/40 leading-none select-none">
+              <span className="font-display text-6xl font-semibold text-muted-foreground/20 group-hover:text-[#232323] leading-none select-none transition-colors duration-300">
                 {feature.number}
               </span>
               <div className="flex-1 flex flex-col gap-3">
@@ -60,7 +60,7 @@ const VisionSection = () => {
                   <h3 className="font-display text-lg font-semibold text-foreground">
                     {feature.title}
                   </h3>
-                  <feature.icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-primary transition-colors duration-300 shrink-0" />
+                  <feature.icon className="w-4 h-4 text-muted-foreground/30 group-hover:text-[#232323] transition-colors duration-300 shrink-0" />
                 </div>
                 <p className="body-md text-sm leading-relaxed">{feature.description}</p>
               </div>

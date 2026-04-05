@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import StickyDonateBar from "@/components/StickyDonateBar";
 import HeroSection from "@/components/HeroSection";
 import ProjectIntro from "@/components/ProjectIntro";
 import ProjectPartners from "@/components/ProjectPartners";
@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <main className="min-h-screen">
-      <NavBar />
+      <StickyDonateBar />
       <HeroSection />
       <ProjectIntro />
       <VisionSection />

@@ -19,9 +19,7 @@ const HeroSection = () => {
         <span className="font-body text-xs font-medium tracking-[0.15em] uppercase text-primary-foreground/80">
           DITIB Ahlen
         </span>
-        <span className="font-body text-[10px] tracking-[0.2em] uppercase text-primary-foreground/50">
-          ● Kulturzentrum in Planung
-        </span>
+        <span />
       </div>
 
       {/* Hero content */}

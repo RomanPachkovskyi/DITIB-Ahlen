@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "DITIB Ahlen",
-      "runtimeExecutable": "/Users/roman/.nvm/versions/node/v24.14.0/lib/node_modules/npm/bin/npm",
-      "runtimeArgs": ["run", "dev"],
+      "name": "DITIB Ahlen (Docker)",
+      "runtimeExecutable": "/usr/local/bin/docker",
+      "runtimeArgs": ["compose", "up", "--build", "-d"],
       "port": 8080
     }
   ]

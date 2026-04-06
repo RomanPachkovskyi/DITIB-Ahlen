@@ -9,14 +9,16 @@ const HeroSection = () => {
           height={1080}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/40 to-foreground/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/40 to-black/10" />
       </div>
 
       {/* Top bar */}
       <div className="absolute top-3 md:top-5 left-3 md:left-5 right-3 md:right-5 z-10 px-5 py-5 md:px-8 md:py-6 flex items-center justify-between">
-        <span className="font-body text-xs font-medium tracking-[0.15em] uppercase text-primary-foreground/80">
-          DITIB Ahlen
-        </span>
+        <img
+          src="/img/ditib-ahlen-logo.png"
+          alt="DITIB Ahlen"
+          className="h-20 w-auto"
+        />
         <span />
       </div>
 
@@ -30,7 +32,7 @@ const HeroSection = () => {
           <br />
           für Ahlen
         </h1>
-        <p className="font-body text-sm md:text-base leading-relaxed text-primary-foreground/70 max-w-lg mb-8">
+        <p className="font-body text-sm md:text-base leading-relaxed text-white max-w-lg mb-8">
           Ein Ort der Begegnung, Bildung und Gemeinschaft.
           Unterstützen Sie den Bau eines modernen Kultur- und Gemeindezentrums —
           für alle Menschen in Ahlen.

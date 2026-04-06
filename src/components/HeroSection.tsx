@@ -1,11 +1,9 @@
-import heroImage from "@/assets/hero-render.jpg";
-
 const HeroSection = () => {
   return (
     <section className="relative min-h-[100svh] flex items-end p-3 md:p-5">
       <div className="absolute inset-3 md:inset-5 rounded-2xl overflow-hidden">
         <img
-          src={heroImage}
+          src="/img/ditib-ahlen-kulturzentrum-visualisierung.jpg"
           alt="Architekturvisualisierung des DITIB Ahlen Kulturzentrums"
           width={1920}
           height={1080}

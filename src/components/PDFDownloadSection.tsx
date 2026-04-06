@@ -2,16 +2,16 @@ import { Download } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const documents = [
-  { name: "Architekturkonzept", subtitle: "Gesamtübersicht" },
-  { name: "Grundriss", subtitle: "Erdgeschoss" },
-  { name: "Grundriss", subtitle: "Obergeschoss" },
-  { name: "Fassadengestaltung", subtitle: "& Materialkonzept" },
-  { name: "Schnittzeichnung", subtitle: "Längsschnitt A–A" },
-  { name: "Schnittzeichnung", subtitle: "Querschnitt B–B" },
-  { name: "Ansichten", subtitle: "Nord & Süd" },
-  { name: "Ansichten", subtitle: "Ost & West" },
-  { name: "Lageplan", subtitle: "& Außenanlagen" },
-  { name: "Tragwerksplanung", subtitle: "Statik Übersicht" },
+  { name: "Lageplan", subtitle: "Rottmannstraße", file: "Lageplan_Ditib_Ahlen_Rottmannstraße.pdf" },
+  { name: "Freiflächenplan", subtitle: "Außenanlagen", file: "Freiflächenplan_Ditib_Ahlen_Rottmannstraße.pdf" },
+  { name: "Freiflächen Poster", subtitle: "Übersicht", file: "Poster_Freiflächenplan_DITIB_Ahlen.pdf" },
+  { name: "Ansichten", subtitle: "Genehmigungsplanung", file: "Genehmigungsplanung_Ditib_Ahlen_GE02_Ansichten.pdf" },
+  { name: "Kellergeschoss", subtitle: "Grundriss", file: "Genehmigungsplanung_Ditib_Ahlen_GE03_KG.pdf" },
+  { name: "Erdgeschoss", subtitle: "Grundriss", file: "Genehmigungsplanung_Ditib_Ahlen_GE04_EG.pdf" },
+  { name: "1. Obergeschoss", subtitle: "Grundriss", file: "Genehmigungsplanung_Ditib_Ahlen_GE05_1.OG.pdf" },
+  { name: "2. Obergeschoss", subtitle: "Grundriss", file: "Genehmigungsplanung_Ditib_Ahlen_GE06_2.OG.pdf" },
+  { name: "Draufsicht", subtitle: "Genehmigungsplanung", file: "Genehmigungsplanung_Ditib_Ahlen_GE07_Draufsicht.pdf" },
+  { name: "Gebäudeschnitt", subtitle: "Genehmigungsplanung", file: "Genehmigungsplanung_Ditib_Ahlen_GE08_Schnitt.pdf" },
 ];
 
 const COLS = 4;
@@ -37,8 +37,8 @@ const PDFDownloadSection = () => {
           {documents.map((doc, i) => (
             <a
               key={i}
-              href="#"
-              onClick={(e) => e.preventDefault()}
+              href={`/pdf/${doc.file}`}
+              download={doc.file}
               className="group flex flex-col justify-between gap-8 p-6 md:p-7 bg-white hover:bg-primary transition-colors duration-200"
             >
               <div>

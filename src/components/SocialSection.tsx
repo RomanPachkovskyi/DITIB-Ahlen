@@ -5,7 +5,7 @@ const SocialSection = () => {
   const ref = useScrollReveal();
 
   return (
-    <section className="px-5 md:px-10 py-16 md:py-20 bg-card">
+    <section className="px-5 md:px-10 py-16 md:py-20 bg-white">
       <div ref={ref} className="reveal max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div>
           <p className="section-label mb-3">— Folgen Sie uns</p>

@@ -1,20 +1,14 @@
 import { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import heroRender from "@/assets/hero-render.jpg";
-import interiorSeminar from "@/assets/interior-seminar.jpg";
-import detailArchitecture from "@/assets/detail-architecture.jpg";
-import communityLife from "@/assets/community-life.jpg";
-import interiorPrayer from "@/assets/interior-prayer.jpg";
-import atmosphereEvening from "@/assets/atmosphere-evening.jpg";
 
 const images = [
-  { src: heroRender, alt: "Außenansicht — Architekturvisualisierung", span: "col-span-2 row-span-2" },
-  { src: detailArchitecture, alt: "Architektonisches Detail", span: "col-span-1 row-span-1" },
-  { src: communityLife, alt: "Gemeinschaftsleben", span: "col-span-1 row-span-1" },
-  { src: interiorSeminar, alt: "Seminarraum — Innenansicht", span: "col-span-1 row-span-2" },
-  { src: interiorPrayer, alt: "Gebetsraum — Innenansicht", span: "col-span-1 row-span-1" },
-  { src: atmosphereEvening, alt: "Abendstimmung — Außenansicht", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-aussenansicht.jpg", alt: "Außenansicht — Architekturvisualisierung", span: "col-span-2 row-span-2" },
+  { src: "/img/ditib-ahlen-gebaeude-perspektive.jpg", alt: "Architektonisches Detail", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-architektur-eingang.jpg", alt: "Eingangsbereich", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-moschee-minarett.jpg", alt: "Minarett — Außenansicht", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-innenansicht-gebetsraum.jpg", alt: "Gebetsraum — Innenansicht", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-nacht.jpg", alt: "Abendstimmung — Außenansicht", span: "col-span-1 row-span-1" },
 ];
 
 const ImageGallery = () => {

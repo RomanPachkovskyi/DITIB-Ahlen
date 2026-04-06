@@ -4,6 +4,7 @@ const partners = [
     name: "DITIB - Ahlen (Westf.)",
     subtitle: "Türkisch Islamische Kultur Verein e.V.",
     address: "Rottmannstr. 62, 59229 Ahlen",
+    email: "info@ditib-ahlen-projekte.de",
     logoInitials: "DITIB",
   },
   {
@@ -11,6 +12,7 @@ const partners = [
     name: "Ingenieurbüro Theismann & Partner",
     subtitle: "Dipl.-Ing. Bernd Theismann",
     address: "Nordstraße 29, 59227 Ahlen",
+    email: "info@theismannundpartner.de",
     logoInitials: "T&P",
   },
 ];
@@ -49,6 +51,14 @@ const ProjectPartners = () => {
                 <p className="font-body text-xs text-muted-foreground/70 mt-1">
                   {partner.address}
                 </p>
+                {partner.email && (
+                  <a
+                    href={`mailto:${partner.email}`}
+                    className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors mt-1 inline-block"
+                  >
+                    {partner.email}
+                  </a>
+                )}
               </div>
             </div>
           ))}

@@ -1,3 +1,5 @@
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+
 const partners = [
   {
     role: "Bauherr",
@@ -18,21 +20,22 @@ const partners = [
 ];
 
 const ProjectPartners = () => {
+  const headerRef = useScrollReveal();
+  const cardsRef = useScrollReveal({ threshold: 0.08 });
+
   return (
     <section className="px-5 md:px-10 py-16 md:py-24">
       <div className="max-w-5xl mx-auto">
-        <p className="section-label mb-4">— Projektbeteiligte</p>
-        <h2 className="heading-md text-foreground mb-12 max-w-xl">
-          Wer baut und wer plant
-        </h2>
+        <div ref={headerRef} className="reveal mb-12">
+          <p className="section-label mb-4">— Projektbeteiligte</p>
+          <h2 className="heading-md text-foreground max-w-xl">
+            Wer baut und wer plant
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {partners.map((partner) => (
-            <div
-              key={partner.name}
-              className="flex items-start gap-5"
-            >
-              {/* Logo placeholder */}
+            <div key={partner.name} className="flex items-start gap-5">
               <div className="w-14 h-14 rounded-xl bg-muted flex items-center justify-center flex-shrink-0 border border-border">
                 <span className="font-body text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
                   {partner.logoInitials}

@@ -102,19 +102,46 @@
     background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 8 L44 22 L58 18 L48 28 L62 32 L48 36 L58 50 L44 46 L40 60 L36 46 L22 50 L32 36 L18 32 L32 28 L22 18 L36 22 Z' fill='%23000000' fill-opacity='0.035'/%3E%3C/svg%3E");
   }
 
-  /* Scroll reveal */
+  /* ── Scroll reveal ─────────────────────────────────────────── */
+
+  /* Single-element reveal */
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
   }
-
   .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.32s; }
+  /* Delay utilities */
+  .reveal-delay-1 { transition-delay: 100ms; }
+  .reveal-delay-2 { transition-delay: 200ms; }
+  .reveal-delay-3 { transition-delay: 320ms; }
+  .reveal-delay-4 { transition-delay: 440ms; }
+
+  /* Stagger container — children animate in sequence */
+  .reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-stagger.is-visible > *:nth-child(1)  { transition-delay:   0ms; }
+  .reveal-stagger.is-visible > *:nth-child(2)  { transition-delay:  90ms; }
+  .reveal-stagger.is-visible > *:nth-child(3)  { transition-delay: 180ms; }
+  .reveal-stagger.is-visible > *:nth-child(4)  { transition-delay: 270ms; }
+  .reveal-stagger.is-visible > *:nth-child(5)  { transition-delay: 340ms; }
+  .reveal-stagger.is-visible > *:nth-child(6)  { transition-delay: 400ms; }
+  .reveal-stagger.is-visible > *:nth-child(n+7){ transition-delay: 440ms; }
 }

@@ -27,7 +27,8 @@ const features = [
 
 const VisionSection = () => {
   const headerRef = useScrollReveal();
-  const cardsRef = useScrollReveal({ threshold: 0.08 });
+  const cardsRef = useScrollReveal({ threshold: 0.06 });
+  const mobileRef = useScrollReveal({ threshold: 0.06 });
 
   return (
     <section className="px-5 md:px-10 py-16 md:py-24">
@@ -43,15 +44,16 @@ const VisionSection = () => {
           </p>
         </div>
 
-        {/* Desktop: 3-column cards */}
-        <div ref={cardsRef} className="reveal hidden md:grid md:grid-cols-3 gap-px bg-border">
-          {features.map((feature, i) => (
+        {/* Desktop: 3-column stagger */}
+        <div
+          ref={cardsRef}
+          className="reveal-stagger hidden md:grid md:grid-cols-3 gap-px bg-border"
+        >
+          {features.map((feature) => (
             <div
               key={feature.title}
               className="bg-background p-8 lg:p-10 flex flex-col gap-6 group hover:bg-[#f0f0f0] transition-colors duration-300"
-              style={{ transitionDelay: `${i * 80}ms` }}
             >
-              {/* Large number watermark */}
               <span className="font-display text-6xl font-semibold text-muted-foreground/20 group-hover:text-[#232323] leading-none select-none transition-colors duration-300">
                 {feature.number}
               </span>
@@ -64,14 +66,13 @@ const VisionSection = () => {
                 </div>
                 <p className="body-md text-sm leading-relaxed">{feature.description}</p>
               </div>
-              {/* Bottom accent line */}
               <div className="h-px w-0 bg-primary group-hover:w-full transition-all duration-500" />
             </div>
           ))}
         </div>
 
-        {/* Mobile: numbered list */}
-        <div className="md:hidden space-y-0 border-t border-border">
+        {/* Mobile: numbered list stagger */}
+        <div ref={mobileRef} className="reveal-stagger md:hidden border-t border-border">
           {features.map((feature) => (
             <div
               key={feature.title}

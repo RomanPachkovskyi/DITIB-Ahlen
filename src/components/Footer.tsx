@@ -53,8 +53,33 @@ const Footer = () => {
 
       {open === "kontakt" && (
         <Modal title="Kontakt" onClose={close}>
-          <p className="text-foreground font-medium">Inhalt folgt</p>
-          <p>Die Kontaktdaten werden hier ergänzt.</p>
+          <div className="space-y-8">
+
+            <div>
+              <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-3">Bauherr</p>
+              <p className="font-display text-base font-semibold text-foreground leading-snug">DITIB - Ahlen (Westf.)</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Türkisch Islamische Kultur Verein e.V.</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Rottmannstr. 62, 59229 Ahlen</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Fon 02382/61599 &nbsp;·&nbsp; Fax 02382/702397</p>
+              <a href="mailto:info@ditib-ahlen-projekte.de" className="font-body text-sm text-foreground hover:text-primary transition-colors mt-1 inline-block">
+                info@ditib-ahlen-projekte.de
+              </a>
+            </div>
+
+            <div className="h-px bg-border" />
+
+            <div>
+              <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-3">Entwurfsverfasser / Tragwerksplanung</p>
+              <p className="font-display text-base font-semibold text-foreground leading-snug">Ingenieurbüro Theismann & Partner</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Dipl.-Ing. Bernd Theismann</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Nordstraße 29, 59227 Ahlen</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Fon 02382/85050 &nbsp;·&nbsp; Fax 02382/85051</p>
+              <a href="mailto:info@theismannundpartner.de" className="font-body text-sm text-foreground hover:text-primary transition-colors mt-1 inline-block">
+                info@theismannundpartner.de
+              </a>
+            </div>
+
+          </div>
         </Modal>
       )}
     </>

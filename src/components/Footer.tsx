@@ -10,11 +10,11 @@ const Footer = () => {
   return (
     <>
       <footer className="px-5 md:px-10 py-8 border-t border-border">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-4">
           <div className="font-body text-xs text-muted-foreground">
             © 2026 DITIB Ahlen · Kulturzentrum Ahlen e.V.
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center justify-center gap-6">
             <button
               onClick={() => setOpen("impressum")}
               className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors"
@@ -34,6 +34,14 @@ const Footer = () => {
               Kontakt
             </button>
           </div>
+          <a
+            href="https://munas-print.de/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors md:text-right"
+          >
+            Digitales Handwerk mit ♥ bei Munas-Print
+          </a>
         </div>
       </footer>
 

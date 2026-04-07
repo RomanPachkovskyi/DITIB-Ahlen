@@ -7,7 +7,8 @@ const partners = [
     subtitle: "Türkisch Islamische Kultur Verein e.V.",
     address: "Rottmannstr. 62, 59229 Ahlen",
     email: "info@ditib-ahlen-projekte.de",
-    logoInitials: "DITIB",
+    logo: "/img/ditib-ahlen-logo.png",
+    logoAlt: "DITIB Ahlen Logo",
   },
   {
     role: "Entwurfsverfasser / Tragwerksplanung",
@@ -15,7 +16,8 @@ const partners = [
     subtitle: "Dipl.-Ing. Bernd Theismann",
     address: "Nordstraße 29, 59227 Ahlen",
     email: "info@theismannundpartner.de",
-    logoInitials: "T&P",
+    logo: "/img/theismann-partner-logo.jpg",
+    logoAlt: "Ingenieurbüro Theismann & Partner Logo",
   },
 ];
 
@@ -35,12 +37,16 @@ const ProjectPartners = () => {
 
         <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {partners.map((partner) => (
-            <div key={partner.name} className="flex items-start gap-5">
-              <div className="w-14 h-14 rounded-xl bg-muted flex items-center justify-center flex-shrink-0 border border-border">
-                <span className="font-body text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
-                  {partner.logoInitials}
-                </span>
+            <div key={partner.name} className="flex items-start gap-6">
+              {/* Logo */}
+              <div className="w-20 h-20 rounded-xl bg-white flex items-center justify-center flex-shrink-0 border border-border p-2">
+                <img
+                  src={partner.logo}
+                  alt={partner.logoAlt}
+                  className="w-full h-full object-contain"
+                />
               </div>
+              {/* Info */}
               <div>
                 <p className="font-body text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-1.5">
                   {partner.role}

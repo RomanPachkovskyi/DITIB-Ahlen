@@ -148,29 +148,47 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">4. Kontaktaufnahme per E-Mail und Telefon</p>
+              <p className="font-semibold text-foreground mb-2">4. Cookie-Einwilligung und Local Storage</p>
+              <p>Beim ersten Aufruf dieser Website wird Ihnen ein Cookie-Hinweis (Consent-Banner) angezeigt. Dort können Sie entscheiden, welche Kategorien von Datenverarbeitungen Sie zulassen möchten:</p>
+              <ul className="list-disc list-inside mt-2 space-y-1">
+                <li><strong className="text-foreground">Technisch notwendig</strong> (immer aktiv): Speichert Ihren Einwilligungsstatus im Local Storage des Browsers (Schlüssel: <code className="text-xs bg-secondary px-1 py-0.5 rounded">ditib_cookie_consent</code>). Es werden dabei eine Versionsnummer, ein Zeitstempel und Ihre gewählten Einstellungen gespeichert — keine personenbezogenen Daten.</li>
+                <li><strong className="text-foreground">Analyse & Statistik</strong> (optional): Derzeit nicht im Einsatz. Kategorie für eine mögliche zukünftige Einbindung datenschutzfreundlicher Analyse-Tools.</li>
+                <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Derzeit nicht im Einsatz. Kategorie für eine mögliche zukünftige Einbindung externer Medien.</li>
+              </ul>
+              <p className="mt-2">Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol (unten rechts) ändern oder widerrufen.</p>
+              <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG (technisch notwendig) bzw. § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO (optionale Kategorien, nur nach Einwilligung).</p>
+              <p className="mt-2"><strong className="text-foreground">Speicherdauer:</strong> Bis zur Löschung durch Ihren Browser oder bis zur Zurücksetzung der Cookie-Einstellungen.</p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-2">5. Schriftarten (Self-Hosting)</p>
+              <p>Diese Website verwendet die Schriftarten „Inter" und „Playfair Display". Die Schriftdateien werden lokal auf unserem Server gehostet. Beim Laden der Schriftarten wird keine Verbindung zu externen Servern (z. B. Google) hergestellt. Es werden keine personenbezogenen Daten an Dritte übermittelt.</p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-2">6. Kontaktaufnahme per E-Mail und Telefon</p>
               <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten zur Bearbeitung Ihrer Anfrage.</p>
               <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage auf den Abschluss oder die Durchführung eines Vertrages gerichtet ist, andernfalls Art. 6 Abs. 1 lit. f DSGVO.</p>
               <p className="mt-2"><strong className="text-foreground">Speicherdauer:</strong> Nur so lange, wie dies zur Bearbeitung Ihrer Anfrage erforderlich ist, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">5. Externe Links</p>
+              <p className="font-semibold text-foreground mb-2">7. Externe Links</p>
               <p>Diese Website enthält Links zu externen Websites (z. B. Instagram). Erst wenn Sie einen solchen Link aktiv anklicken, wird eine Verbindung zum jeweiligen Drittanbieter hergestellt. Für die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">6. SSL-/TLS-Verschlüsselung</p>
+              <p className="font-semibold text-foreground mb-2">8. SSL-/TLS-Verschlüsselung</p>
               <p>Diese Website nutzt eine SSL-/TLS-Verschlüsselung, um die Übertragung vertraulicher Inhalte zu schützen.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">7. Keine Tracking- oder Analyse-Tools</p>
-              <p>Diese Website verwendet keine Analyse-, Marketing- oder Tracking-Dienste (z. B. Google Analytics). Es werden keine Cookies für Werbezwecke oder zur Nutzungsanalyse gesetzt.</p>
+              <p className="font-semibold text-foreground mb-2">9. Keine Tracking- oder Analyse-Tools</p>
+              <p>Diese Website verwendet derzeit keine Analyse-, Marketing- oder Tracking-Dienste (z. B. Google Analytics). Es werden keine Cookies für Werbezwecke oder zur Nutzungsanalyse gesetzt. Sollte sich dies in Zukunft ändern, werden entsprechende Dienste erst nach Ihrer ausdrücklichen Einwilligung über den Cookie-Banner aktiviert.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">8. Ihre Rechte</p>
+              <p className="font-semibold text-foreground mb-2">10. Ihre Rechte</p>
               <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
@@ -184,17 +202,17 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">9. Beschwerderecht bei einer Aufsichtsbehörde</p>
+              <p className="font-semibold text-foreground mb-2">11. Beschwerderecht bei einer Aufsichtsbehörde</p>
               <p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in Nordrhein-Westfalen ist der Landesbeauftragte für Datenschutz und Informationsfreiheit (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">10. Keine automatisierte Entscheidungsfindung</p>
+              <p className="font-semibold text-foreground mb-2">12. Keine automatisierte Entscheidungsfindung</p>
               <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">11. Aktualisierung dieser Datenschutzerklärung</p>
+              <p className="font-semibold text-foreground mb-2">13. Aktualisierung dieser Datenschutzerklärung</p>
               <p>Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer oder organisatorischer Änderungen erforderlich wird. Stand: April 2026.</p>
             </div>
 

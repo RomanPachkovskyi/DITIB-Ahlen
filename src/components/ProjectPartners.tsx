@@ -35,17 +35,16 @@ const ProjectPartners = () => {
           </h2>
         </div>
 
-        <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+        <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           {partners.map((partner) => (
-            <div key={partner.name} className="flex items-start gap-6">
-              {/* Logo */}
-              <div className="w-20 h-20 rounded-xl bg-white flex items-center justify-center flex-shrink-0 border border-border p-2">
-                <img
-                  src={partner.logo}
-                  alt={partner.logoAlt}
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            <div key={partner.name} className="flex flex-col gap-5">
+              {/* Logo — no bg, no border, multiply blend removes white */}
+              <img
+                src={partner.logo}
+                alt={partner.logoAlt}
+                className="w-40 h-40 object-contain"
+                style={{ mixBlendMode: "multiply" }}
+              />
               {/* Info */}
               <div>
                 <p className="font-body text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-1.5">

@@ -200,13 +200,13 @@ const CookieSettings = ({
         <div className="px-6 py-4 border-t border-border flex flex-col sm:flex-row gap-2 shrink-0">
           <button
             onClick={() => onSave(local)}
-            className="flex-1 font-body text-sm font-medium px-5 py-2.5 border border-border rounded-sm text-foreground hover:bg-secondary transition-colors"
+            className="flex-1 font-body text-sm font-medium px-5 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Auswahl speichern
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex-1 font-body text-sm font-medium px-5 py-2.5 bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors"
+            className="flex-1 font-body text-sm font-medium px-5 py-2.5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
           >
             Alle akzeptieren
           </button>
@@ -251,19 +251,19 @@ const CookieBanner = ({
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={onRejectAll}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-sm text-foreground hover:bg-secondary transition-colors"
+            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Nur Notwendige
           </button>
           <button
             onClick={onSettings}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-sm text-foreground hover:bg-secondary transition-colors"
+            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Einstellungen
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors"
+            className="flex-1 font-body text-xs font-medium px-4 py-2.5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
           >
             Alle akzeptieren
           </button>

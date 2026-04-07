@@ -55,6 +55,11 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px; /* NavBar height + gap */
+  }
+
   * {
     @apply border-border;
   }

@@ -119,7 +119,7 @@ const DonationProgress = () => {
         <div ref={ctaRef} className="reveal reveal-delay-2 text-center">
           <a
             href="#spenden"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-sm transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-xl transition-all duration-200"
           >
             Jetzt spenden
           </a>

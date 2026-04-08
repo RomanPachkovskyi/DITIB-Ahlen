@@ -38,13 +38,15 @@ const ProjectPartners = () => {
         <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           {partners.map((partner) => (
             <div key={partner.name} className="flex flex-col gap-2.5">
-              {/* Logo — darken blend removes white bg from both PNG and JPG */}
-              <img
-                src={partner.logo}
-                alt={partner.logoAlt}
-                className="w-40 h-40 object-contain"
-                style={{ mixBlendMode: "darken" }}
-              />
+              {/* bg-background wrapper ensures multiply blends against cream, not white compositing layer */}
+              <div className="bg-background w-fit">
+                <img
+                  src={partner.logo}
+                  alt={partner.logoAlt}
+                  className="max-w-[160px] max-h-[80px] w-auto h-auto object-contain"
+                  style={{ mixBlendMode: "multiply" }}
+                />
+              </div>
               {/* Info */}
               <div>
                 <p className="font-body text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-1.5">

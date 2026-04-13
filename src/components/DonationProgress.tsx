@@ -73,7 +73,7 @@ const DonationProgress = () => {
             </p>
             <p
               ref={currentRef as React.RefObject<HTMLParagraphElement>}
-              className="font-display text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
+              className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
             >
               {formatEur(currentVal)} €
             </p>
@@ -84,7 +84,7 @@ const DonationProgress = () => {
             </p>
             <p
               ref={donorsRef as React.RefObject<HTMLParagraphElement>}
-              className="font-display text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
+              className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
             >
               {formatEur(donorsVal)}
             </p>
@@ -95,7 +95,7 @@ const DonationProgress = () => {
             </p>
             <p
               ref={pctRef as React.RefObject<HTMLParagraphElement>}
-              className="font-display text-2xl md:text-3xl font-semibold text-primary tabular-nums"
+              className="font-body text-2xl md:text-3xl font-semibold text-primary tabular-nums"
             >
               {pctVal}%
             </p>
@@ -121,7 +121,7 @@ const DonationProgress = () => {
             href="https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-xl transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
           >
             Jetzt spenden
           </a>

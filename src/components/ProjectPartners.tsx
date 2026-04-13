@@ -52,7 +52,7 @@ const ProjectPartners = () => {
                 <p className="font-body text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-1.5">
                   {partner.role}
                 </p>
-                <h3 className="font-display text-base md:text-lg font-semibold text-foreground leading-snug">
+                <h3 className="font-body text-base md:text-lg font-semibold text-foreground leading-snug">
                   {partner.name}
                 </h3>
                 <p className="font-body text-sm text-muted-foreground mt-1">

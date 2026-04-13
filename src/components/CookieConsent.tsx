@@ -166,7 +166,7 @@ const CookieSettings = ({
         <div className="flex items-center justify-between px-6 py-5 border-b border-border shrink-0">
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-primary" />
-            <h2 className="font-display text-lg font-semibold text-foreground">
+            <h2 className="font-body text-lg font-semibold text-foreground">
               Cookie-Einstellungen
             </h2>
           </div>
@@ -236,7 +236,7 @@ const CookieBanner = ({
         <div className="flex items-start gap-3 mb-4">
           <Shield className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
-            <p className="font-display text-base font-semibold text-foreground mb-1.5">
+            <p className="font-body text-base font-semibold text-foreground mb-1.5">
               Ihre Privatsphäre ist uns wichtig
             </p>
             <p className="font-body text-xs text-muted-foreground leading-relaxed">

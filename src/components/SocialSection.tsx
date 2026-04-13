@@ -10,7 +10,7 @@ const SocialSection = () => {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div ref={textRef} className="reveal">
           <p className="section-label mb-3">— Folgen Sie uns</p>
-          <h2 className="font-display text-2xl md:text-3xl font-semibold text-foreground mb-2">
+          <h2 className="font-body text-2xl md:text-3xl font-black text-foreground mb-2">
             Baufortschritt live
           </h2>
           <p className="body-md max-w-sm">
@@ -22,7 +22,7 @@ const SocialSection = () => {
             href="https://instagram.com/ditibahlen"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 bg-foreground hover:bg-foreground/90 text-background font-body text-sm font-medium px-7 py-3.5 rounded-xl transition-colors duration-200"
+            className="group inline-flex items-center gap-3 bg-foreground hover:bg-foreground/90 text-background font-body text-sm font-medium px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <Instagram className="w-4 h-4" />
             @ditibahlen

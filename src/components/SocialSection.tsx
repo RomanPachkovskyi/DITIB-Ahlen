@@ -22,7 +22,7 @@ const SocialSection = () => {
             href="https://instagram.com/ditibahlen"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 bg-foreground hover:bg-foreground/90 text-background font-body text-sm font-medium px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04]"
+            className="group inline-flex items-center gap-3 bg-[#253e54] hover:bg-[#1e3345] text-white font-body text-sm font-medium px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <Instagram className="w-4 h-4" />
             @ditibahlen

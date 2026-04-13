@@ -313,7 +313,7 @@ const CookieWidget = ({ onClick }: { onClick: () => void }) => {
     <button
       onClick={onClick}
       style={{ bottom: `${bottomPx}px` }}
-      className="fixed left-5 z-[180] w-10 h-10 rounded-full bg-foreground text-background flex items-center justify-center shadow-lg hover:scale-110 transition-[bottom,transform] duration-300"
+      className="fixed left-5 z-[180] w-10 h-10 rounded-full bg-[#253e54] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-[bottom,transform] duration-300"
       aria-label="Cookie-Einstellungen öffnen"
       title="Cookie-Einstellungen"
     >

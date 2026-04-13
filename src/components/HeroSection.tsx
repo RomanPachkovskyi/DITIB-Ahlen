@@ -126,9 +126,6 @@ const HeroSection = () => {
                     className="w-[166px] h-[104px] md:w-[208px] md:h-[125px] object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                    <span className="text-xs font-medium text-white">{thumb.label}</span>
-                  </div>
                 </button>
               ))}
             </div>
@@ -139,7 +136,7 @@ const HeroSection = () => {
       {/* Lightbox */}
       {activeThumb !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-hero-fade-scale"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
           onClick={() => setActiveThumb(null)}
         >
           <div

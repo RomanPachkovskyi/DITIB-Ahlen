@@ -33,47 +33,45 @@ const ImageGallery = () => {
   }, [lightbox]);
 
   return (
-    <section className="px-5 md:px-10 py-16 md:py-24">
-      <div className="max-w-5xl mx-auto">
-        <div ref={headerRef} className="reveal mb-10">
-          <p className="section-label mb-4">— Impressionen</p>
-          <h2 className="heading-md text-foreground">Einblicke in das Projekt</h2>
+    <section className="py-16 md:py-24" style={{ backgroundColor: "#253e54" }}>
+      {/* Header */}
+      <div ref={headerRef} className="reveal px-5 md:px-10 mb-10">
+        <div className="max-w-5xl mx-auto">
+          <p className="section-label mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>— Impressionen</p>
+          <h2 className="heading-md text-white">Einblicke in das Projekt</h2>
         </div>
+      </div>
 
-        <div
-          ref={gridRef}
-          className="reveal reveal-delay-1 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 auto-rows-[140px] md:auto-rows-[200px]"
-        >
-          {images.map((image, i) => (
-            <div
-              key={i}
-              onClick={() => open(i)}
-              className={`${image.span} rounded-xl overflow-hidden group relative cursor-pointer`}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/25 transition-colors duration-300" />
-              <span className="absolute bottom-3 left-3 font-body text-[10px] tracking-wider uppercase text-white/0 group-hover:text-white/80 transition-colors duration-300">
+      {/* Grid */}
+      <div
+        ref={gridRef}
+        className="reveal reveal-delay-1 px-4 md:px-6 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 auto-rows-[140px] md:auto-rows-[220px]"
+      >
+        {images.map((image, i) => (
+          <div
+            key={i}
+            onClick={() => open(i)}
+            className={`${image.span} rounded-xl overflow-hidden group relative cursor-pointer border-2 border-white/10 hover:border-white/50 transition-all duration-300 hover:scale-[1.01] shadow-md hover:shadow-xl`}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+              <span className="font-body text-[11px] font-medium tracking-wider uppercase text-white leading-tight">
                 {image.alt}
               </span>
-              <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/0 group-hover:bg-white/20 flex items-center justify-center transition-all duration-300">
-                <svg className="w-3.5 h-3.5 text-white/0 group-hover:text-white transition-colors duration-300" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M10 2h4v4M6 14H2v-4M14 2l-5 5M2 14l5-5" />
-                </svg>
-              </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* Lightbox */}
       {lightbox !== null && (
         <div
-          className="fixed inset-0 z-50 bg-foreground/95 flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
           onClick={close}
         >
           <div

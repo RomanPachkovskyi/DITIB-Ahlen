@@ -9,27 +9,27 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="px-5 md:px-10 py-8 border-t border-border">
+      <footer className="px-5 md:px-10 py-8 bg-[#253e54]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-4">
-          <div className="font-body text-xs text-muted-foreground">
+          <div className="font-body text-xs text-white/50">
             © 2026 DITIB Ahlen · Kulturzentrum Ahlen e.V.
           </div>
           <div className="flex items-center justify-center gap-6">
             <button
               onClick={() => setOpen("impressum")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="font-body text-xs text-white/60 hover:text-white transition-colors"
             >
               Impressum
             </button>
             <button
               onClick={() => setOpen("datenschutz")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="font-body text-xs text-white/60 hover:text-white transition-colors"
             >
               Datenschutz
             </button>
             <button
               onClick={() => setOpen("kontakt")}
-              className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors"
+              className="font-body text-xs text-white/60 hover:text-white transition-colors"
             >
               Kontakt
             </button>
@@ -38,7 +38,7 @@ const Footer = () => {
             href="https://munas-print.de/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-body text-xs text-muted-foreground hover:text-foreground transition-colors md:text-right"
+            className="font-body text-xs text-white/60 hover:text-white transition-colors md:text-right"
           >
             Digitales Handwerk mit ♥ bei Munas-Print
           </a>

@@ -46,9 +46,9 @@ const ProjectPartners = () => {
 
         <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
           {partners.map((partner) => (
-            <div key={partner.name} className="flex flex-col gap-4">
+            <div key={partner.name} className="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
               {/* Fixed-height logo area so all cards align at the same baseline */}
-              <div className="h-[80px] flex items-end bg-background w-fit">
+              <div className="h-[80px] flex items-end justify-center md:justify-start bg-background w-fit">
                 <img
                   src={partner.logo}
                   alt={partner.logoAlt}
@@ -57,7 +57,7 @@ const ProjectPartners = () => {
                 />
               </div>
               {/* Info */}
-              <div>
+              <div className="flex flex-col items-center md:items-start">
                 <p className="font-body text-[10px] font-medium uppercase tracking-[0.15em] text-muted-foreground mb-1.5">
                   {partner.role}
                 </p>

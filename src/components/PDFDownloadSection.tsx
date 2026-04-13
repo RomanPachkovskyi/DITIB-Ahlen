@@ -32,13 +32,14 @@ const PDFDownloadSection = () => {
 
         <div
           ref={gridRef}
-          className="reveal grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border"
+          className="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border"
         >
           {documents.map((doc, i) => (
             <a
               key={i}
               href={`/pdf/${doc.file}`}
-              download={doc.file}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group flex flex-col justify-between gap-8 p-6 md:p-7 bg-white hover:bg-primary transition-colors duration-200"
             >
               <div>
@@ -49,7 +50,7 @@ const PDFDownloadSection = () => {
                   {doc.subtitle}
                 </p>
               </div>
-              <Download className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary-foreground transition-colors duration-200" />
+              <Download className="w-8 h-8 md:w-4 md:h-4 text-muted-foreground/50 group-hover:text-primary-foreground transition-colors duration-200" />
             </a>
           ))}
 

@@ -3,12 +3,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const images = [
-  { src: "/img/ditib-ahlen-kulturzentrum-aussenansicht.jpg", alt: "Außenansicht — Architekturvisualisierung", span: "col-span-2 row-span-2" },
-  { src: "/img/ditib-ahlen-gebaeude-perspektive.jpg", alt: "Architektonisches Detail", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-architektur-eingang.jpg", alt: "Eingangsbereich", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-moschee-minarett.jpg", alt: "Minarett — Außenansicht", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-innenansicht-gebetsraum.jpg", alt: "Gebetsraum — Innenansicht", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-kulturzentrum-nacht.jpg", alt: "Abendstimmung — Außenansicht", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-09.jpg", alt: "Ansicht West", span: "col-span-2 row-span-2" },
+  { src: "/img/ditib-ahlen-10.jpg", alt: "Grundriss Erdgeschoss", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-11.jpg", alt: "Grundriss 1. Obergeschoss", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-02.jpg", alt: "Grundriss Kellergeschoss", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-05.jpg", alt: "Freiflächenplan", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-07.jpg", alt: "Gebäudeschnitt", span: "col-span-1 row-span-1" },
 ];
 
 const ImageGallery = () => {
@@ -59,11 +59,6 @@ const ImageGallery = () => {
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-              <span className="font-body text-[11px] font-medium tracking-wider uppercase text-white leading-tight">
-                {image.alt}
-              </span>
-            </div>
           </div>
         ))}
       </div>
@@ -83,9 +78,6 @@ const ImageGallery = () => {
               alt={images[lightbox].alt}
               className="w-full h-full object-contain max-h-[80vh] rounded-lg"
             />
-            <p className="mt-3 font-body text-xs text-center tracking-wider uppercase text-white/40">
-              {images[lightbox].alt}
-            </p>
           </div>
           <button onClick={close} className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
             <X className="w-5 h-5 text-white" />

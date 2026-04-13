@@ -19,6 +19,15 @@ const partners = [
     logo: "/img/theismann-partner-logo.jpg",
     logoAlt: "Ingenieurbüro Theismann & Partner Logo",
   },
+  {
+    role: "Medienpartner",
+    name: "Munas-Print",
+    subtitle: "Werbeagentur",
+    address: "Hellstraße 8, 59227 Ahlen",
+    email: "info@munas-print.de",
+    logo: "/img/munas-print-logo.png",
+    logoAlt: "Munas-Print Logo",
+  },
 ];
 
 const ProjectPartners = () => {
@@ -35,11 +44,11 @@ const ProjectPartners = () => {
           </h2>
         </div>
 
-        <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div ref={cardsRef} className="reveal-stagger grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
           {partners.map((partner) => (
-            <div key={partner.name} className="flex flex-col gap-2.5">
-              {/* bg-background wrapper ensures multiply blends against cream, not white compositing layer */}
-              <div className="bg-background w-fit">
+            <div key={partner.name} className="flex flex-col gap-4">
+              {/* Fixed-height logo area so all cards align at the same baseline */}
+              <div className="h-[80px] flex items-end bg-background w-fit">
                 <img
                   src={partner.logo}
                   alt={partner.logoAlt}

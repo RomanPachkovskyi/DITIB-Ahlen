@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 
 const thumbnails = [
   {
-    src: "/img/ditib-ahlen-architektur-eingang.jpg",
-    alt: "Eingangsbereich – Architekturvisualisierung",
-    label: "Eingang",
+    src: "/img/ditib-ahlen-09.jpg",
+    alt: "Außenansicht – Architekturvisualisierung",
+    label: "Außenansicht",
   },
   {
-    src: "/img/ditib-ahlen-gebaeude-perspektive.jpg",
-    alt: "Gebäudeperspektive",
-    label: "Perspektive",
+    src: "/img/ditib-ahlen-04.jpg",
+    alt: "Gebäudeansicht",
+    label: "Ansicht",
   },
 ];
 
@@ -148,9 +148,6 @@ const HeroSection = () => {
               alt={thumbnails[activeThumb].alt}
               className="w-full rounded-2xl shadow-2xl"
             />
-            <p className="text-center text-white/80 text-sm mt-4 font-medium">
-              {thumbnails[activeThumb].alt}
-            </p>
             <button
               onClick={() => setActiveThumb(null)}
               className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors"

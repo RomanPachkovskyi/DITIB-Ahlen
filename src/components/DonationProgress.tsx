@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useCountUp } from "@/hooks/use-count-up";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
-const GOAL = 8_000_000;
+const GOAL = 5_000_000;
 const CURRENT = 2_340_000;
 const PERCENTAGE = Math.round((CURRENT / GOAL) * 100);
 const DONORS = 1_847;

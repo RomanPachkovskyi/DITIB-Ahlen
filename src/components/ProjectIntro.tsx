@@ -5,7 +5,7 @@ const ProjectIntro = () => {
   const bodyRef = useScrollReveal();
 
   return (
-    <section className="px-5 md:px-10 py-20 md:py-28 lg:py-32">
+    <section id="projekt" className="px-5 md:px-10 py-20 md:py-28 lg:py-32 -mt-[3px]">
       <div className="max-w-3xl mx-auto">
         <div ref={headerRef} className="reveal mb-8">
           <p className="section-label mb-6">— Über das Projekt</p>

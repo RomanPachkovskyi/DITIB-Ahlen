@@ -118,7 +118,9 @@ const DonationProgress = () => {
         {/* CTA */}
         <div ref={ctaRef} className="reveal reveal-delay-2 text-center">
           <a
-            href="#spenden"
+            href="https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-xl transition-all duration-200"
           >
             Jetzt spenden

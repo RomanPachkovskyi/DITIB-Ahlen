@@ -5,10 +5,47 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 const GOAL = 5_000_000;
 const CURRENT = 2_340_000;
 const PERCENTAGE = Math.round((CURRENT / GOAL) * 100);
-const DONORS = 1_847;
+const PAYPAL_URL =
+  "https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE";
+const IBAN = "DE34 4005 0150 0001 0040 76";
+const BANK_NAME = "Sparkasse Muensterland Ost";
+const ACCOUNT_HOLDER = "DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.";
+const PAYMENT_REFERENCE = "Spende Kulturzentrum Ahlen";
 
 const formatEur = (n: number) =>
   new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(n);
+
+const PayPalIcon = () => (
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+    className="h-4 w-4 shrink-0"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8 19 10.1 5h5.1c1.8 0 3.1.4 3.9 1.1.8.7 1 1.8.8 3.1-.2 1.2-.8 2.2-1.7 2.9-.9.7-2.1 1-3.7 1H11"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M6.2 20 8.4 8.3H13c1.4 0 2.5.3 3.1.9.6.6.8 1.4.6 2.4"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M10.6 17.2h3.1c1.1 0 2-.2 2.7-.7.7-.5 1.1-1.2 1.3-2.2"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const AnimatedBar = ({ percentage }: { percentage: number }) => {
   const [width, setWidth] = useState(0);
@@ -45,15 +82,15 @@ const DonationProgress = () => {
   const statsRef = useScrollReveal({ threshold: 0.08 });
   const barRef = useScrollReveal({ threshold: 0.08 });
   const ctaRef = useScrollReveal({ threshold: 0.08 });
+  const bankDetailsRef = useScrollReveal({ threshold: 0.08 });
+  const desktopDonateRef = useScrollReveal({ threshold: 0.08 });
 
   const { value: currentVal, ref: currentRef } = useCountUp(CURRENT, 2000);
-  const { value: donorsVal, ref: donorsRef } = useCountUp(DONORS, 1600);
   const { value: pctVal, ref: pctRef } = useCountUp(PERCENTAGE, 1400);
 
   return (
     <section id="spenden" className="px-5 md:px-10 py-20 md:py-28">
-      <div className="max-w-3xl mx-auto">
-
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div ref={headerRef} className="reveal mb-12">
           <p className="section-label mb-4">— Spendenfortschritt</p>
@@ -65,68 +102,109 @@ const DonationProgress = () => {
           </p>
         </div>
 
-        {/* Stats — stagger */}
-        <div ref={statsRef} className="reveal-stagger grid grid-cols-3 gap-px bg-border mb-px">
-          <div className="bg-background p-6 md:p-8">
-            <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              Gesammelt
-            </p>
-            <p
-              ref={currentRef as React.RefObject<HTMLParagraphElement>}
-              className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
-            >
-              {formatEur(currentVal)} €
-            </p>
-          </div>
-          <div className="bg-background p-6 md:p-8">
-            <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              Spender:innen
-            </p>
-            <p
-              ref={donorsRef as React.RefObject<HTMLParagraphElement>}
-              className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
-            >
-              {formatEur(donorsVal)}
-            </p>
-          </div>
-          <div className="bg-background p-6 md:p-8">
-            <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-              Erreicht
-            </p>
-            <p
-              ref={pctRef as React.RefObject<HTMLParagraphElement>}
-              className="font-body text-2xl md:text-3xl font-semibold text-primary tabular-nums"
-            >
-              {pctVal}%
-            </p>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-8 lg:gap-10 items-start">
+          <div>
+            {/* Stats — stagger */}
+            <div ref={statsRef} className="reveal-stagger grid grid-cols-2 gap-px bg-border mb-px">
+              <div className="bg-background p-6 md:p-8">
+                <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Gesammelt
+                </p>
+                <p
+                  ref={currentRef as React.RefObject<HTMLParagraphElement>}
+                  className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
+                >
+                  {formatEur(currentVal)} €
+                </p>
+              </div>
+              <div className="bg-background p-6 md:p-8">
+                <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
+                  Erreicht
+                </p>
+                <p
+                  ref={pctRef as React.RefObject<HTMLParagraphElement>}
+                  className="font-body text-2xl md:text-3xl font-semibold text-primary tabular-nums"
+                >
+                  {pctVal}%
+                </p>
+              </div>
+            </div>
 
-        {/* Progress bar */}
-        <div ref={barRef} className="reveal reveal-delay-1 bg-background border border-border p-6 md:p-8 mb-8">
-          <div className="flex justify-between items-baseline mb-4">
-            <span className="font-body text-xs text-muted-foreground uppercase tracking-wider">
-              Fortschritt
-            </span>
-            <span className="font-body text-xs text-muted-foreground">
-              Ziel: {formatEur(GOAL)} €
-            </span>
+            {/* Progress bar */}
+            <div ref={barRef} className="reveal reveal-delay-1 bg-background border border-border p-6 md:p-8 mb-8">
+              <div className="flex justify-between items-baseline mb-4">
+                <span className="font-body text-xs text-muted-foreground uppercase tracking-wider">
+                  Fortschritt
+                </span>
+                <span className="font-body text-xs text-muted-foreground">
+                  Ziel: {formatEur(GOAL)} €
+                </span>
+              </div>
+              <AnimatedBar percentage={PERCENTAGE} />
+            </div>
+
+            {/* CTA */}
+            <div ref={ctaRef} className="reveal reveal-delay-2 text-center lg:text-left">
+              <a
+                href={PAYPAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
+              >
+                <PayPalIcon />
+                Jetzt PayPal spenden
+              </a>
+            </div>
+
+            <div ref={bankDetailsRef} className="reveal reveal-delay-2 mt-10">
+              <div className="rounded-[22px] border border-border bg-background p-5">
+                <p className="font-body text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-4">
+                  Bankueberweisung
+                </p>
+
+                <div className="space-y-4 md:space-y-0 md:grid md:grid-cols-[140px_minmax(0,1fr)] md:gap-x-4 md:gap-y-4 md:items-start">
+                  <div className="space-y-1 md:contents">
+                    <p className="font-body text-sm font-medium text-foreground">Bank</p>
+                    <p className="font-body text-sm text-muted-foreground">{BANK_NAME}</p>
+                  </div>
+
+                  <div className="space-y-1 md:contents">
+                    <p className="font-body text-sm font-medium text-foreground">Empfaenger</p>
+                    <p className="font-body text-sm text-muted-foreground">{ACCOUNT_HOLDER}</p>
+                  </div>
+
+                  <div className="space-y-1 md:contents">
+                    <p className="font-body text-sm font-medium text-foreground">IBAN</p>
+                    <p className="font-body text-sm font-semibold text-foreground tracking-[0.06em] break-words">
+                      {IBAN}
+                    </p>
+                  </div>
+
+                  <div className="space-y-1 md:contents">
+                    <p className="font-body text-sm font-medium text-foreground">Verwendungszweck</p>
+                    <p className="font-body text-sm text-muted-foreground">{PAYMENT_REFERENCE}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <AnimatedBar percentage={PERCENTAGE} />
-        </div>
 
-        {/* CTA */}
-        <div ref={ctaRef} className="reveal reveal-delay-2 text-center">
-          <a
-            href="https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
-          >
-            Jetzt spenden
-          </a>
+          <aside ref={desktopDonateRef} className="hidden lg:flex reveal reveal-delay-2 justify-center pt-4">
+            <a
+              href={PAYPAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block transition-transform duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="/img/qr-spende-paypal.png"
+                alt="PayPal QR-Code für Spenden"
+                className="block w-[170px] h-auto"
+                loading="lazy"
+              />
+            </a>
+          </aside>
         </div>
-
       </div>
     </section>
   );

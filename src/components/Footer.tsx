@@ -50,9 +50,9 @@ const Footer = () => {
           <div className="space-y-6">
 
             <div>
-              <p className="font-semibold text-foreground mb-2">Angaben gemäß § 5 TMG</p>
+              <p className="font-semibold text-foreground mb-2">Angaben gemäß § 5 DDG</p>
               <p>
-                <strong className="text-foreground">DITIB Ahlen — Türkisch Islamische Kultur Verein e.V.</strong><br />
+                <strong className="text-foreground">DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.</strong><br />
                 Rottmannstr. 62<br />
                 59229 Ahlen<br />
                 Deutschland
@@ -61,7 +61,7 @@ const Footer = () => {
 
             <div>
               <p className="font-semibold text-foreground mb-2">Vertretungsberechtigte Personen</p>
-              <p>[VORSTAND_NAME] — 1. Vorsitzender</p>
+              <p>Ali Koca — 1. Vorsitzender</p>
             </div>
 
             <div>
@@ -78,20 +78,20 @@ const Footer = () => {
               <p className="font-semibold text-foreground mb-2">Registereintrag</p>
               <p>
                 Eingetragen im Vereinsregister.<br />
-                Registergericht: Amtsgericht [AMTSGERICHT]<br />
-                Registernummer: VR [REGISTERNUMMER]
+                Registergericht: Amtsgericht Münster<br />
+                Registernummer: VR 50380
               </p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">Umsatzsteuer-Identifikationsnummer (USt-IdNr.)</p>
-              <p>Als gemeinnütziger Verein ist der Verein von der Umsatzsteuer befreit; eine USt-IdNr. liegt nicht vor.</p>
+              <p className="font-semibold text-foreground mb-2">Steuernummer</p>
+              <p>304/5861/0097</p>
             </div>
 
             <div>
               <p className="font-semibold text-foreground mb-2">Verantwortlich für den Inhalt gemäß § 18 Abs. 2 MStV</p>
               <p>
-                [VORSTAND_NAME]<br />
+                Ali Koca<br />
                 Rottmannstr. 62, 59229 Ahlen
               </p>
             </div>
@@ -100,7 +100,7 @@ const Footer = () => {
 
             <div>
               <p className="font-semibold text-foreground mb-2">Haftung für Inhalte</p>
-              <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+              <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
             </div>
 
             <div>
@@ -125,12 +125,15 @@ const Footer = () => {
               <p className="font-semibold text-foreground mb-2">1. Verantwortlicher</p>
               <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
               <p className="mt-2">
-                <strong className="text-foreground">DITIB Ahlen — Türkisch Islamische Kultur Verein e.V.</strong><br />
+                <strong className="text-foreground">DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.</strong><br />
                 Rottmannstr. 62<br />
                 59229 Ahlen<br />
+                Vertreten durch: Ali Koca (1. Vorsitzender)<br />
                 Telefon: 02382 / 61599<br />
                 E-Mail: <a href="mailto:info@ditib-ahlen-projekte.de" className="text-primary hover:underline">info@ditib-ahlen-projekte.de</a><br />
-                Website: www.ditib-ahlen-projekte.de
+                Website: www.ditib-ahlen-projekte.de<br />
+                Vereinsregister: Amtsgericht Münster, VR 50380<br />
+                Steuernummer: 304/5861/0097
               </p>
             </div>
 
@@ -178,17 +181,23 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">8. SSL-/TLS-Verschlüsselung</p>
+              <p className="font-semibold text-foreground mb-2">8. Spenden über externe Zahlungsdienste</p>
+              <p>Wenn Sie auf einen Spendenlink klicken, werden Sie auf die Website des jeweiligen Zahlungsdienstleisters weitergeleitet. Dabei können insbesondere Ihre IP-Adresse, technische Verbindungsdaten sowie weitere von Ihnen dort eingegebene Zahlungs- oder Kontaktdaten durch den jeweiligen Anbieter verarbeitet werden.</p>
+              <p className="mt-2">Auf dieser Website selbst werden keine Zahlungsdaten erhoben oder gespeichert. Für die Datenverarbeitung auf der Zahlungsseite ist ausschließlich der jeweilige Zahlungsdienstleister verantwortlich. Bitte beachten Sie die dort geltenden Datenschutzinformationen, insbesondere bei PayPal.</p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-2">9. SSL-/TLS-Verschlüsselung</p>
               <p>Diese Website nutzt eine SSL-/TLS-Verschlüsselung, um die Übertragung vertraulicher Inhalte zu schützen.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">9. Keine Tracking- oder Analyse-Tools</p>
+              <p className="font-semibold text-foreground mb-2">10. Keine Tracking- oder Analyse-Tools</p>
               <p>Diese Website verwendet derzeit keine Analyse-, Marketing- oder Tracking-Dienste (z. B. Google Analytics). Es werden keine Cookies für Werbezwecke oder zur Nutzungsanalyse gesetzt. Sollte sich dies in Zukunft ändern, werden entsprechende Dienste erst nach Ihrer ausdrücklichen Einwilligung über den Cookie-Banner aktiviert.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">10. Ihre Rechte</p>
+              <p className="font-semibold text-foreground mb-2">11. Ihre Rechte</p>
               <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
@@ -202,17 +211,17 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">11. Beschwerderecht bei einer Aufsichtsbehörde</p>
+              <p className="font-semibold text-foreground mb-2">12. Beschwerderecht bei einer Aufsichtsbehörde</p>
               <p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in Nordrhein-Westfalen ist der Landesbeauftragte für Datenschutz und Informationsfreiheit (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">12. Keine automatisierte Entscheidungsfindung</p>
+              <p className="font-semibold text-foreground mb-2">13. Keine automatisierte Entscheidungsfindung</p>
               <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">13. Aktualisierung dieser Datenschutzerklärung</p>
+              <p className="font-semibold text-foreground mb-2">14. Aktualisierung dieser Datenschutzerklärung</p>
               <p>Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer oder organisatorischer Änderungen erforderlich wird. Stand: April 2026.</p>
             </div>
 

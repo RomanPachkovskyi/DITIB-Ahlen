@@ -5,13 +5,8 @@
       "name": "DITIB Ahlen Dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 8080
-    },
-    {
-      "name": "DITIB Ahlen (Docker)",
-      "runtimeExecutable": "/usr/local/bin/docker",
-      "runtimeArgs": ["compose", "up", "--build", "-d"],
-      "port": 8080
+      "port": 8080,
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

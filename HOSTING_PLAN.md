@@ -3,7 +3,7 @@
 ## Поточний стан проекту
 - Статичний React SPA (Vite + TypeScript)
 - Немає бекенду, БД або API
-- Dev-сервер на порту 8080
+- Локальний preview/site через Docker на порту 8080
 - Мова: German (de)
 
 ---
@@ -13,58 +13,73 @@
 - [x] Дизайн-система (Tailwind + shadcn/ui)
 - [x] Адаптивна верстка (mobile-first)
 - [x] Локальний dev-сервер (localhost:8080)
-- [x] Docker-контейнер для локальної розробки
+- [x] Docker multi-stage build + nginx для локального production-preview
 - [x] Git репозиторій (GitHub)
+- [x] `npm run build` проходить успішно, `dist/` генерується
+- [x] SPA fallback в nginx налаштований
+- [x] gzip-компресія в nginx увімкнена
+- [x] Cache-Control для статичних asset-ів налаштований
+- [x] `robots.txt`, `sitemap.xml`, `llms.txt` підключені
+- [x] Cookie banner реалізований
+- [x] Impressum / Datenschutz заповнені
+- [x] PDF-файли підключені і відкриваються в браузері
+- [x] Функціонал пожертв працює через PayPal link + IBAN
+- [x] Базове технічне SEO налаштоване (`meta`, Open Graph, Twitter, Schema.org, image SEO)
 
 ---
 
 ## ❌ Що потрібно зробити для повноцінного хостингу
 
 ### 1. 🌐 Домен та DNS
-- [ ] Придбати/підключити домен (наприклад: `ditib-ahlen.de` або `ahlen-kulturzentrum.de`)
-- [ ] Налаштувати DNS записи: A-record → IP хостингу
-- [ ] Опціонально: www-redirect → apex domain
+- [x] Домен підключено: `https://ditib-ahlen-projekte.de/`
+- [x] DNS налаштовано під поточний хостинг
+- [ ] Перевірити/зафіксувати `www` → apex redirect, якщо це потрібно на стороні хостингу
 
 ### 2. 🔒 SSL/HTTPS
-- [ ] Отримати SSL-сертифікат (Let's Encrypt безкоштовно)
-- [ ] Налаштувати автоматичне оновлення сертифіката (Certbot)
-- [ ] Redirect HTTP → HTTPS
+- [x] SSL/HTTPS активний для `https://ditib-ahlen-projekte.de/`
+- [ ] Перевірити автооновлення сертифіката на стороні PixelX
+- [ ] Переконатися, що HTTP → HTTPS redirect примусово увімкнений на проді
 
 ### 3. 🏗️ Production Build
-- [ ] Запустити `npm run build` — генерує `dist/` папку
-- [ ] Перевірити що build проходить без помилок
+- [x] Запустити `npm run build` — генерує `dist/` папку
+- [x] Перевірити що build проходить без помилок
 - [ ] Перевірити bundle size (оптимізація за потреби)
 
 ### 4. 🐳 Docker Production Setup
-- [ ] Dockerfile з multi-stage build (Node.js build → nginx serve)
-- [ ] nginx.conf для SPA (fallback всіх роутів на index.html)
-- [ ] docker-compose.yml для production
-- [ ] Налаштувати порти (80/443)
+- [x] Dockerfile з multi-stage build (Node.js build → nginx serve)
+- [x] nginx.conf для SPA (fallback всіх роутів на index.html)
+- [x] docker-compose.yml для локального production-preview
+- [x] Production-хостинг визначено: PixelX
+- [x] Схема деплою уточнена: ручне завантаження `dist/` через FTP
 
 ### 5. 📁 Контент (Реальні дані)
-- [ ] Замінити placeholder зображення на реальні фото/рендери
-- [ ] Оновити суму зборів (DonationProgress.tsx — зараз 2.34M/8M EUR)
-- [ ] Оновити кількість донорів (зараз 1847)
-- [ ] Додати реальні PDF файли для завантаження (PDFDownloadSection.tsx)
-- [ ] Оновити контактну інформацію (Footer.tsx)
-- [ ] Заповнити сторінки: Impressum, Datenschutz (обов'язково по закону Німеччини!)
+- [x] Замінити placeholder зображення на наявні фото/рендери
+- [x] Оновити суму зборів (зараз 2.34M / 5M EUR)
+- [x] Прибрати публічний лічильник донорів із UI
+- [x] Додати реальні PDF файли для завантаження (PDFDownloadSection.tsx)
+- [x] Оновити контактну інформацію
+- [x] Заповнити сторінки: Impressum, Datenschutz
+- [ ] Фінально підтвердити весь текстовий контент перед запуском
 
 ### 6. 📧 Функціонал пожертвувань
-- [ ] Вибрати платіжний провайдер (Stripe, PayPal, Mollie)
-- [ ] Підключити форму пожертвування
-- [ ] Або інтегрувати посилання на зовнішній банківський переказ (IBAN)
-- [ ] Кнопка "Ich möchte spenden" зараз не функціональна!
+- [x] Вибрати платіжний провайдер: PayPal
+- [x] Підключити зовнішнє посилання на PayPal
+- [x] Додати банківський переказ (IBAN)
+- [x] Кнопки пожертвування функціональні
+- [ ] За потреби додати окреме conversion tracking для кліків на donate CTA
 
 ### 7. 🔍 SEO та мета-дані
-- [ ] Перевірити/оновити Open Graph теги (index.html)
-- [ ] Додати Schema.org розмітку для організації
-- [ ] Оновити sitemap.xml
-- [ ] Перевірити Google Search Console
+- [x] Перевірити/оновити Open Graph теги (index.html)
+- [x] Додати Schema.org розмітку для організації
+- [x] Оновити sitemap.xml
+- [x] Google Search Console вже підключено
+- [ ] Підключити Bing Webmaster Tools
 
 ### 8. 📊 Аналітика
-- [ ] Підключити Google Analytics 4 або Matomo (privacy-friendly)
+- [ ] Підключити аналітику пізніше (`GA4` або `Matomo`)
 - [ ] Налаштувати відстеження конверсій (кліки на "Spenden")
-- [ ] Cookie banner (обов'язково по GDPR!)
+- [x] Cookie banner (обов'язково по GDPR!)
+- [ ] Під час додавання аналітики оновити cookie consent категорії/тексти і Datenschutzerklärung
 
 ### 9. 📱 PWA (опціонально)
 - [ ] manifest.json
@@ -73,9 +88,10 @@
 
 ### 10. ⚡ Performance
 - [ ] Перевірити Lighthouse score (target: 90+)
-- [ ] Оптимізувати зображення (WebP формат)
-- [ ] Налаштувати gzip/brotli компресію в nginx
-- [ ] Кешування статичних активів (Cache-Control headers)
+- [ ] Дотиснути оптимізацію зображень (частково вже є WebP, але не всюди)
+- [ ] За потреби додати brotli компресію в production
+- [x] Налаштувати gzip компресію в nginx
+- [x] Кешування статичних активів (Cache-Control headers)
 
 ---
 
@@ -87,6 +103,14 @@
 ОС: Ubuntu 22.04
 Stack: Docker + nginx
 Переваги: повний контроль, дешево, DDEV-сумісно
+```
+
+### Поточний варіант
+```
+Хостинг: PixelX
+Домен: https://ditib-ahlen-projekte.de/
+Деплой: ручне завантаження `dist/` через FTP
+Статус: активний хостинг уже є
 ```
 
 ### Варіант B: Static Hosting (найпростіше)
@@ -134,24 +158,23 @@ jobs:
 
 ## 📋 Обов'язково по закону Німеччини (Impressum/DSGVO)
 
-- [ ] **Impressum** — повна юридична інформація про організацію (§5 TMG)
-  - Назва організації: DITIB Türkisch Islamische Kultur Verein e.V. Ahlen
+- [x] **Impressum** — повна юридична інформація про організацію (§5 DDG)
+  - Назва організації: DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.
   - Адреса, телефон, email
   - Реєстраційний номер (Vereinsregister)
   - Відповідальна особа
 
-- [ ] **Datenschutzerklärung** (Політика конфіденційності GDPR/DSGVO)
+- [x] **Datenschutzerklärung** (Політика конфіденційності GDPR/DSGVO)
   - Які дані збираються
   - Cookie policy
-  - Google Analytics якщо є
+  - Google Analytics якщо буде додано
 
 ---
 
 ## 📅 Пріоритети (по порядку виконання)
 
-1. **Негайно:** Production build + Docker setup (пункти 3, 4)
-2. **До запуску:** Реальний контент, PDF файли (пункт 5)
-3. **До запуску:** Impressum + Datenschutz (пункт 9 — юридично обов'язково!)
-4. **До запуску:** Домен + SSL (пункти 1, 2)
-5. **Після запуску:** Пожертвування (пункт 6)
-6. **Після запуску:** Аналітика + Cookie banner (пункт 8)
+1. **До запуску:** Фінальні тексти
+2. **До запуску:** Перевірити redirects/SSL на PixelX після FTP-деплою
+3. **До запуску:** Bing Webmaster Tools
+4. **Після запуску:** Аналітика + conversion tracking + оновлення cookie consent / Datenschutzerklärung
+5. **Після запуску:** Lighthouse / performance optimization

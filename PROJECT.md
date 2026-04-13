@@ -586,4 +586,56 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-13 16:49 CEST (Codex)*
+### 2026-04-13 — Hosting plan reconciliation
+
+**Сесія 12o — Актуалізація HOSTING_PLAN**
+
+- `HOSTING_PLAN.md` звірено з фактичним станом проєкту і очищено від застарілих пунктів.
+- Позначено як виконані: build, Docker multi-stage, nginx SPA fallback, gzip, cache headers, PDF, Cookie banner, Impressum/Datenschutz, PayPal + IBAN, базове технічне SEO.
+- Окремо залишено тільки реальні відкриті питання: домен, SSL, production hosting, Search Console / Bing Webmaster Tools, аналітика, фінальне підтвердження контенту.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 16:58 CEST
+
+---
+
+### 2026-04-13 — Hosting plan уточнення від користувача
+
+**Сесія 12p — Домен, PixelX і Search Console**
+
+- У `HOSTING_PLAN.md` зафіксовано активний домен `https://ditib-ahlen-projekte.de/`.
+- Додано, що production-хостинг уже є: `PixelX`.
+- Позначено `Google Search Console` як уже підключений.
+- Аналітику винесено як відкладений етап з окремим нагадуванням оновити cookie consent і Datenschutzerklärung під час підключення.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 17:03 CEST
+
+---
+
+### 2026-04-13 — Local hosting build
+
+**Сесія 12q — Свіжий production build для хостингу**
+
+- Виконано локальний `npm run build` у папці `main/`.
+- Оновлено production-артефакти в `dist/` для завантаження на хостинг.
+- Актуальний bundle після збірки: `index-CNUol0ZS.js` та `index-BGyuR2d4.css`.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 17:04 CEST
+
+---
+
+### 2026-04-13 — FTP deployment workflow confirmed
+
+**Сесія 12r — PixelX деплой через FTP**
+
+- Підтверджено, що production deploy на `PixelX` виконується вручну через FTP.
+- У `HOSTING_PLAN.md` зафіксовано, що на хостинг завантажується готова папка `dist/`.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 17:06 CEST
+
+---
+
+*Документ оновлено: 2026-04-13 17:06 CEST (Codex)*

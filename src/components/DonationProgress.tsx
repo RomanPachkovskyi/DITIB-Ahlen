@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import { useCountUp } from "@/hooks/use-count-up";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
@@ -14,38 +15,6 @@ const PAYMENT_REFERENCE = "Spende Kulturzentrum Ahlen";
 
 const formatEur = (n: number) =>
   new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(n);
-
-const PayPalIcon = () => (
-  <svg
-    aria-hidden="true"
-    viewBox="0 0 24 24"
-    className="h-4 w-4 shrink-0"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M8 19 10.1 5h5.1c1.8 0 3.1.4 3.9 1.1.8.7 1 1.8.8 3.1-.2 1.2-.8 2.2-1.7 2.9-.9.7-2.1 1-3.7 1H11"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M6.2 20 8.4 8.3H13c1.4 0 2.5.3 3.1.9.6.6.8 1.4.6 2.4"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M10.6 17.2h3.1c1.1 0 2-.2 2.7-.7.7-.5 1.1-1.2 1.3-2.2"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const AnimatedBar = ({ percentage }: { percentage: number }) => {
   const [width, setWidth] = useState(0);
@@ -149,10 +118,10 @@ const DonationProgress = () => {
                 href={PAYPAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
+                className="group inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
               >
-                <PayPalIcon />
-                Jetzt PayPal spenden
+                Spenden mit PayPal
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
               </a>
             </div>
 

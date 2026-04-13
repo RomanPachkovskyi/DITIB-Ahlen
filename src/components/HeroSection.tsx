@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react";
 
 const thumbnails = [
   {
-    src: "/img/ditib-ahlen-09.jpg",
-    alt: "Außenansicht – Architekturvisualisierung",
+    src: "/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg",
+    alt: "Westansicht des geplanten DITIB Kulturzentrums in Ahlen",
     label: "Außenansicht",
   },
   {
-    src: "/img/ditib-ahlen-04.jpg",
-    alt: "Gebäudeansicht",
+    src: "/img/ditib-ahlen-kulturzentrum-fassadenansicht.jpg",
+    alt: "Fassadenansicht des DITIB Kulturzentrums in Ahlen",
     label: "Ansicht",
   },
 ];
@@ -43,8 +43,8 @@ const HeroSection = () => {
         style={{ transform: `translateY(${scrollY * 0.25}px)` }}
       >
         <img
-          src="/img/hero-main.webp"
-          alt="Architekturvisualisierung des DITIB Ahlen Kulturzentrums"
+          src="/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp"
+          alt="Architekturvisualisierung des neuen DITIB Kulturzentrums in Ahlen"
           className="h-full w-full object-cover"
           fetchPriority="high"
         />

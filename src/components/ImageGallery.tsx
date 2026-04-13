@@ -3,12 +3,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const images = [
-  { src: "/img/ditib-ahlen-09.jpg", alt: "Ansicht West", span: "col-span-2 row-span-2" },
-  { src: "/img/ditib-ahlen-10.jpg", alt: "Grundriss Erdgeschoss", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-11.jpg", alt: "Grundriss 1. Obergeschoss", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-02.jpg", alt: "Grundriss Kellergeschoss", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-05.jpg", alt: "Freiflächenplan", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-07.jpg", alt: "Gebäudeschnitt", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg", alt: "Westansicht des geplanten DITIB Kulturzentrums in Ahlen", span: "col-span-2 row-span-2" },
+  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-erdgeschoss.jpg", alt: "Grundriss des Erdgeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-obergeschoss.jpg", alt: "Grundriss des Obergeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-kellergeschoss.jpg", alt: "Grundriss des Kellergeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-freiflaechenplan.jpg", alt: "Freiflächenplan des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-kulturzentrum-gebaeudeschnitt.jpg", alt: "Gebäudeschnitt des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
 ];
 
 const ImageGallery = () => {

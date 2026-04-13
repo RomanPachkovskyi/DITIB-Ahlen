@@ -236,7 +236,7 @@ const Footer = () => {
             <div>
               <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-3">Bauherr</p>
               <p className="font-body text-base font-semibold text-foreground leading-snug">DITIB - Ahlen (Westf.)</p>
-              <p className="font-body text-sm text-muted-foreground mt-1">Türkisch Islamische Kultur Verein e.V.</p>
+              <p className="font-body text-sm text-muted-foreground mt-1">Türkisch Islamische Gemeinde zu Ahlen e.V.</p>
               <p className="font-body text-sm text-muted-foreground mt-1">Rottmannstr. 62, 59229 Ahlen</p>
               <p className="font-body text-sm text-muted-foreground mt-1">Fon 02382/61599 &nbsp;·&nbsp; Fax 02382/702397</p>
               <a href="mailto:info@ditib-ahlen-projekte.de" className="font-body text-sm text-foreground hover:text-primary transition-colors mt-1 inline-block">

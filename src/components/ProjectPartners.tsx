@@ -4,11 +4,11 @@ const partners = [
   {
     role: "Bauherr",
     name: "DITIB - Ahlen (Westf.)",
-    subtitle: "Türkisch Islamische Kultur Verein e.V.",
+    subtitle: "Türkisch Islamische Gemeinde zu Ahlen e.V.",
     address: "Rottmannstr. 62, 59229 Ahlen",
     email: "info@ditib-ahlen-projekte.de",
     logo: "/img/ditib-ahlen-logo.png",
-    logoAlt: "DITIB Ahlen Logo",
+    logoAlt: "Logo der DITIB Ahlen",
   },
   {
     role: "Entwurfsverfasser / Tragwerksplanung",
@@ -16,8 +16,8 @@ const partners = [
     subtitle: "Dipl.-Ing. Bernd Theismann",
     address: "Nordstraße 29, 59227 Ahlen",
     email: "info@theismannundpartner.de",
-    logo: "/img/theismann-partner-logo.jpg",
-    logoAlt: "Ingenieurbüro Theismann & Partner Logo",
+    logo: "/img/ingenieurbuero-theismann-partner-logo.jpg",
+    logoAlt: "Logo des Ingenieurbüros Theismann und Partner",
   },
   {
     role: "Medienpartner",
@@ -25,8 +25,8 @@ const partners = [
     subtitle: "Werbeagentur",
     address: "Hellstraße 8, 59227 Ahlen",
     email: "info@munas-print.de",
-    logo: "/img/munas-print-logo.png",
-    logoAlt: "Munas-Print Logo",
+    logo: "/img/munas-print-ahlen-logo.png",
+    logoAlt: "Logo von Munas-Print Ahlen",
   },
 ];
 

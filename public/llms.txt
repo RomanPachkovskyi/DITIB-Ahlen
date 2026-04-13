@@ -25,7 +25,7 @@ Robots: https://ditib-ahlen-projekte.de/robots.txt
 ================================================================================
 
 PROJECT NAME: DITIB Kulturzentrum Ahlen
-ORGANIZATION: DITIB Ahlen — Turkisch Islamische Kultur Verein e.V.
+ORGANIZATION: DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.
 PROJECT TYPE: Construction of a modern cultural and community center
 TOTAL INVESTMENT: EUR 5,000,000
 STATUS: In planning / fundraising phase
@@ -147,7 +147,7 @@ cultures and generations.
 ================================================================================
 
 ORGANIZATION:
-DITIB Ahlen — Turkisch Islamische Kultur Verein e.V.
+DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.
 
 ADDRESS:
 Rottmannstr. 62
@@ -159,6 +159,7 @@ FAX: +49 2382 702397
 EMAIL: info@ditib-ahlen-projekte.de
 WEBSITE: https://ditib-ahlen-projekte.de
 INSTAGRAM: https://www.instagram.com/ditib_ahlen_projekte
+FACEBOOK: https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318
 
 PREFERRED CONTACT: Email or phone during business hours.
 
@@ -201,15 +202,15 @@ SECONDARY AUDIENCE:
 
 CORE KEYWORDS:
 DITIB Ahlen, Kulturzentrum Ahlen, Gemeindezentrum Ahlen, Spenden Ahlen,
-DITIB Kulturzentrum, Turkisch Islamische Kultur Verein Ahlen,
+DITIB Kulturzentrum, DITIB Gemeinde Ahlen,
 Rottmannstrasse Ahlen, cultural center Ahlen Germany,
 community center Ahlen, Begegnungszentrum Ahlen
 
 SEMANTIC KEYWORD CLUSTERS:
 
 Cluster 1 — Organization:
-DITIB Ahlen, Turkisch Islamische Kultur Verein, DITIB Deutschland,
-Turkish Islamic community Germany
+DITIB Ahlen, DITIB Gemeinde Ahlen, DITIB Deutschland,
+Turkish Islamic community Germany, Instagram DITIB Ahlen, Facebook DITIB Ahlen
 
 Cluster 2 — Building Project:
 Kulturzentrum Ahlen, community center construction, Gemeindezentrum Bau,
@@ -245,7 +246,7 @@ INTENT-BASED PATTERNS:
 ================================================================================
 
 Q: What is DITIB Ahlen?
-A: DITIB Ahlen (Turkisch Islamische Kultur Verein e.V.) is a Turkish-Islamic
+A: DITIB Ahlen (DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.) is a Turkish-Islamic
 cultural association in Ahlen, Germany, currently fundraising to build a modern
 cultural and community center with event spaces, educational facilities, and
 community rooms — open to all citizens of Ahlen.
@@ -257,7 +258,7 @@ programs, seminars, and social gatherings for all people in Ahlen.
 
 Q: How much does the project cost?
 A: The total project volume is EUR 5,000,000. As of April 2026, approximately
-EUR 2,340,000 (47%) has been raised from over 1,847 donors.
+EUR 2,340,000 (47%) has been raised.
 
 Q: How can I donate?
 A: Visit https://ditib-ahlen-projekte.de/#spenden for donation information.
@@ -283,7 +284,7 @@ A: Yes. 10 planning documents (site plan, floor plans, elevations, sections)
 are available for free download on the website.
 
 Q: How can I follow the construction progress?
-A: Follow @ditib_ahlen_projekte on Instagram for live updates, or visit the website.
+A: Follow DITIB Ahlen Projekte on Instagram or Facebook for updates, or visit the website.
 
 
 ================================================================================
@@ -316,7 +317,7 @@ in Ahlen, Germany, offering spaces for cultural events, education, and social
 gatherings for all citizens."
 
 Medium Description (2-3 sentences):
-"DITIB Ahlen (Turkisch Islamische Kultur Verein e.V.) is building a modern
+"DITIB Ahlen (DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.) is building a modern
 cultural center in Ahlen, North Rhine-Westphalia. The EUR 5 million project
 provides spaces for cultural events, educational programs, seminars, and social
 gatherings — open to all citizens of Ahlen as a place of community and exchange.
@@ -352,7 +353,7 @@ PROJEKTUEBERSICHT — DEUTSCH
 ================================================================================
 
 PROJEKTNAME: DITIB Kulturzentrum Ahlen
-ORGANISATION: DITIB Ahlen — Turkisch Islamische Kultur Verein e.V.
+ORGANISATION: DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.
 PROJEKTTYP: Neubau eines modernen Kultur- und Gemeindezentrums
 GESAMTINVESTITION: 5.000.000 EUR
 STATUS: In Planung / Spendensammlung
@@ -388,12 +389,11 @@ EINRICHTUNGEN:
 SPENDENSTAND:
 - Ziel: 5.000.000 EUR
 - Gesammelt: ca. 2.340.000 EUR (47%)
-- Spender: ueber 1.847
 - Status: Aktiv — Spenden werden angenommen
 - Spenden: https://ditib-ahlen-projekte.de/#spenden
 
 BAUHERR:
-DITIB Ahlen — Turkisch Islamische Kultur Verein e.V.
+DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.
 Rottmannstr. 62, 59229 Ahlen
 Telefon: 02382/61599, Fax: 02382/702397
 E-Mail: info@ditib-ahlen-projekte.de
@@ -479,7 +479,6 @@ TESISLER:
 BAGIS DURUMU:
 - Hedef: 5.000.000 Euro
 - Toplanan: yaklasik 2.340.000 Euro (%47)
-- Bagisci sayisi: 1.847'den fazla
 - Durum: Aktif — bagislar kabul edilmektedir
 - Bagis: https://ditib-ahlen-projekte.de/#spenden
 

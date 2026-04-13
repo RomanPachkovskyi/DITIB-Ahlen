@@ -166,8 +166,8 @@ const DonationProgress = () => {
               className="block transition-transform duration-300 hover:scale-[1.02]"
             >
               <img
-                src="/img/qr-spende-paypal.png"
-                alt="PayPal QR-Code für Spenden"
+                src="/img/ditib-ahlen-paypal-spenden-qr.png"
+                alt="QR-Code für PayPal-Spenden an das DITIB Kulturzentrum Ahlen"
                 className="block w-[170px] h-auto"
                 loading="lazy"
               />

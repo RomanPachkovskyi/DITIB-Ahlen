@@ -555,4 +555,35 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-13 16:26 CEST (Codex)*
+### 2026-04-13 — Technical SEO social entity signals
+
+**Сесія 12m — Instagram і Facebook у технічному SEO**
+
+- У `index.html` додано `rel="me"` посилання на Instagram і Facebook.
+- У structured data `ReligiousOrganization.sameAs` тепер включає обидва соцпрофілі.
+- У FAQ schema оновлено відповідь про відстеження прогресу, щоб згадувати і Instagram, і Facebook з прямими посиланнями.
+- У `llms.txt` додано Facebook у контактний блок і підсилено social/entity keyword signals.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 16:31 CEST
+
+---
+
+### 2026-04-13 — Technical SEO overhaul
+
+**Сесія 12n — Schema, meta, donation markup і image SEO**
+
+- Оновлено `title`, `meta description`, `og:title`, `og:description`, `twitter:title`, `twitter:description` під актуальний snippet/social intent.
+- У `index.html` прибрано застарілий `meta keywords`, додано `max-image-preview:large` та посилено `Organization`, `WebPage`, `DonateAction`, `ImageObject` structured data.
+- У schema синхронізовано офіційну назву `DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.`, додано `legalName`, `identifier`, `contactPoint`, актуалізовано FAQ-відповіді та donation semantics.
+- Усі основні runtime-зображення перейменовано в SEO-релевантні німецькі назви файлів; оновлено шляхи в hero, gallery, logos, social preview та PayPal QR.
+- Для всіх використаних зображень оновлено `alt` німецькою мовою до більш описових і пошуково-релевантних формулювань.
+- У `llms.txt` приведено entity-дані до офіційної назви та прибрано застарілу згадку про кількість донорів.
+- У `sitemap.xml` оновлено `lastmod` до `2026-04-13`.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-13 16:49 CEST
+
+---
+
+*Документ оновлено: 2026-04-13 16:49 CEST (Codex)*

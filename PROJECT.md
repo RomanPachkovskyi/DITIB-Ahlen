@@ -638,4 +638,44 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-13 17:06 CEST (Codex)*
+### 2026-04-14 — Analytics, Consent і image SEO finalized
+
+**Сесія 13 — GA4 + Clarity + GDPR/EEA + image sitemap**
+
+- Підключено `Google Analytics 4` (`G-BM587Q3MEJ`) і `Microsoft Clarity` (`wbfipf9pd3`) у production-коді.
+- `Google Search Console` окремо зафіксовано як уже підключений сервіс вебмайстра; він не є browser-side tracking script і не потребує окремої cookie-категорії.
+- Для ЄС/ЄЕЗ свідомо обрано підхід **basic consent**:
+  - скрипти `GA4` і `Clarity` не завантажуються до згоди користувача;
+  - після згоди вони інжектяться динамічно через `AnalyticsManager.tsx`;
+  - при відмові або відкликанні згоди `GA4` блокується, а відомі `GA` cookies очищаються.
+- Поточний стан згоди зберігається у `localStorage`:
+  - ключ: `ditib_cookie_consent`
+  - структура: `version`, `timestamp`, `consent`
+  - категорії: `necessary`, `analytics`, `external`
+- `use-cookie-consent.ts` доповнено подією синхронізації `ditib:consent-changed`, щоб банер, модалка налаштувань і runtime-аналітика працювали узгоджено.
+- На самому cookie-банері та в налаштуваннях прямо вказано, що категорія `Analyse & Statistik` охоплює:
+  - `Google Analytics 4`
+  - `Microsoft Clarity`
+- `Datenschutzerklärung` оновлено під фактичний стан:
+  - описано `GA4` і `Clarity` як optional analytics tools;
+  - зазначено, що обидва сервіси активуються лише після згоди;
+  - додано пояснення про `Google Search Console` як інструмент вебмайстра, а не фронтенд-трекер;
+  - додано зовнішні посилання на privacy/consent-документацію провайдерів.
+- Технічний підхід перевірено після збірки:
+  - у `index.html` і `dist/index.html` більше немає раннього вбудованого підключення `googletagmanager` чи `clarity.ms`;
+  - production build успішно проходить через `npm run build`.
+- Для image SEO:
+  - базовий `public/sitemap.xml` актуалізовано під односторінковий сайт;
+  - додано окремий `public/sitemap-images.xml` з релевантними runtime-зображеннями;
+  - `public/robots.txt` оновлено так, щоб пошуковики бачили обидва sitemap-файли.
+- Висновок по compliance:
+  - реалізація узгоджена з власним cookie-banner підходом;
+  - для поточного сайту не використовується server-side журнал згод, вибір користувача зберігається локально в браузері;
+  - advanced consent mode від Google окремо розглянуто, але свідомо не впроваджено на цьому етапі.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-14 11:05 CEST
+
+---
+
+*Документ оновлено: 2026-04-14 11:05 CEST (Codex)*

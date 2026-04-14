@@ -60,8 +60,8 @@ const HeroSection = () => {
       />
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col justify-end min-h-[calc(100vh-80px)] px-6 md:px-12 lg:px-24 pb-[32px] md:pb-[114px]">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12">
+      <div className="relative z-10 flex min-h-[calc(100vh-80px)] flex-col justify-end px-6 pb-[32px] md:px-12 md:pb-[114px] lg:px-16">
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
 
           {/* Left — text block */}
           <div
@@ -69,19 +69,18 @@ const HeroSection = () => {
             style={{ transform: `translateY(${scrollY * -0.1}px)` }}
           >
             <p className="animate-hero-slide-up delay-400 font-body text-sm md:text-base font-medium tracking-widest uppercase text-white/70 mb-3">
-              Ein Ort für alle Menschen in Ahlen
+              DiTiB Ahlen · Ein Zukunftsprojekt
             </p>
 
             <h1 className="animate-hero-slide-up delay-600 font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white mb-3 drop-shadow-lg">
-              Ein Kulturzentrum
+              Bildungs- &amp; Begegnungszentrum
               <br />
               <span className="font-light italic">für Ahlen</span>
             </h1>
 
             <p className="animate-hero-slide-up delay-800 font-body text-lg md:text-xl lg:text-2xl font-light text-white/90 mb-8 drop-shadow-sm">
-              Gemeinsam{" "}
-              <span className="font-semibold italic">Zukunft</span>{" "}
-              bauen
+              Zusammenhalt <span className="font-semibold italic">stärken</span>.
+              {" "}Ahlen gestalten.
             </p>
 
             {/* CTAs */}
@@ -123,7 +122,7 @@ const HeroSection = () => {
                   <img
                     src={thumb.src}
                     alt={thumb.alt}
-                    className="w-[166px] h-[104px] md:w-[208px] md:h-[125px] object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="h-[156px] w-[249px] object-cover transition-transform duration-500 group-hover:scale-110 md:h-[188px] md:w-[312px]"
                     loading="lazy"
                   />
                 </button>

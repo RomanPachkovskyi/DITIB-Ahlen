@@ -43,24 +43,26 @@ const ImageGallery = () => {
       </div>
 
       {/* Grid */}
-      <div
-        ref={gridRef}
-        className="reveal reveal-delay-1 px-4 md:px-6 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 auto-rows-[140px] md:auto-rows-[220px]"
-      >
-        {images.map((image, i) => (
-          <div
-            key={i}
-            onClick={() => open(i)}
-            className={`${image.span} rounded-xl overflow-hidden group relative cursor-pointer border-2 border-white/10 hover:border-white/50 transition-all duration-300 hover:scale-[1.01] shadow-md hover:shadow-xl`}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
-        ))}
+      <div className="px-4 md:px-6">
+        <div
+          ref={gridRef}
+          className="reveal reveal-delay-1 mx-auto grid max-w-[1440px] grid-cols-2 gap-2 auto-rows-[140px] md:grid-cols-3 md:gap-3 md:auto-rows-[220px]"
+        >
+          {images.map((image, i) => (
+            <div
+              key={i}
+              onClick={() => open(i)}
+              className={`${image.span} rounded-xl overflow-hidden group relative cursor-pointer border-2 border-white/10 hover:border-white/50 transition-all duration-300 hover:scale-[1.01] shadow-md hover:shadow-xl`}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Lightbox */}

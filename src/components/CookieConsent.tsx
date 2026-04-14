@@ -27,7 +27,7 @@ const categories: Category[] = [
     description: "Helfen uns, die Nutzung der Website zu verstehen.",
     required: false,
     details:
-      "Derzeit setzen wir keine Analyse-Tools ein. Diese Kategorie ist für eine mögliche zukünftige Einbindung datenschutzfreundlicher Statistik-Tools vorgesehen (z. B. Plausible, Matomo). Erst nach Ihrer Einwilligung würden solche Dienste aktiviert.",
+      "Mit Ihrer Einwilligung nutzen wir Google Analytics 4 und Microsoft Clarity, um Reichweite, Nutzung und Interaktionen auf unserer Website besser zu verstehen. Ohne Ihre Zustimmung bleiben diese Analyse-Dienste deaktiviert oder arbeiten nur im datenschutzfreundlichen Einwilligungsmodus.",
   },
   {
     key: "external",
@@ -241,9 +241,10 @@ const CookieBanner = ({
             </p>
             <p className="font-body text-xs text-muted-foreground leading-relaxed">
               Wir verwenden technisch notwendige Speichermethoden, damit diese
-              Website funktioniert. Optionale Kategorien werden nur mit Ihrer
-              Einwilligung aktiviert. Sie können Ihre Einstellungen jederzeit
-              über das Datenschutz-Symbol unten rechts anpassen.
+              Website funktioniert. Analyse & Statistik umfasst auf dieser
+              Website Google Analytics 4 und Microsoft Clarity und wird nur mit
+              Ihrer Einwilligung aktiviert. Sie können Ihre Einstellungen
+              jederzeit über das Datenschutz-Symbol unten rechts anpassen.
             </p>
           </div>
         </div>

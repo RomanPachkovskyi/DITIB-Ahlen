@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/</loc>
+    <lastmod>2026-04-14</lastmod>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-fassadenansicht.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-erdgeschoss.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-obergeschoss.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-kellergeschoss.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-freiflaechenplan.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-gebaeudeschnitt.jpg</image:loc>
+    </image:image>
+  </url>
+</urlset>

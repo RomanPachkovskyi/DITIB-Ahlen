@@ -6,12 +6,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import CookieConsent from "./components/CookieConsent.tsx";
+import AnalyticsManager from "./components/AnalyticsManager.tsx";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <AnalyticsManager />
       <Toaster />
       <Sonner />
       <BrowserRouter>

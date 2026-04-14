@@ -14,6 +14,7 @@ interface StoredConsent {
 
 const STORAGE_KEY = "ditib_cookie_consent";
 const CONSENT_VERSION = 1;
+const CONSENT_EVENT = "ditib:consent-changed";
 
 const defaultConsent: ConsentState = {
   necessary: true,
@@ -40,6 +41,7 @@ function writeConsent(consent: ConsentState) {
     consent,
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: stored }));
 }
 
 export function useCookieConsent() {
@@ -55,6 +57,22 @@ export function useCookieConsent() {
     } else {
       setShowBanner(true);
     }
+  }, []);
+
+  useEffect(() => {
+    const syncConsent = () => {
+      const stored = readConsent();
+      setConsent(stored?.consent ?? null);
+      setShowBanner(!stored);
+    };
+
+    window.addEventListener("storage", syncConsent);
+    window.addEventListener(CONSENT_EVENT, syncConsent as EventListener);
+
+    return () => {
+      window.removeEventListener("storage", syncConsent);
+      window.removeEventListener(CONSENT_EVENT, syncConsent as EventListener);
+    };
   }, []);
 
   const acceptAll = useCallback(() => {

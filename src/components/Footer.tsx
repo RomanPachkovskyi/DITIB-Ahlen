@@ -155,7 +155,7 @@ const Footer = () => {
               <p>Beim ersten Aufruf dieser Website wird Ihnen ein Cookie-Hinweis (Consent-Banner) angezeigt. Dort können Sie entscheiden, welche Kategorien von Datenverarbeitungen Sie zulassen möchten:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li><strong className="text-foreground">Technisch notwendig</strong> (immer aktiv): Speichert Ihren Einwilligungsstatus im Local Storage des Browsers (Schlüssel: <code className="text-xs bg-secondary px-1 py-0.5 rounded">ditib_cookie_consent</code>). Es werden dabei eine Versionsnummer, ein Zeitstempel und Ihre gewählten Einstellungen gespeichert — keine personenbezogenen Daten.</li>
-                <li><strong className="text-foreground">Analyse & Statistik</strong> (optional): Derzeit nicht im Einsatz. Kategorie für eine mögliche zukünftige Einbindung datenschutzfreundlicher Analyse-Tools.</li>
+                <li><strong className="text-foreground">Analyse & Statistik</strong> (optional): Bei Ihrer Einwilligung aktivieren wir Google Analytics 4 und Microsoft Clarity zur Reichweitenmessung, Nutzungsanalyse und Verbesserung der Website.</li>
                 <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Derzeit nicht im Einsatz. Kategorie für eine mögliche zukünftige Einbindung externer Medien.</li>
               </ul>
               <p className="mt-2">Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol (unten rechts) ändern oder widerrufen.</p>
@@ -192,8 +192,14 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">10. Keine Tracking- oder Analyse-Tools</p>
-              <p>Diese Website verwendet derzeit keine Analyse-, Marketing- oder Tracking-Dienste (z. B. Google Analytics). Es werden keine Cookies für Werbezwecke oder zur Nutzungsanalyse gesetzt. Sollte sich dies in Zukunft ändern, werden entsprechende Dienste erst nach Ihrer ausdrücklichen Einwilligung über den Cookie-Banner aktiviert.</p>
+              <p className="font-semibold text-foreground mb-2">10. Analyse- und Tracking-Dienste</p>
+              <p>Sofern Sie im Consent-Banner in die Kategorie „Analyse & Statistik" einwilligen, verwenden wir Google Analytics 4 und Microsoft Clarity. Diese Dienste helfen uns zu verstehen, wie Besucherinnen und Besucher unsere Website nutzen, welche Inhalte relevant sind und an welchen Stellen wir die Nutzererfahrung verbessern können.</p>
+              <p className="mt-2">Google Analytics 4 wird erst nach Ihrer Einwilligung geladen und im Basic Consent Mode betrieben. Microsoft Clarity wird ebenfalls erst nach Ihrer Einwilligung geladen. Ohne Ihre Zustimmung werden diese Dienste auf dieser Website nicht aktiviert.</p>
+              <p className="mt-2"><strong className="text-foreground">Google Analytics 4:</strong> Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Weitere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Google</a> und in den Informationen zu <a href="https://support.google.com/analytics/answer/12017362" target="_blank" rel="noreferrer" className="text-primary hover:underline">Google Analytics 4</a>.</p>
+              <p className="mt-2"><strong className="text-foreground">Microsoft Clarity:</strong> Anbieter ist Microsoft Corporation, One Microsoft Way, Redmond, WA 98052-6399, USA. Weitere Informationen finden Sie in der <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Microsoft</a> sowie in den Informationen zu <a href="https://learn.microsoft.com/en-us/clarity/clarity-consent-api-v2" target="_blank" rel="noreferrer" className="text-primary hover:underline">Clarity ConsentV2</a>.</p>
+              <p className="mt-2"><strong className="text-foreground">Hinweis zu Google Search Console:</strong> Die Google Search Console ist ein reines Webmaster-/Indexierungswerkzeug und wird nicht als Tracking-Skript im Browser Ihrer Besucherinnen und Besucher geladen.</p>
+              <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO.</p>
+              <p className="mt-2"><strong className="text-foreground">Widerruf:</strong> Sie können Ihre Einwilligung jederzeit über das Datenschutz-Symbol unten rechts mit Wirkung für die Zukunft ändern oder widerrufen.</p>
             </div>
 
             <div>

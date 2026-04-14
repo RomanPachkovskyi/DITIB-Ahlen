@@ -130,3 +130,4 @@ Allow: /llms.txt
 ##############################################
 
 Sitemap: https://ditib-ahlen-projekte.de/sitemap.xml
+Sitemap: https://ditib-ahlen-projekte.de/sitemap-images.xml

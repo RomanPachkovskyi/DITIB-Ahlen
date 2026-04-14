@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 
 declare global {
@@ -16,6 +17,7 @@ const GA_MEASUREMENT_ID = "G-BM587Q3MEJ";
 const CLARITY_PROJECT_ID = "wbfipf9pd3";
 const CLARITY_SCRIPT_ID = "clarity-tag";
 const GA_SCRIPT_ID = "google-gtag";
+let googleAnalyticsInitialized = false;
 
 function ensureDataLayer() {
   window.dataLayer = window.dataLayer || [];
@@ -81,9 +83,13 @@ function applyGoogleConsent(analyticsEnabled: boolean) {
     security_storage: "granted",
   });
 
-  window.gtag("config", GA_MEASUREMENT_ID, {
-    anonymize_ip: true,
-  });
+  if (!googleAnalyticsInitialized) {
+    window.gtag("config", GA_MEASUREMENT_ID, {
+      anonymize_ip: true,
+      send_page_view: false,
+    });
+    googleAnalyticsInitialized = true;
+  }
 }
 
 function loadGoogleAnalytics(onReady?: () => void) {
@@ -140,6 +146,8 @@ function updateClarityConsent(analyticsEnabled: boolean) {
 
 const AnalyticsManager = () => {
   const { consent } = useCookieConsent();
+  const location = useLocation();
+  const lastTrackedPath = useRef<string | null>(null);
 
   useEffect(() => {
     const analyticsEnabled = consent?.analytics ?? false;
@@ -159,6 +167,22 @@ const AnalyticsManager = () => {
     clearGoogleAnalyticsCookies();
     updateClarityConsent(false);
   }, [consent]);
+
+  useEffect(() => {
+    const analyticsEnabled = consent?.analytics ?? false;
+    if (!analyticsEnabled || !window.gtag) return;
+
+    const pagePath = `${location.pathname}${location.search}${location.hash}`;
+    if (lastTrackedPath.current === pagePath) return;
+
+    window.gtag("event", "page_view", {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: pagePath,
+    });
+
+    lastTrackedPath.current = pagePath;
+  }, [consent, location.pathname, location.search, location.hash]);
 
   return null;
 };

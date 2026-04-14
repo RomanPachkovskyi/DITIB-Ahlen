@@ -181,8 +181,33 @@
   opacity: 0;
 }
 
+@keyframes paypal-cta-breathe {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 10px 24px rgba(199, 65, 65, 0.16);
+  }
+  50% {
+    transform: scale(1.045);
+    box-shadow: 0 18px 38px rgba(199, 65, 65, 0.26);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 10px 24px rgba(199, 65, 65, 0.16);
+  }
+}
+
+[data-cta-accent="true"] {
+  animation: paypal-cta-breathe 0.9s cubic-bezier(0.22, 1, 0.36, 1) 2;
+}
+
 .delay-400  { animation-delay: 400ms; }
 .delay-600  { animation-delay: 600ms; }
 .delay-800  { animation-delay: 800ms; }
 .delay-1000 { animation-delay: 1000ms; }
 .delay-1200 { animation-delay: 1200ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cta-accent="true"] {
+    animation: none;
+  }
+}

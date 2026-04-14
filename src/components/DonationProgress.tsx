@@ -4,8 +4,10 @@ import { useCountUp } from "@/hooks/use-count-up";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const GOAL = 5_000_000;
-const CURRENT = 2_340_000;
+const CURRENT = 300_000;
 const PERCENTAGE = Math.round((CURRENT / GOAL) * 100);
+const PROGRESS_DURATION = 2400;
+const CTA_PULSE_DELAY = 180;
 const PAYPAL_URL =
   "https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE";
 const IBAN = "DE34 4005 0150 0001 0040 76";
@@ -16,31 +18,36 @@ const PAYMENT_REFERENCE = "Spende Kulturzentrum Ahlen";
 const formatEur = (n: number) =>
   new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(n);
 
-const AnimatedBar = ({ percentage }: { percentage: number }) => {
+const AnimatedBar = ({
+  percentage,
+  duration,
+  isActive,
+}: {
+  percentage: number;
+  duration: number;
+  isActive: boolean;
+}) => {
   const [width, setWidth] = useState(0);
-  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = barRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setWidth(percentage), 200);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [percentage]);
+    if (!isActive) return;
+
+    const timeoutId = window.setTimeout(() => setWidth(percentage), 80);
+    return () => window.clearTimeout(timeoutId);
+  }, [isActive, percentage]);
 
   return (
-    <div ref={barRef} className="relative h-1.5 bg-secondary rounded-full overflow-hidden">
+    <div className="relative h-1.5 bg-secondary rounded-full overflow-hidden">
       <div
-        className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all duration-[3600ms] ease-out"
-        style={{ width: `${width}%` }}
+        className="absolute inset-y-0 left-0 bg-primary rounded-full transition-all"
+        aria-hidden="true"
+        data-progress-active={isActive}
+        data-progress-complete={width === percentage}
+        style={{
+          width: `${width}%`,
+          transitionDuration: `${duration}ms`,
+          transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
       />
     </div>
   );
@@ -53,9 +60,27 @@ const DonationProgress = () => {
   const ctaRef = useScrollReveal({ threshold: 0.08 });
   const bankDetailsRef = useScrollReveal({ threshold: 0.08 });
   const desktopDonateRef = useScrollReveal({ threshold: 0.08 });
+  const [isPaypalAccentActive, setIsPaypalAccentActive] = useState(false);
 
-  const { value: currentVal, ref: currentRef } = useCountUp(CURRENT, 2000);
-  const { value: pctVal, ref: pctRef } = useCountUp(PERCENTAGE, 1400);
+  const {
+    value: currentVal,
+    ref: currentRef,
+    started: hasStartedProgress,
+    completed: hasCompletedProgress,
+  } = useCountUp(CURRENT, PROGRESS_DURATION);
+  const { value: pctVal, ref: pctRef } = useCountUp(PERCENTAGE, PROGRESS_DURATION);
+
+  useEffect(() => {
+    if (!hasCompletedProgress) return;
+
+    const delayId = window.setTimeout(() => setIsPaypalAccentActive(true), CTA_PULSE_DELAY);
+    const resetId = window.setTimeout(() => setIsPaypalAccentActive(false), CTA_PULSE_DELAY + 1800);
+
+    return () => {
+      window.clearTimeout(delayId);
+      window.clearTimeout(resetId);
+    };
+  }, [hasCompletedProgress]);
 
   return (
     <section id="spenden" className="px-5 md:px-10 py-20 md:py-28">
@@ -109,7 +134,11 @@ const DonationProgress = () => {
                   Ziel: {formatEur(GOAL)} €
                 </span>
               </div>
-              <AnimatedBar percentage={PERCENTAGE} />
+              <AnimatedBar
+                percentage={PERCENTAGE}
+                duration={PROGRESS_DURATION}
+                isActive={hasStartedProgress}
+              />
             </div>
 
             {/* CTA */}
@@ -118,7 +147,8 @@ const DonationProgress = () => {
                 href={PAYPAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
+                className="group inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none"
+                data-cta-accent={isPaypalAccentActive}
               >
                 Spenden mit PayPal
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />

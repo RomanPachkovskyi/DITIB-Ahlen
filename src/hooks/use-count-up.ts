@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 export function useCountUp(target: number, duration = 1800, startOnVisible = true) {
   const [value, setValue] = useState(0);
   const [started, setStarted] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -28,17 +29,29 @@ export function useCountUp(target: number, duration = 1800, startOnVisible = tru
 
   useEffect(() => {
     if (!started) return;
+    setCompleted(false);
+
     let startTime: number | null = null;
+    let frameId = 0;
+
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
       // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+        return;
+      }
+
+      setCompleted(true);
     };
-    requestAnimationFrame(step);
+
+    frameId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(frameId);
   }, [started, target, duration]);
 
-  return { value, ref };
+  return { value, ref, started, completed };
 }

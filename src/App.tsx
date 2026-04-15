@@ -4,6 +4,7 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import CookieConsent from "./components/CookieConsent.tsx";
 import AnalyticsManager from "./components/AnalyticsManager.tsx";
+import MobileLandscapeGuard from "./components/MobileLandscapeGuard.tsx";
 import { scrollToCleanAnchor } from "./lib/clean-anchor-navigation.ts";
 
 const CleanInitialHash = () => {
@@ -28,6 +29,7 @@ const App = () => (
       <Route path="*" element={<NotFound />} />
     </Routes>
     <CookieConsent />
+    <MobileLandscapeGuard />
   </BrowserRouter>
 );
 

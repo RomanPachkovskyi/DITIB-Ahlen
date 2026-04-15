@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
+import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
 
 const NavBar = () => {
   const [visible, setVisible] = useState(false);
@@ -25,6 +26,7 @@ const NavBar = () => {
           </span>
           <a
             href="#spenden"
+            onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
             className="inline-flex h-[52px] items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-xs font-medium px-5 py-0 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <Heart className="w-3.5 h-3.5" />

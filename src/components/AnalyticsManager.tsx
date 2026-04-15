@@ -172,17 +172,17 @@ const AnalyticsManager = () => {
     const analyticsEnabled = consent?.analytics ?? false;
     if (!analyticsEnabled || !window.gtag) return;
 
-    const pagePath = `${location.pathname}${location.search}${location.hash}`;
+    const pagePath = `${location.pathname}${location.search}`;
     if (lastTrackedPath.current === pagePath) return;
 
     window.gtag("event", "page_view", {
       page_title: document.title,
-      page_location: window.location.href,
+      page_location: `${window.location.origin}${pagePath}`,
       page_path: pagePath,
     });
 
     lastTrackedPath.current = pagePath;
-  }, [consent, location.pathname, location.search, location.hash]);
+  }, [consent, location.pathname, location.search]);
 
   return null;
 };

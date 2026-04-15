@@ -901,4 +901,35 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 11:10 CEST (Codex)*
+### 2026-04-15 — Clean anchor navigation
+
+**Сесія 19 — Якірна навігація без hash-слідів у URL**
+
+- Для лендингу основним публічним URL залишається чистий домен без `#spenden` / `#projekt`.
+- Додано helper `src/lib/clean-anchor-navigation.ts`:
+  - залишає `href="#spenden"` / `href="#projekt"` у розмітці як semantic/no-JS fallback;
+  - при звичайному кліку перехоплює подію, скролить до потрібної секції через `scrollIntoView`;
+  - чистить адресний рядок через `history.replaceState`, не додаючи hash у URL;
+  - modifier-click (`cmd/ctrl/shift/alt`) не перехоплюється.
+- Підключено до:
+  - Hero CTA `#spenden`;
+  - Hero CTA `#projekt`;
+  - `NavBar` donate CTA;
+  - `StickyDonateBar`;
+  - `FinalCTA`.
+- Додано `CleanInitialHash` в `App.tsx`, щоб прямий вхід на `/#spenden` або `/#projekt` скролив до секції, але після цього очищав URL.
+- `AnalyticsManager` більше не включає `location.hash` у `page_path` і `page_location`, щоб не створювати окремі page_view для якірних переходів.
+- SEO/функціональний висновок:
+  - canonical/main URL не розмивається hash-варіантами;
+  - anchor fallback збережено;
+  - no-JS поведінка не ламається.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - `npm test` — проходить.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 11:25 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 11:25 CEST (Codex)*

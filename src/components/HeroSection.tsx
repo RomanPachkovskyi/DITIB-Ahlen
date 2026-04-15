@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
+import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
 
 const thumbnails = [
   {
@@ -90,6 +91,7 @@ const HeroSection = () => {
             <div className="animate-hero-fade-scale delay-1000 flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <a
                 href="#spenden"
+                onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
                 className="group font-body inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:bg-primary/90"
               >
                 Jetzt unterstützen
@@ -105,6 +107,7 @@ const HeroSection = () => {
               </a>
               <a
                 href="#projekt"
+                onClick={(e) => handleCleanAnchorClick(e, "#projekt")}
                 className="font-body inline-flex items-center gap-2 rounded-full border border-white/30 px-8 py-4 text-base font-medium text-white/90 backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:bg-white/10"
               >
                 Mehr erfahren

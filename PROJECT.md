@@ -932,4 +932,48 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 11:25 CEST (Codex)*
+### 2026-04-15 — PageSpeed optimization and fresh build
+
+**Сесія 20 — Mobile performance, responsive hero images, manual image refresh**
+
+- Проведено оптимізацію за результатами Google PageSpeed / Lighthouse:
+  - основний фокус: mobile FCP/LCP та розмір стартового JS;
+  - desktop score вже був близький до цільового, тому зміни робились точково без редизайну.
+- `HeroSection` оптимізовано для LCP:
+  - hero background переведено на responsive `<picture>` / `srcSet`;
+  - використовується `fetchPriority="high"`, `decoding="async"`, явні `width` / `height`;
+  - додано preload hero-зображення в `index.html`;
+  - прибрано React scroll listener/parallax state, який викликав зайві rerender-и під час скролу;
+  - hero background animation скорочено і прибрано opacity-анімацію з фонового LCP-зображення.
+- Для hero image додано responsive WebP-файли в `public/img/`:
+  - `ditib-ahlen-bildungs-begegnungszentrum-1280.webp` — 1280×720;
+  - `ditib-ahlen-bildungs-begegnungszentrum-1920.webp` — 1920×1080;
+  - оригінал `ditib-ahlen-bildungs-begegnungszentrum.webp` лишається 2400×1350 як fallback/high-density варіант;
+  - файл `ditib-ahlen-bildungs-begegnungszentrum-960.webp` створено, але прибрано з активного `srcSet`, бо на mobile Retina він виглядав недостатньо чітко.
+- Користувач вручну оновив hero WebP-файли в `public/img/`, щоб зберегти кращу чіткість після ресайзу.
+- Виправлено локальну проблему з mobile hero image на `http://localhost:8080/`:
+  - Docker/Vite dev-server був запущений до появи нових файлів і віддавав для них SPA fallback HTML;
+  - виконано `docker compose restart web`;
+  - після restart `localhost:8080` коректно віддає `1280.webp` і `1920.webp` як `image/webp`.
+- Зменшено стартове навантаження застосунку:
+  - прибрано `@fontsource/inter` imports зі стартового `main.tsx`;
+  - шрифт переведено на системний Inter-like stack без зовнішніх Google Fonts requests;
+  - прибрано невикористані на старті `QueryClientProvider`, toast і tooltip providers;
+  - секції нижче першого екрана переведено на `React.lazy` + `Suspense`, щоб hero і основний above-the-fold код завантажувались першими.
+- Production build після оптимізації:
+  - стартовий JS зменшено приблизно з `406.80 kB` до `185.51 kB`;
+  - gzip стартового JS зменшено приблизно з `127.69 kB` до `60.14 kB`;
+  - поточний build chunk: `index-D1HIPAdL.js`;
+  - поточний CSS chunk: `index-DdeZun8X.css`.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - `npm test` — проходив після оптимізацій;
+  - `npm run lint` все ще має попередні shadcn/tailwind lint-помилки, не пов'язані з цією оптимізацією;
+  - Playwright screenshot-перевірку не запускали, бо Chromium binary локально не встановлений і download не був дозволений.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 11:52 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 11:52 CEST (Codex)*

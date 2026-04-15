@@ -1,31 +1,35 @@
+import { lazy, Suspense } from "react";
 import StickyDonateBar from "@/components/StickyDonateBar";
 import HeroSection from "@/components/HeroSection";
-import ProjectIntro from "@/components/ProjectIntro";
-import ProjectPartners from "@/components/ProjectPartners";
-import VisionSection from "@/components/VisionSection";
-import ImageGallery from "@/components/ImageGallery";
-import PDFDownloadSection from "@/components/PDFDownloadSection";
-import DonationProgress from "@/components/DonationProgress";
-import CompanySupportSection from "@/components/CompanySupportSection";
-import SocialSection from "@/components/SocialSection";
-import FinalCTA from "@/components/FinalCTA";
-import Footer from "@/components/Footer";
+
+const ProjectIntro = lazy(() => import("@/components/ProjectIntro"));
+const VisionSection = lazy(() => import("@/components/VisionSection"));
+const ImageGallery = lazy(() => import("@/components/ImageGallery"));
+const ProjectPartners = lazy(() => import("@/components/ProjectPartners"));
+const PDFDownloadSection = lazy(() => import("@/components/PDFDownloadSection"));
+const DonationProgress = lazy(() => import("@/components/DonationProgress"));
+const CompanySupportSection = lazy(() => import("@/components/CompanySupportSection"));
+const SocialSection = lazy(() => import("@/components/SocialSection"));
+const FinalCTA = lazy(() => import("@/components/FinalCTA"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   return (
     <main className="min-h-screen">
       <StickyDonateBar />
       <HeroSection />
-      <ProjectIntro />
-      <VisionSection />
-      <ImageGallery />
-      <ProjectPartners />
-      <PDFDownloadSection />
-      <DonationProgress />
-      <CompanySupportSection />
-      <SocialSection />
-      <FinalCTA />
-      <Footer />
+      <Suspense fallback={null}>
+        <ProjectIntro />
+        <VisionSection />
+        <ImageGallery />
+        <ProjectPartners />
+        <PDFDownloadSection />
+        <DonationProgress />
+        <CompanySupportSection />
+        <SocialSection />
+        <FinalCTA />
+        <Footer />
+      </Suspense>
     </main>
   );
 };

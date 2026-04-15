@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
 
@@ -16,24 +16,10 @@ const thumbnails = [
 ];
 
 const HeroSection = () => {
-  const [scrollY, setScrollY] = useState(0);
   const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useLockBodyScroll(activeThumb !== null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect();
-        if (rect.bottom > 0) {
-          setScrollY(window.scrollY);
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <section
@@ -44,14 +30,23 @@ const HeroSection = () => {
       {/* Background image with parallax + zoom-in entrance */}
       <div
         className="absolute inset-0 animate-hero-zoom"
-        style={{ transform: `translateY(${scrollY * 0.25}px)` }}
       >
-        <img
-          src="/img/ditib-ahlen-bildungs-begegnungszentrum.webp"
-          alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
-          className="h-full w-full object-cover"
-          fetchPriority="high"
-        />
+        <picture className="block h-full w-full">
+          <source
+            type="image/webp"
+            srcSet="/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w"
+            sizes="100vw"
+          />
+          <img
+            src="/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp"
+            alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
+            className="h-full w-full object-cover"
+            width="1280"
+            height="720"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </picture>
       </div>
 
       {/* Gradient overlay — subtle, only bottom area for readability */}
@@ -70,7 +65,6 @@ const HeroSection = () => {
           {/* Left — text block */}
           <div
             className="max-w-2xl"
-            style={{ transform: `translateY(${scrollY * -0.1}px)` }}
           >
             <p className="animate-hero-slide-up delay-400 font-body text-sm md:text-base font-medium tracking-widest uppercase text-white/70 mb-3">
               DiTiB Ahlen · Ein Zukunftsprojekt

@@ -13,7 +13,7 @@ const PAYPAL_URL =
 const IBAN = "DE34 4005 0150 0001 0040 76";
 const BANK_NAME = "Sparkasse Muensterland Ost";
 const ACCOUNT_HOLDER = "DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.";
-const PAYMENT_REFERENCE = "Spende Kulturzentrum Ahlen";
+const PAYMENT_REFERENCE = "Spende DiTiB Ahlen Projekt";
 
 const formatEur = (n: number) =>
   new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(n);
@@ -202,7 +202,7 @@ const DonationProgress = () => {
             >
               <img
                 src="/img/ditib-ahlen-paypal-spenden-qr.png"
-                alt="QR-Code für PayPal-Spenden an das DITIB Kulturzentrum Ahlen"
+                alt="QR-Code für PayPal-Spenden an das Bildungs- und Begegnungszentrum von DiTiB Ahlen"
                 className="block w-[170px] h-auto"
                 loading="lazy"
               />

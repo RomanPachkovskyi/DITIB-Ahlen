@@ -5,30 +5,46 @@
 >
   <url>
     <loc>https://ditib-ahlen-projekte.de/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-bildungs-begegnungszentrum.webp</image:loc>
+      <image:title>Bildungs- und Begegnungszentrum DiTiB Ahlen</image:title>
+      <image:caption>Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-aussenansicht-west.jpg</image:loc>
+      <image:title>Aussenansicht von Westen</image:title>
+      <image:caption>Geplantes Zentrum von DiTiB Ahlen in der Aussenansicht von Westen.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-fassadenansicht.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-fassadenansicht.jpg</image:loc>
+      <image:title>Fassadenansicht DiTiB Ahlen</image:title>
+      <image:caption>Fassadenentwurf des neuen DiTiB-Ahlen-Zentrums.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-erdgeschoss.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-grundriss-erdgeschoss.jpg</image:loc>
+      <image:title>Grundriss Erdgeschoss</image:title>
+      <image:caption>Grundriss des Erdgeschosses fuer den Neubau von DiTiB Ahlen.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-obergeschoss.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-grundriss-obergeschoss.jpg</image:loc>
+      <image:title>Grundriss Obergeschoss</image:title>
+      <image:caption>Grundriss des Obergeschosses fuer den Neubau von DiTiB Ahlen.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-grundriss-kellergeschoss.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-grundriss-kellergeschoss.jpg</image:loc>
+      <image:title>Grundriss Kellergeschoss</image:title>
+      <image:caption>Grundriss des Kellergeschosses fuer den Neubau von DiTiB Ahlen.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-freiflaechenplan.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-freiflaechenplan.jpg</image:loc>
+      <image:title>Freiflaechenplan DiTiB Ahlen</image:title>
+      <image:caption>Freiflaechenplan fuer Aussenbereich und Gruenflaeche des DiTiB-Ahlen-Zentrums.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-gebaeudeschnitt.jpg</image:loc>
+      <image:loc>https://ditib-ahlen-projekte.de/img/ditib-ahlen-gebaeudeschnitt.jpg</image:loc>
+      <image:title>Gebaeudeschnitt DiTiB Ahlen</image:title>
+      <image:caption>Gebaeudeschnitt fuer den geplanten Neubau von DiTiB Ahlen.</image:caption>
     </image:image>
   </url>
 </urlset>

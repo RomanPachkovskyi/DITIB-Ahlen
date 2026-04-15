@@ -12,7 +12,7 @@ const Footer = () => {
       <footer className="px-5 py-10 md:px-10 md:py-8 bg-[#253e54]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6 md:gap-4 text-center md:text-left">
           <div className="order-3 font-body text-xs text-white/50 md:order-1">
-            © 2026 DITIB Ahlen · Kulturzentrum Ahlen e.V.
+            © 2026 DiTiB Ahlen · Bildungs- & Begegnungszentrum
           </div>
           <div className="order-1 flex flex-wrap items-center justify-center gap-2 md:order-2 md:gap-6">
             <button

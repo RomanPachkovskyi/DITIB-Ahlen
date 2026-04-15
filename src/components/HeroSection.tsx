@@ -3,13 +3,13 @@ import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 
 const thumbnails = [
   {
-    src: "/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg",
-    alt: "Westansicht des geplanten DITIB Kulturzentrums in Ahlen",
+    src: "/img/ditib-ahlen-aussenansicht-west.jpg",
+    alt: "Geplantes Zentrum von DiTiB Ahlen - Aussenansicht von Westen",
     label: "Außenansicht",
   },
   {
-    src: "/img/ditib-ahlen-kulturzentrum-fassadenansicht.jpg",
-    alt: "Fassadenansicht des DITIB Kulturzentrums in Ahlen",
+    src: "/img/ditib-ahlen-fassadenansicht.jpg",
+    alt: "Fassadenentwurf des neuen DiTiB-Ahlen-Zentrums",
     label: "Ansicht",
   },
 ];
@@ -46,8 +46,8 @@ const HeroSection = () => {
         style={{ transform: `translateY(${scrollY * 0.25}px)` }}
       >
         <img
-          src="/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp"
-          alt="Architekturvisualisierung des neuen DITIB Kulturzentrums in Ahlen"
+          src="/img/ditib-ahlen-bildungs-begegnungszentrum.webp"
+          alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
           className="h-full w-full object-cover"
           fetchPriority="high"
         />

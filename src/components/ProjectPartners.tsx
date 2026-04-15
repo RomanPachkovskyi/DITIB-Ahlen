@@ -17,14 +17,14 @@ const mainParticipants: ProjectParticipant[] = [
     name: "DITIB - Ahlen (Westf.)",
     subtitle: "Türkisch Islamische Gemeinde zu Ahlen e.V.",
     logo: "/img/ditib-ahlen-logo.png",
-    logoAlt: "Logo der DITIB Ahlen",
+    logoAlt: "Logo der DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
   },
   {
     role: "Entwurfsverfasser / Tragwerksplanung",
     name: "Ingenieurbüro Theismann & Partner",
     subtitle: "Dipl.-Ing. Bernd Theismann",
     logo: "/img/ingenieurbuero-theismann-partner-logo.jpg",
-    logoAlt: "Logo des Ingenieurbüros Theismann und Partner",
+    logoAlt: "Logo des Ingenieurbüros Theismann und Partner, Entwurfsverfasser und Tragwerksplanung",
   },
 ];
 
@@ -34,20 +34,20 @@ const projectPartners: ProjectParticipant[] = [
     name: "Munas-Print",
     subtitle: "Werbeagentur",
     logo: munasPrintLogo,
-    logoAlt: "Logo von Munas-Print Ahlen",
+    logoAlt: "Logo von Munas-Print Ahlen, Medienpartner des Projekts",
   },
   {
     role: "Medienpartner",
     name: "8media",
     subtitle: "Videoproduktion",
     logo: eightMediaLogo,
-    logoAlt: "Logo von 8media",
+    logoAlt: "Logo von 8media, Medienpartner des Projekts",
   },
   {
     role: "Projektpartner",
     name: "ASK Ahlen",
     logo: askLogo,
-    logoAlt: "Logo von ASK Ahlen",
+    logoAlt: "Logo von ASK Ahlen, Projektpartner",
   },
 ];
 

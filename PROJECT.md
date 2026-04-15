@@ -858,4 +858,47 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 10:05 CEST (Codex)*
+### 2026-04-15 — SEO release audit: Bildungs- & Begegnungszentrum
+
+**Сесія 17 — SEO naming, meta/schema, llms.txt і фінальна синхронізація**
+
+- Затверджено і виконано нову naming-стратегію для основних SEO-зображень:
+  - hero/social preview перейменовано під `bildungs-begegnungszentrum`;
+  - технічні зображення отримали коротші SEO-назви (`aussenansicht`, `fassadenansicht`, `grundriss`, `freiflaechenplan`, `gebaeudeschnitt`);
+  - оновлено всі runtime-посилання в `HeroSection`, `ImageGallery`, `index.html` та `sitemap-images.xml`.
+- Оновлено image SEO:
+  - `sitemap-images.xml` отримав нові image URLs;
+  - додано `image:title` і `image:caption`;
+  - `lastmod` у `sitemap.xml` і `sitemap-images.xml` оновлено на `2026-04-15`.
+- Переписано technical SEO в `index.html` під новий напрям:
+  - primary meta, Open Graph і Twitter Card;
+  - JSON-LD для `Organization`, `WebSite`, `WebPage`, `CivicStructure`, `ImageObject`, `DonateAction`, `FAQPage`, `BreadcrumbList`;
+  - entity id проєкту змінено з `#kulturzentrum` на `#bildungs-begegnungszentrum`;
+  - `ReligiousOrganization` прибрано зі schema, щоб не підсилювати небажаний фрейм.
+- `FAQPage` schema повністю синхронізовано з новими акцентами:
+  - майбутній Neubau;
+  - Bildung, Begegnung, Barrierefreiheit, Nachhaltigkeit;
+  - Bestattungsvorbereitung;
+  - підтримка через PayPal, Sachleistungen, Dienstleistungen та індивідуальні пропозиції.
+- `public/llms.txt` замінено на нову AI knowledge base:
+  - primary language — Deutsch;
+  - EN/TR summaries збережено;
+  - старі формулювання `Kulturzentrum` і `für alle Menschen in Ahlen` залишені тільки як AI guardrails / застарілі формулювання, які не треба використовувати;
+  - категоричні згадки `religiöse Institution` прибрано.
+- Фінальна синхронізація accessibility/SEO copy:
+  - QR alt-текст оновлено під `Bildungs- und Begegnungszentrum`;
+  - `Verwendungszweck` змінено на `Spende DiTiB Ahlen Projekt`;
+  - footer copyright змінено на `DiTiB Ahlen · Bildungs- & Begegnungszentrum`;
+  - partner logo alt-тексти доповнено ролями (`Bauherr`, `Entwurfsverfasser / Tragwerksplanung`, `Medienpartner`, `Projektpartner`).
+- Контрольний аудит:
+  - JSON-LD валідний;
+  - старі runtime image paths не знаходяться;
+  - старий wording не знаходиться у видимому сайті та schema;
+  - залишки старого wording у `llms.txt` є тільки навмисними guardrails.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 11:10 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 11:10 CEST (Codex)*

@@ -4,12 +4,12 @@ import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const images = [
-  { src: "/img/ditib-ahlen-kulturzentrum-aussenansicht-west.jpg", alt: "Westansicht des geplanten DITIB Kulturzentrums in Ahlen", span: "col-span-2 row-span-2" },
-  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-erdgeschoss.jpg", alt: "Grundriss des Erdgeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-obergeschoss.jpg", alt: "Grundriss des Obergeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-kulturzentrum-grundriss-kellergeschoss.jpg", alt: "Grundriss des Kellergeschosses des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-kulturzentrum-freiflaechenplan.jpg", alt: "Freiflächenplan des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-kulturzentrum-gebaeudeschnitt.jpg", alt: "Gebäudeschnitt des DITIB Kulturzentrums in Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-aussenansicht-west.jpg", alt: "Geplantes Zentrum von DiTiB Ahlen - Aussenansicht von Westen", span: "col-span-2 row-span-2" },
+  { src: "/img/ditib-ahlen-grundriss-erdgeschoss.jpg", alt: "Grundriss Erdgeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-grundriss-obergeschoss.jpg", alt: "Grundriss Obergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-grundriss-kellergeschoss.jpg", alt: "Grundriss Kellergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-freiflaechenplan.jpg", alt: "Freiflaechenplan - Aussenbereich und Gruenflaeche des DiTiB-Ahlen-Zentrums", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg", alt: "Gebaeudeschnitt - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
 ];
 
 const ImageGallery = () => {

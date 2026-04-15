@@ -990,4 +990,34 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 12:02 CEST (Codex)*
+### 2026-04-15 — Sticky donate bar and LCP follow-up
+
+**Сесія 21 — Sticky behavior restored, hero LCP candidate stabilized**
+
+- Виправлено регресію sticky donate bar після `React.lazy`:
+  - `StickyDonateBar` тепер не завершує роботу, якщо `#final-cta` ще не існує під час першого рендера;
+  - додано очікування появи `#final-cta` через `MutationObserver`, після чого підключається `IntersectionObserver`;
+  - користувач підтвердив, що sticky-панель знову працює правильно.
+- Проаналізовано `workspace/PageSpeed Insights.md`:
+  - mobile FCP: `1.4 s`;
+  - LCP/TBT: `Error / NO_LCP`;
+  - CLS: `0`;
+  - Speed Index: `1.8 s`;
+  - головний висновок: Lighthouse не бачить LCP-кандидат, а не просто показує повільний LCP.
+- Для стабілізації hero LCP без зміни користувацьких зображень:
+  - повернуто активне використання `ditib-ahlen-bildungs-begegnungszentrum-960.webp` у responsive `srcSet`;
+  - preload hero image оновлено так, щоб mobile міг обрати легший `960.webp`;
+  - hero `<img>` зроблено `loading="eager"` з `fetchPriority="high"`;
+  - прибрано transform-анімацію `animate-hero-zoom` саме з LCP-зображення;
+  - текстові hero-анімації залишено.
+- Локальна перевірка:
+  - `npm run build` — проходить;
+  - build створив нові assets `index-BnndH9uc.js` і `index-BYen1p1i.css`;
+  - локальний headless Chrome підтвердив, що hero image завантажується як `960.webp`, але LCP entries у headless-замірі все ще не повернулись, тому потрібна повторна перевірка через PageSpeed після deploy.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 13:37 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 13:37 CEST (Codex)*

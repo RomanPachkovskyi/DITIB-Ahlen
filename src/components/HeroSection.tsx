@@ -27,24 +27,23 @@ const HeroSection = () => {
       className="relative min-h-screen w-full overflow-hidden -mb-px"
       style={{ backgroundColor: "hsl(220, 20%, 12%)" }}
     >
-      {/* Background image with parallax + zoom-in entrance */}
-      <div
-        className="absolute inset-0 animate-hero-zoom"
-      >
+      {/* Keep the LCP image visually stable from the first paint. */}
+      <div className="absolute inset-0">
         <picture className="block h-full w-full">
           <source
             type="image/webp"
-            srcSet="/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w"
+            srcSet="/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, /img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w"
             sizes="100vw"
           />
           <img
-            src="/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp"
+            src="/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp"
             alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
             className="h-full w-full object-cover"
-            width="1280"
-            height="720"
+            width="960"
+            height="540"
             decoding="async"
             fetchPriority="high"
+            loading="eager"
           />
         </picture>
       </div>

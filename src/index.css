@@ -152,11 +152,6 @@
 }
 
 /* ── Hero entrance animations ────────────────────────────── */
-@keyframes hero-zoom {
-  from { transform: scale(1.045); }
-  to   { transform: scale(1); }
-}
-
 @keyframes hero-slide-up {
   from { transform: translateY(40px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
@@ -165,11 +160,6 @@
 @keyframes hero-fade-scale {
   from { transform: scale(0.92); opacity: 0; }
   to   { transform: scale(1);    opacity: 1; }
-}
-
-.animate-hero-zoom {
-  animation: hero-zoom 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform;
 }
 
 .animate-hero-slide-up {

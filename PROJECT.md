@@ -971,9 +971,23 @@ git log --oneline | head -20
   - `npm run lint` все ще має попередні shadcn/tailwind lint-помилки, не пов'язані з цією оптимізацією;
   - Playwright screenshot-перевірку не запускали, бо Chromium binary локально не встановлений і download не був дозволений.
 
+**Доповнення після production PageSpeed/header-аудиту:**
+
+- Перевірено live-заголовки `https://ditib-ahlen-projekte.de`:
+  - hero WebP файли кешуються коректно на 1 рік;
+  - CSS віддається gzip і з long cache;
+  - JS asset віддавався як `text/javascript`, тому попередні правила `.htaccess` для `application/javascript` не застосовували до нього gzip/cache повністю.
+- Оновлено `public/.htaccess`:
+  - додано MIME `application/javascript` для `.js`;
+  - додано deflate для `text/javascript`;
+  - додано expires для `text/javascript`;
+  - додано явний `Cache-Control: public, max-age=31536000, immutable` для fingerprinted static assets;
+  - HTML лишається `no-cache, max-age=0, must-revalidate`.
+- Після зміни виконано новий `npm run build`, оновлено `dist/.htaccess`.
+
 **Підпис:** Codex  
-**Дата/час:** 2026-04-15 11:52 CEST
+**Дата/час:** 2026-04-15 12:02 CEST
 
 ---
 
-*Документ оновлено: 2026-04-15 11:52 CEST (Codex)*
+*Документ оновлено: 2026-04-15 12:02 CEST (Codex)*

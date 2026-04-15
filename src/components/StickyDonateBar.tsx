@@ -13,14 +13,38 @@ const StickyDonateBar = () => {
   }, []);
 
   useEffect(() => {
-    const cta = document.getElementById("final-cta");
-    if (!cta) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setCtaVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    observer.observe(cta);
-    return () => observer.disconnect();
+    let ctaObserver: IntersectionObserver | null = null;
+    let mutationObserver: MutationObserver | null = null;
+
+    const observeFinalCta = () => {
+      if (ctaObserver) return true;
+
+      const cta = document.getElementById("final-cta");
+      if (!cta) return false;
+
+      ctaObserver = new IntersectionObserver(
+        ([entry]) => setCtaVisible(entry.isIntersecting),
+        { threshold: 0.1 }
+      );
+      ctaObserver.observe(cta);
+      return true;
+    };
+
+    if (!observeFinalCta()) {
+      mutationObserver = new MutationObserver(() => {
+        if (observeFinalCta()) {
+          mutationObserver?.disconnect();
+          mutationObserver = null;
+        }
+      });
+
+      mutationObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
+    return () => {
+      ctaObserver?.disconnect();
+      mutationObserver?.disconnect();
+    };
   }, []);
 
   return (

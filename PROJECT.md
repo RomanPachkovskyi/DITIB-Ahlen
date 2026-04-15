@@ -1112,4 +1112,22 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 15:23 CEST (Codex)*
+### 2026-04-15 — GA4 діагностика і спрощення AnalyticsManager
+
+**Сесія 24 — GA4 debugging + AnalyticsManager rewrite**
+
+- Діагностовано причину відсутності GA4 даних: браузерні розширення (AdBlock + `gaoptout_signal.js`) блокували всі запити до `google-analytics.com`. Для реальних відвідувачів без розширень GA4 працював коректно.
+- Підтверджено роботу GA4 в Guest Window Chrome (без розширень): `collect?v=2&tid=G-BM587Q3MEJ` запити відправляються з `localhost:8080`.
+- `src/components/AnalyticsManager.tsx` переписано:
+  - Видалено Consent Mode (`consent default/update`) — не потрібен коли скрипт вантажиться лише після явної згоди.
+  - Виправлено `window.gtag` stub: `function gtag()` (не arrow function) — `arguments` object коректно потрапляє в `dataLayer`.
+  - Стандартна ініціалізація: `gtag('js', new Date())` → `gtag('config', ...)` → завантаження скрипту → `page_view`.
+  - Clarity залишається без змін.
+- Production build: `index-DXwbPO2l.js` (184.97 kB / gzip 60.03 kB), `index-2UL_c-yZ.css` (79.32 kB).
+
+**Підпис:** Claude
+**Дата/час:** 2026-04-15 15:30 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 15:30 CEST (Claude)*

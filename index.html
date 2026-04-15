@@ -47,265 +47,350 @@
   <link rel="author" type="text/plain" href="/llms.txt" />
 
   <!-- ── Structured Data ────────────────────────────────────────── -->
-
-  <!-- 1. Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ReligiousOrganization",
-    "@id": "https://ditib-ahlen-projekte.de/#organization",
-    "name": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.",
-    "legalName": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.",
-    "alternateName": "DITIB Ahlen",
-    "url": "https://ditib-ahlen-projekte.de",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-logo.png"
-    },
-    "image": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
-    "description": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V. baut ein modernes Kulturzentrum für kulturelle Veranstaltungen, Bildung, Begegnung und Gemeinschaft — offen für alle Menschen in Ahlen.",
-    "email": "info@ditib-ahlen-projekte.de",
-    "telephone": "+492382615990",
-    "faxNumber": "+4923827023970",
-    "identifier": [
+    "@graph": [
       {
-        "@type": "PropertyValue",
-        "propertyID": "Vereinsregister",
-        "value": "VR 50380",
-        "description": "Amtsgericht Münster"
-      },
-      {
-        "@type": "PropertyValue",
-        "propertyID": "Steuernummer",
-        "value": "304/5861/0097"
-      }
-    ],
-    "contactPoint": [
-      {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "telephone": "+492382615990",
+        "@type": ["Organization", "ReligiousOrganization"],
+        "@id": "https://ditib-ahlen-projekte.de/#organization",
+        "name": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.",
+        "legalName": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.",
+        "alternateName": ["DITIB Ahlen", "Türkisch Islamische Gemeinde zu Ahlen", "DITIB Ahlen Projekte"],
+        "url": "https://ditib-ahlen-projekte.de",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://ditib-ahlen-projekte.de/#organization-logo",
+          "url": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-logo.png",
+          "contentUrl": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-logo.png",
+          "caption": "Logo der DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V."
+        },
+        "image": {
+          "@id": "https://ditib-ahlen-projekte.de/#primary-image"
+        },
+        "description": "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V. ist ein eingetragener Verein in Ahlen und baut ein modernes Kulturzentrum für kulturelle Veranstaltungen, Bildung, Begegnung und Gemeinschaft, offen für alle Menschen in Ahlen.",
+        "slogan": "Gemeinsam Zukunft bauen",
         "email": "info@ditib-ahlen-projekte.de",
-        "availableLanguage": ["de", "tr"]
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Rottmannstr. 62",
-      "addressLocality": "Ahlen",
-      "postalCode": "59229",
-      "addressRegion": "Nordrhein-Westfalen",
-      "addressCountry": "DE"
-    },
-    "sameAs": [
-      "https://www.instagram.com/ditib_ahlen_projekte",
-      "https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318"
-    ],
-    "knowsLanguage": ["de", "tr"],
-    "foundingLocation": {
-      "@type": "Place",
-      "name": "Ahlen, Nordrhein-Westfalen, Deutschland"
-    }
-  }
-  </script>
-
-  <!-- 2. WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": "https://ditib-ahlen-projekte.de/#website",
-    "url": "https://ditib-ahlen-projekte.de",
-    "name": "DITIB Kulturzentrum Ahlen",
-    "description": "Website zum DITIB Kulturzentrum Ahlen mit Projektinformationen, Bauplänen und Spendenmöglichkeiten",
-    "inLanguage": "de-DE",
-    "publisher": {
-      "@id": "https://ditib-ahlen-projekte.de/#organization"
-    }
-  }
-  </script>
-
-  <!-- 3. WebPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": "https://ditib-ahlen-projekte.de/#webpage",
-    "url": "https://ditib-ahlen-projekte.de",
-    "name": "DITIB Kulturzentrum Ahlen | Spenden für das Gemeindezentrum",
-    "description": "Projektwebsite für das DITIB Kulturzentrum Ahlen mit Spendeninformationen, Planungsunterlagen und aktuellem Fortschritt.",
-    "inLanguage": "de-DE",
-    "isPartOf": { "@id": "https://ditib-ahlen-projekte.de/#website" },
-    "about": { "@id": "https://ditib-ahlen-projekte.de/#organization" },
-    "image": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
-    "primaryImageOfPage": {
-      "@type": "ImageObject",
-      "url": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg"
-    },
-    "dateModified": "2026-04-13"
-  }
-  </script>
-
-  <!-- 4. CivicStructure — das geplante Kulturzentrum -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CivicStructure",
-    "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum",
-    "name": "DITIB Kulturzentrum Ahlen",
-    "description": "Geplantes modernes Kultur- und Begegnungszentrum mit Räumen für kulturelle Veranstaltungen, Bildungsangebote, Seminare und gemeinschaftliche Begegnungen in Ahlen.",
-    "image": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Rottmannstraße",
-      "addressLocality": "Ahlen",
-      "postalCode": "59229",
-      "addressRegion": "Nordrhein-Westfalen",
-      "addressCountry": "DE"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "addressCountry": "DE",
-      "addressRegion": "Nordrhein-Westfalen"
-    },
-    "amenityFeature": [
-      { "@type": "LocationFeatureSpecification", "name": "Kulturelle Veranstaltungsräume", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Seminarräume", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Gemeinschaftsräume", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Bildungseinrichtung", "value": true }
-    ]
-  }
-  </script>
-
-  <!-- 5. ImageObject -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ImageObject",
-    "@id": "https://ditib-ahlen-projekte.de/#primary-image",
-    "contentUrl": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp",
-    "url": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
-    "caption": "Architekturvisualisierung des geplanten DITIB Kulturzentrums in Ahlen",
-    "description": "Hero-Visualisierung des neuen Kultur- und Gemeindezentrums der DITIB in Ahlen",
-    "inLanguage": "de-DE",
-    "representativeOfPage": true
-  }
-  </script>
-
-  <!-- 6. DonateAction -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "DonateAction",
-    "name": "DITIB Ahlen Kulturzentrum unterstützen",
-    "description": "Spenden Sie per PayPal oder Banküberweisung für den Bau des DITIB Kulturzentrums in Ahlen. Gesamtprojektvolumen: 5.000.000 €.",
-    "recipient": {
-      "@id": "https://ditib-ahlen-projekte.de/#organization"
-    },
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://ditib-ahlen-projekte.de/#spenden",
-      "actionPlatform": [
-        "http://schema.org/DesktopWebPlatform",
-        "http://schema.org/MobileWebPlatform"
-      ]
-    }
-  }
-  </script>
-
-  <!-- 7. FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Was ist das DITIB Kulturzentrum Ahlen?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Das DITIB Kulturzentrum Ahlen ist ein geplantes modernes Kultur- und Begegnungszentrum mit Räumen für kulturelle Veranstaltungen, Bildungsangebote, Seminare und gemeinschaftliche Begegnungen — offen für alle Bürgerinnen und Bürger der Stadt Ahlen."
-        }
+        "telephone": "+492382615990",
+        "faxNumber": "+4923827023970",
+        "taxID": "304/5861/0097",
+        "identifier": [
+          {
+            "@type": "PropertyValue",
+            "propertyID": "Vereinsregister",
+            "value": "VR 50380",
+            "description": "Amtsgericht Münster"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "Steuernummer",
+            "value": "304/5861/0097"
+          }
+        ],
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "Spenden und Projektanfragen",
+            "telephone": "+492382615990",
+            "email": "info@ditib-ahlen-projekte.de",
+            "areaServed": "DE",
+            "availableLanguage": ["de", "tr"]
+          }
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rottmannstr. 62",
+          "addressLocality": "Ahlen",
+          "postalCode": "59229",
+          "addressRegion": "Nordrhein-Westfalen",
+          "addressCountry": "DE"
+        },
+        "location": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization-place"
+        },
+        "sameAs": [
+          "https://www.instagram.com/ditib_ahlen_projekte",
+          "https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318"
+        ],
+        "knowsLanguage": ["de", "tr"],
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Ahlen"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Kreis Warendorf"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Nordrhein-Westfalen"
+          }
+        ],
+        "knowsAbout": [
+          "Kulturzentrum Ahlen",
+          "Gemeindezentrum Ahlen",
+          "interkulturelle Begegnung",
+          "Bildungsangebote",
+          "kulturelle Veranstaltungen",
+          "Spendenprojekt"
+        ],
+        "foundingLocation": {
+          "@type": "Place",
+          "name": "Ahlen, Nordrhein-Westfalen, Deutschland"
+        },
+        "subjectOf": [
+          {
+            "@id": "https://ditib-ahlen-projekte.de/#website"
+          },
+          {
+            "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum"
+          }
+        ]
       },
       {
-        "@type": "Question",
-        "name": "Wie kann ich für das Kulturzentrum spenden?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Auf der Website stehen Spenden per PayPal und per Banküberweisung zur Verfügung. Alle aktuellen Spendeninformationen finden Sie unter https://ditib-ahlen-projekte.de/#spenden."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wie hoch sind die Gesamtkosten des Projekts?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Das Gesamtprojektvolumen beträgt rund 5.000.000 €. Bisher wurden etwa 2.340.000 € gesammelt, das entspricht rund 47 % des Ziels."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Ist das Zentrum nur für Muslime?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nein. Das Zentrum ist als offener Ort für Bildung, Dialog und interkulturelle Begegnung für alle Menschen konzipiert."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wo entsteht das Kulturzentrum?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "An der Rottmannstraße in 59229 Ahlen, Nordrhein-Westfalen, Deutschland."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wer ist der Architekt?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Das Ingenieurbüro Theismann & Partner (Dipl.-Ing. Bernd Theismann) aus Ahlen ist für den Entwurf und die Tragwerksplanung verantwortlich."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Welche Einrichtungen wird das Zentrum haben?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Räume für kulturelle Veranstaltungen und große Gemeinschaftsevents, moderne Seminar- und Schulungsräume für Bildungsangebote und Workshops sowie großzügige Begegnungsräume für Jung und Alt."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Kann ich die Baupläne einsehen?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ja. 10 Planungsunterlagen (Lageplan, Grundrisse, Ansichten, Schnitte) stehen auf der Website kostenlos zum Download bereit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Wie kann ich den Baufortschritt verfolgen?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Folgen Sie DITIB Ahlen Projekte auf Instagram unter https://www.instagram.com/ditib_ahlen_projekte oder auf Facebook unter https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318 fuer aktuelle Updates oder besuchen Sie die Website unter https://ditib-ahlen-projekte.de."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- 8. BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
+        "@type": "Place",
+        "@id": "https://ditib-ahlen-projekte.de/#organization-place",
         "name": "DITIB Ahlen",
-        "item": "https://ditib-ahlen-projekte.de"
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rottmannstr. 62",
+          "addressLocality": "Ahlen",
+          "postalCode": "59229",
+          "addressRegion": "Nordrhein-Westfalen",
+          "addressCountry": "DE"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://ditib-ahlen-projekte.de/#website",
+        "url": "https://ditib-ahlen-projekte.de",
+        "name": "DITIB Kulturzentrum Ahlen",
+        "alternateName": "DITIB Ahlen Projekte",
+        "description": "Website zum DITIB Kulturzentrum Ahlen mit Projektinformationen, Bauplänen und Spendenmöglichkeiten.",
+        "inLanguage": "de-DE",
+        "publisher": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        },
+        "copyrightHolder": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ditib-ahlen-projekte.de/#webpage",
+        "url": "https://ditib-ahlen-projekte.de",
+        "name": "DITIB Kulturzentrum Ahlen | Spenden für das Gemeindezentrum",
+        "description": "Projektwebsite für das DITIB Kulturzentrum Ahlen mit Spendeninformationen, Planungsunterlagen und aktuellem Fortschritt.",
+        "inLanguage": "de-DE",
+        "isPartOf": {
+          "@id": "https://ditib-ahlen-projekte.de/#website"
+        },
+        "publisher": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        },
+        "about": [
+          {
+            "@id": "https://ditib-ahlen-projekte.de/#organization"
+          },
+          {
+            "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum"
+          }
+        ],
+        "mainEntity": {
+          "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://ditib-ahlen-projekte.de/#primary-image"
+        },
+        "breadcrumb": {
+          "@id": "https://ditib-ahlen-projekte.de/#breadcrumb"
+        },
+        "potentialAction": {
+          "@id": "https://ditib-ahlen-projekte.de/#donate-action"
+        },
+        "dateModified": "2026-04-15"
+      },
+      {
+        "@type": "CivicStructure",
+        "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum",
+        "name": "DITIB Kulturzentrum Ahlen",
+        "alternateName": ["DITIB Gemeindezentrum Ahlen", "Kultur- und Begegnungszentrum Ahlen"],
+        "url": "https://ditib-ahlen-projekte.de/#projekt",
+        "description": "Geplantes modernes Kultur- und Begegnungszentrum mit Räumen für kulturelle Veranstaltungen, Bildungsangebote, Seminare und gemeinschaftliche Begegnungen in Ahlen.",
+        "image": {
+          "@id": "https://ditib-ahlen-projekte.de/#primary-image"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rottmannstraße",
+          "addressLocality": "Ahlen",
+          "postalCode": "59229",
+          "addressRegion": "Nordrhein-Westfalen",
+          "addressCountry": "DE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "addressCountry": "DE",
+          "addressRegion": "Nordrhein-Westfalen"
+        },
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Kulturelle Veranstaltungsräume", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Seminarräume", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Gemeinschaftsräume", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Bildungseinrichtung", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Interkulturelle Begegnung", "value": true }
+        ],
+        "keywords": [
+          "Kulturzentrum Ahlen",
+          "Gemeindezentrum Ahlen",
+          "Begegnungszentrum Ahlen",
+          "DITIB Ahlen",
+          "Spendenprojekt Ahlen"
+        ],
+        "isAccessibleForFree": true,
+        "publicAccess": true,
+        "owner": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        },
+        "funding": {
+          "@id": "https://ditib-ahlen-projekte.de/#donate-action"
+        }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://ditib-ahlen-projekte.de/#primary-image",
+        "contentUrl": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-hero-visualisierung.webp",
+        "url": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
+        "thumbnailUrl": "https://ditib-ahlen-projekte.de/img/ditib-ahlen-kulturzentrum-social-preview.jpg",
+        "caption": "Architekturvisualisierung des geplanten DITIB Kulturzentrums in Ahlen",
+        "description": "Hero-Visualisierung des neuen Kultur- und Gemeindezentrums der DITIB in Ahlen.",
+        "inLanguage": "de-DE",
+        "representativeOfPage": true,
+        "creator": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        },
+        "copyrightHolder": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        }
+      },
+      {
+        "@type": "DonateAction",
+        "@id": "https://ditib-ahlen-projekte.de/#donate-action",
+        "name": "DITIB Ahlen Kulturzentrum unterstützen",
+        "description": "Spenden Sie per PayPal oder Banküberweisung für den Bau des DITIB Kulturzentrums in Ahlen. Gesamtprojektvolumen: 5.000.000 €.",
+        "recipient": {
+          "@id": "https://ditib-ahlen-projekte.de/#organization"
+        },
+        "object": {
+          "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum"
+        },
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://ditib-ahlen-projekte.de/#spenden",
+          "actionPlatform": [
+            "http://schema.org/DesktopWebPlatform",
+            "http://schema.org/MobileWebPlatform"
+          ]
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ditib-ahlen-projekte.de/#faq",
+        "url": "https://ditib-ahlen-projekte.de/#faq",
+        "inLanguage": "de-DE",
+        "isPartOf": {
+          "@id": "https://ditib-ahlen-projekte.de/#webpage"
+        },
+        "about": {
+          "@id": "https://ditib-ahlen-projekte.de/#kulturzentrum"
+        },
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Was ist das DITIB Kulturzentrum Ahlen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Das DITIB Kulturzentrum Ahlen ist ein geplantes modernes Kultur- und Begegnungszentrum mit Räumen für kulturelle Veranstaltungen, Bildungsangebote, Seminare und gemeinschaftliche Begegnungen, offen für alle Bürgerinnen und Bürger der Stadt Ahlen."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie kann ich für das Kulturzentrum spenden?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Auf der Website stehen Spenden per PayPal und per Banküberweisung zur Verfügung. Alle aktuellen Spendeninformationen finden Sie unter https://ditib-ahlen-projekte.de/#spenden."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie hoch sind die Gesamtkosten des Projekts?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Das Gesamtprojektvolumen beträgt rund 5.000.000 €. Bisher wurden etwa 2.340.000 € gesammelt, das entspricht rund 47 % des Ziels."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ist das Zentrum nur für Muslime?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nein. Das Zentrum ist als offener Ort für Bildung, Dialog und interkulturelle Begegnung für alle Menschen konzipiert."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wo entsteht das Kulturzentrum?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An der Rottmannstraße in 59229 Ahlen, Nordrhein-Westfalen, Deutschland."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wer ist der Architekt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Das Ingenieurbüro Theismann & Partner (Dipl.-Ing. Bernd Theismann) aus Ahlen ist für den Entwurf und die Tragwerksplanung verantwortlich."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Welche Einrichtungen wird das Zentrum haben?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Räume für kulturelle Veranstaltungen und große Gemeinschaftsevents, moderne Seminar- und Schulungsräume für Bildungsangebote und Workshops sowie großzügige Begegnungsräume für Jung und Alt."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Kann ich die Baupläne einsehen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ja. 10 Planungsunterlagen, darunter Lageplan, Grundrisse, Ansichten und Schnitte, stehen auf der Website kostenlos zum Download bereit."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Wie kann ich den Baufortschritt verfolgen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Folgen Sie DITIB Ahlen Projekte auf Instagram unter https://www.instagram.com/ditib_ahlen_projekte oder auf Facebook unter https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318 für aktuelle Updates oder besuchen Sie die Website unter https://ditib-ahlen-projekte.de."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ditib-ahlen-projekte.de/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "DITIB Ahlen",
+            "item": "https://ditib-ahlen-projekte.de"
+          }
+        ]
       }
     ]
   }

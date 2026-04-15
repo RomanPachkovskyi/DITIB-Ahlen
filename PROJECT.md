@@ -66,7 +66,7 @@
 3.  ProjectIntro        — опис проекту, 8M EUR
 4.  VisionSection       — 3 блоки: Bildung / Begegnung / Gebet
 5.  ImageGallery        — 6 архітектурних фото (grid)
-6.  ProjectPartners     — Bauherr (DITIB) + Entwurfsverfasser (Theismann) + Medienpartner (Munas-Print)
+6.  ProjectPartners     — 2 Hauptbeteiligte (DITIB, Theismann) + Partner (Munas-Print, 8media, ASK Ahlen)
 7.  PDFDownloadSection  — 10 архітектурних PDF для завантаження
 8.  DonationProgress    — прогрес бар 47%, анімовані лічильники, CTA + desktop QR+IBAN картка
 9.  SocialSection       — посилання на Instagram @ditibahlen
@@ -336,7 +336,7 @@
 
 ---
 
-## Поточний стан (2026-04-13)
+## Поточний стан (2026-04-15)
 
 ### ✅ Готово
 - [x] 13 React компонентів — повністю реалізовано
@@ -349,9 +349,10 @@
 - [x] Cookie Consent + DSGVO (self-hosted fonts, localStorage, §25 TDDDG)
 - [x] Git clean history (без Claude attribution)
 - [x] Дизайн-система: Inter Black, rounded-full кнопки, #253e54 бренд-колір
-- [x] 3 партнери в ProjectPartners (DITIB, Theismann, Munas-Print)
+- [x] ProjectPartners: 2 головні учасники + 3 партнери (DITIB, Theismann, Munas-Print, 8media, ASK Ahlen)
 - [x] Desktop donation card: QR-код PayPal + IBAN
 - [x] llms.txt оновлено: ціль 5M, культурний центр (не мечеть)
+- [x] Prod fixes: scroll lock для модалок/lightbox, cookie widget під overlay, action-кнопки `h-[52px]`
 
 ### 🚀 До запуску на хостинг
 - [ ] Домен + DNS (A-record)
@@ -370,7 +371,7 @@ src/
 │   ├── ProjectIntro.tsx         — текстовий опис проекту
 │   ├── VisionSection.tsx        — 3 картки (Bildung/Begegnung/Gebet)
 │   ├── ImageGallery.tsx         — 6 фото grid
-│   ├── ProjectPartners.tsx      — 3 партнери з лого (mix-blend-mode, grid-cols-3)
+│   ├── ProjectPartners.tsx      — Projektbeteiligte: 2 головні учасники + 3 партнери, data-driven layout
 │   ├── PDFDownloadSection.tsx   — 10 PDF для завантаження
 │   ├── DonationProgress.tsx     — прогрес бар + CountUp + CTA
 │   ├── SocialSection.tsx        — Instagram CTA
@@ -383,7 +384,8 @@ src/
 ├── hooks/
 │   ├── use-scroll-reveal.ts     — IntersectionObserver для анімацій
 │   ├── use-count-up.ts          — анімований лічильник чисел
-│   └── use-cookie-consent.ts    — стан consent (localStorage)
+│   ├── use-cookie-consent.ts    — стан consent (localStorage)
+│   └── use-lock-body-scroll.ts  — scroll lock для modal/lightbox overlay з миттєвим restore позиції
 ├── index.css                    — токени + .reveal + .reveal-stagger
 └── main.tsx                     — @fontsource imports (self-hosted)
 
@@ -427,6 +429,8 @@ git log --oneline | head -20
 | Bauherr | DITIB Ahlen, Rottmannstr. 62, 59229 Ahlen, +49 2382 61599, info@ditib-ahlen-projekte.de |
 | Architektur | Ingenieurbüro Theismann & Partner, Nordstraße 29, 59227 Ahlen, +49 2382 85050, info@theismannundpartner.de |
 | Web dev | Munas-Print, https://munas-print.de/ |
+| Medienpartner | 8media — Videoproduktion |
+| Projektpartner | ASK Ahlen |
 
 ---
 
@@ -514,6 +518,37 @@ git log --oneline | head -20
 
 **Підпис:** Codex  
 **Дата/час:** 2026-04-13 16:10 CEST
+
+---
+
+### 2026-04-15 — ProjectPartners redesign + partner logos
+
+**Сесія 13 — Новий дизайн і логіка блоку `Projektbeteiligte`**
+
+- Блок `ProjectPartners` перероблено з карток у легкий data-driven layout без обводок і різних фонів.
+- Структура даних:
+  - `mainParticipants` — головні учасники:
+    - Bauherr: `DITIB - Ahlen (Westf.)`, `Türkisch Islamische Gemeinde zu Ahlen e.V.`
+    - Entwurfsverfasser / Tragwerksplanung: `Ingenieurbüro Theismann & Partner`, `Dipl.-Ing. Bernd Theismann`
+  - `projectPartners` — партнери:
+    - Medienpartner: `Munas-Print`, `Werbeagentur`
+    - Medienpartner: `8media`, `Videoproduktion`
+    - Projektpartner: `ASK Ahlen`
+- Описові тексти біля учасників прибрано: залишаються тільки логотип/fallback, роль, назва і короткий підзаголовок.
+- Логотипи головних учасників збільшено приблизно на 40% (`max-h-[90px]`, `max-w-[238px]`).
+- Логотипи трьох партнерів збільшено приблизно на 30% (`max-h-[83px]`, `max-w-[221px]`).
+- Відступ між логотипом і текстом на `sm+` — `30px`, причому колонка логотипу `max-content`, щоб відступ рахувався від фактичного краю лого, а не від резервної ширини.
+- На mobile логотипи центруються (`justify-self-center`), на `sm+` повертаються в ліве вирівнювання біля тексту.
+- Для реальних `<img>` залишено `style={{ mixBlendMode: "multiply" }}`; зона логотипу має `bg-background`, щоб blend працював як у старій реалізації.
+- Логотип Theismann залишено оригінальним JPG: `/img/ingenieurbuero-theismann-partner-logo.jpg`. PNG-версію не використовувати.
+- Нові логотипи партнерів підключено через `src/assets`, а не через `public/img`, бо dev server на `8080` для нових public-файлів повертав HTML fallback:
+  - `src/assets/Munas-Print_Logo-2.png`
+  - `src/assets/8media-logo.png`
+  - `src/assets/ASK-logo.png`
+- Перевірка: `npm run build` проходить успішно.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 08:49 CEST
 
 ---
 
@@ -751,4 +786,76 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-14 17:18 CEST (Codex)*
+### 2026-04-15 — Пункти 6/7, mobile footer і structured data note
+
+**Сесія 15 — Company support, donation hint, footer UX і fresh build**
+
+- Реалізовано пункт 6 з робочого документа:
+  - додано новий компонент `CompanySupportSection`
+  - блок вставлено після `DonationProgress` і перед `SocialSection`
+  - блок пояснює можливість підтримки проєкту для компаній не лише грошима, а також через `Sachleistungen`, `Dienstleistungen` або індивідуальну пропозицію
+  - додано CTA `Vorschlag per E-Mail senden` з `mailto:info@ditib-ahlen-projekte.de`
+- Реалізовано пункт 7:
+  - у `DonationProgress` під PayPal CTA додано дрібний інформаційний текст:
+  - `Spenden können auf Wunsch anonym erfolgen. Wenn Sie nicht anonym spenden möchten, kann Ihr Name auf unserer Webseite veröffentlicht werden.`
+- Тексти для нових блоків зафіксовано в `workspace/Text/Approved texts - ditib-ahlen-projekte.md`:
+  - `Blok - Unterstützung für Unternehmen`
+  - `Blok - Spendenhinweis`
+- Оновлено mobile footer UX/UI:
+  - на mobile порядок елементів: меню `Impressum / Datenschutz / Kontakt` → `Digitales Handwerk mit ♥ bei Munas-Print` → copyright
+  - mobile footer вирівняно по центру
+  - legal-кнопки на mobile збільшено для зручнішої touch-взаємодії
+  - додано більше вертикального простору між елементами на mobile
+  - desktop footer збережено у компактному 3-колонковому layout через `md:*` класи
+- Зафіксовано SEO/structured data work з паралельного чату:
+  - підсилено structured data в `index.html`
+  - уточнено schema/entity-сигнали для організації, сторінки, donation-семантики та зображень
+  - structured data залишається частиною production SEO-шару разом із meta, sitemap, image sitemap, robots і `llms.txt`
+- Виконано свіжий production build для передачі на хостинг:
+  - `npm run build` успішно завершився
+  - актуальні production-артефакти оновлено в `dist/`
+  - поточний bundle після збірки: `index-DZrTMi6m.js` та `index-xy7XW12N.css`
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 09:38 CEST
+
+---
+
+### 2026-04-15 — Prod technical fixes
+
+**Сесія 16 — Модалки, lightbox, cookie widget, уніфікація кнопок**
+
+- **Scroll lock для overlay:**
+  - додано спільний hook `src/hooks/use-lock-body-scroll.ts`;
+  - сторінка блокується при відкритій модалці або fullscreen-фото через `html/body overflow`, `body position: fixed` і збереження `scrollY`;
+  - hook підтримує ref-count, щоб кілька overlay не конфліктували між собою;
+  - внутрішній скрол довгих модалок збережено через `overflow-y-auto overscroll-contain`.
+- **Scroll restore bugfix:**
+  - виправлено поведінку, коли після закриття модалки/фото сторінка стрибала вгору і плавно прокручувалась назад;
+  - причина: глобальний `html { scroll-behavior: smooth; }`;
+  - рішення: hook тимчасово ставить `scrollBehavior = "auto"`, робить миттєвий `scrollTo`, потім повертає попередній стиль на наступному кадрі.
+- **Z-index fix для cookie widget:**
+  - overlay модалок та lightbox піднято до `z-[220]`;
+  - cookie widget лишається `z-[180]`, тому на mobile він більше не лежить поверх відкритої модалки.
+- **Підключені компоненти:**
+  - `Modal.tsx` — footer legal/contact modals;
+  - `CookieConsent.tsx` — settings modal;
+  - `HeroSection.tsx` — thumbnail lightbox;
+  - `ImageGallery.tsx` — gallery lightbox.
+- **Уніфікація висоти action-кнопок:**
+  - еталон — кнопки блоку `SocialSection` / `Folgen Sie uns`;
+  - основні action-кнопки отримали явну висоту `h-[52px]`;
+  - змінено: `SocialSection`, `DonationProgress`, `CompanySupportSection`, `FinalCTA`, `StickyDonateBar`, `NavBar`, action buttons у `CookieConsent`;
+  - Hero не чіпали за вимогою;
+  - службові icon-only кнопки (`X`, arrows, toggles, cookie floating widget) та footer legal links не уніфікувались, бо це не CTA.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - `npm test` — проходить;
+  - Playwright browser binary локально не встановлений, тому браузерну headless-перевірку не запускали.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 10:05 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 10:05 CEST (Codex)*

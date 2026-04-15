@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const images = [
@@ -15,6 +16,8 @@ const ImageGallery = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const headerRef = useScrollReveal();
   const gridRef = useScrollReveal({ threshold: 0.04 });
+
+  useLockBodyScroll(lightbox !== null);
 
   const open = (i: number) => setLightbox(i);
   const close = () => setLightbox(null);
@@ -68,7 +71,7 @@ const ImageGallery = () => {
       {/* Lightbox */}
       {lightbox !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
+          className="fixed inset-0 z-[220] bg-black/90 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
           onClick={close}
         >
           <div

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
+import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 
 interface ModalProps {
   title: string;
@@ -10,12 +11,7 @@ interface ModalProps {
 const Modal = ({ title, onClose, children }: ModalProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Block scroll on mount
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
-  }, []);
+  useLockBodyScroll();
 
   // ESC to close
   useEffect(() => {
@@ -31,7 +27,7 @@ const Modal = ({ title, onClose, children }: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-end md:items-center justify-center"
+      className="fixed inset-0 z-[220] flex items-end md:items-center justify-center"
       role="dialog"
       aria-modal="true"
     >

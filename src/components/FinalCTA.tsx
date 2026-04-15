@@ -29,7 +29,7 @@ const FinalCTA = () => {
         <div ref={ctaRef} className="reveal reveal-delay-3">
           <a
             href="#spenden"
-            className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-9 py-4 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
+            className="inline-flex h-[52px] items-center justify-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-9 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
           >
             <Heart className="w-4 h-4" />
             Ich möchte spenden

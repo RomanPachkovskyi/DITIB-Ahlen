@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Settings, Shield, ChevronDown, ChevronUp } from "lucide-react";
 import { useCookieConsent, type ConsentState } from "@/hooks/use-cookie-consent";
+import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 
 /* ─── Category data ──────────────────────────────────────────────── */
 
@@ -142,13 +143,7 @@ const CookieSettings = ({
     current ?? { necessary: true, analytics: false, external: false }
   );
 
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, []);
+  useLockBodyScroll();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -159,7 +154,7 @@ const CookieSettings = ({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-end md:items-center justify-center">
+    <div className="fixed inset-0 z-[220] flex items-end md:items-center justify-center">
       <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative z-10 w-full md:max-w-lg bg-background rounded-t-2xl md:rounded-xl max-h-[90svh] md:max-h-[80vh] flex flex-col shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-300">
         {/* Header */}
@@ -200,13 +195,13 @@ const CookieSettings = ({
         <div className="px-6 py-4 border-t border-border flex flex-col sm:flex-row gap-2 shrink-0">
           <button
             onClick={() => onSave(local)}
-            className="flex-1 font-body text-sm font-medium px-5 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] flex-1 items-center justify-center font-body text-sm font-medium px-5 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Auswahl speichern
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex-1 font-body text-sm font-medium px-5 py-2.5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
+            className="flex h-[52px] flex-1 items-center justify-center font-body text-sm font-medium px-5 py-0 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
           >
             Alle akzeptieren
           </button>
@@ -252,19 +247,19 @@ const CookieBanner = ({
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={onRejectAll}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Nur Notwendige
           </button>
           <button
             onClick={onSettings}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
           >
             Einstellungen
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex-1 font-body text-xs font-medium px-4 py-2.5 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
+            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
           >
             Alle akzeptieren
           </button>

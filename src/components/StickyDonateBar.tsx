@@ -32,7 +32,7 @@ const StickyDonateBar = () => {
         <div className="max-w-5xl mx-auto px-5 md:px-10 h-16 flex items-center justify-center">
           <a
             href="#spenden"
-            className="inline-flex items-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-sm font-semibold px-8 py-2.5 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0"
+            className="inline-flex h-[52px] items-center justify-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-sm font-semibold px-8 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0"
           >
             <Heart className="w-3.5 h-3.5" />
             Jetzt spenden

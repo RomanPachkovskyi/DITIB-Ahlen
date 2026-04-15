@@ -6,6 +6,7 @@ import VisionSection from "@/components/VisionSection";
 import ImageGallery from "@/components/ImageGallery";
 import PDFDownloadSection from "@/components/PDFDownloadSection";
 import DonationProgress from "@/components/DonationProgress";
+import CompanySupportSection from "@/components/CompanySupportSection";
 import SocialSection from "@/components/SocialSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -21,6 +22,7 @@ const Index = () => {
       <ProjectPartners />
       <PDFDownloadSection />
       <DonationProgress />
+      <CompanySupportSection />
       <SocialSection />
       <FinalCTA />
       <Footer />

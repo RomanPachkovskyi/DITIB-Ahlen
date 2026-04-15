@@ -9,27 +9,27 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="px-5 md:px-10 py-8 bg-[#253e54]">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-4">
-          <div className="font-body text-xs text-white/50">
+      <footer className="px-5 py-10 md:px-10 md:py-8 bg-[#253e54]">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6 md:gap-4 text-center md:text-left">
+          <div className="order-3 font-body text-xs text-white/50 md:order-1">
             © 2026 DITIB Ahlen · Kulturzentrum Ahlen e.V.
           </div>
-          <div className="flex items-center justify-center gap-6">
+          <div className="order-1 flex flex-wrap items-center justify-center gap-2 md:order-2 md:gap-6">
             <button
               onClick={() => setOpen("impressum")}
-              className="font-body text-xs text-white/60 hover:text-white transition-colors"
+              className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
               Impressum
             </button>
             <button
               onClick={() => setOpen("datenschutz")}
-              className="font-body text-xs text-white/60 hover:text-white transition-colors"
+              className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
               Datenschutz
             </button>
             <button
               onClick={() => setOpen("kontakt")}
-              className="font-body text-xs text-white/60 hover:text-white transition-colors"
+              className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
               Kontakt
             </button>
@@ -38,7 +38,7 @@ const Footer = () => {
             href="https://munas-print.de/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-body text-xs text-white/60 hover:text-white transition-colors md:text-right"
+            className="order-2 font-body text-xs text-white/60 hover:text-white transition-colors md:order-3 md:text-right"
           >
             Digitales Handwerk mit ♥ bei Munas-Print
           </a>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 
 const thumbnails = [
   {
@@ -17,6 +18,8 @@ const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
   const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+
+  useLockBodyScroll(activeThumb !== null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,7 +138,7 @@ const HeroSection = () => {
       {/* Lightbox */}
       {activeThumb !== null && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
+          className="fixed inset-0 z-[220] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
           onClick={() => setActiveThumb(null)}
         >
           <div

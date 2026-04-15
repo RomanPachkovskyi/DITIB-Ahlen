@@ -147,12 +147,17 @@ const DonationProgress = () => {
                 href={PAYPAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-3.5 rounded-full shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none"
+                className="group inline-flex h-[52px] items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-8 py-0 rounded-full shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none"
                 data-cta-accent={isPaypalAccentActive}
               >
                 Spenden mit PayPal
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
               </a>
+              <p className="mx-auto mt-4 max-w-md font-body text-xs leading-relaxed text-muted-foreground lg:mx-0">
+                Spenden können auf Wunsch anonym erfolgen. Wenn Sie nicht anonym
+                spenden möchten, kann Ihr Name auf unserer Webseite veröffentlicht
+                werden.
+              </p>
             </div>
 
             <div ref={bankDetailsRef} className="reveal reveal-delay-2 mt-10">

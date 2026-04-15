@@ -25,7 +25,7 @@ const NavBar = () => {
           </span>
           <a
             href="#spenden"
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-xs font-medium px-5 py-2 rounded-full transition-all duration-300 hover:scale-[1.04]"
+            className="inline-flex h-[52px] items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-xs font-medium px-5 py-0 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <Heart className="w-3.5 h-3.5" />
             Jetzt spenden

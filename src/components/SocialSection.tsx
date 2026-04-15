@@ -28,7 +28,7 @@ const SocialSection = () => {
             href="https://www.instagram.com/ditib_ahlen_projekte"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-3 bg-[#253e54] hover:bg-[#1e3345] text-white font-body text-sm font-medium px-9 py-4 rounded-full transition-all duration-300 hover:scale-[1.04]"
+            className="group inline-flex h-[52px] items-center justify-center gap-3 bg-[#253e54] hover:bg-[#1e3345] text-white font-body text-sm font-medium px-9 py-0 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <Instagram className="w-4 h-4" />
             Instagram
@@ -38,7 +38,7 @@ const SocialSection = () => {
             href="https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-3 bg-[#253e54] hover:bg-[#1e3345] text-white font-body text-sm font-medium px-9 py-4 rounded-full transition-all duration-300 hover:scale-[1.04]"
+            className="group inline-flex h-[52px] items-center justify-center gap-3 bg-[#253e54] hover:bg-[#1e3345] text-white font-body text-sm font-medium px-9 py-0 rounded-full transition-all duration-300 hover:scale-[1.04]"
           >
             <FacebookIcon />
             Facebook

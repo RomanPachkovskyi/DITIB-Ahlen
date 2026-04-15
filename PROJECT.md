@@ -1020,4 +1020,71 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 13:37 CEST (Codex)*
+### 2026-04-15 — Active global technical issues
+
+**Поточний список відкритих проблем після останньої перевірки**
+
+1. **PageSpeed / Lighthouse: `NO_LCP`**
+   - Поточні помилки:
+     - `Largest Contentful Paint — Error! / NO_LCP`;
+     - `Total Blocking Time — Error! / NO_LCP`.
+   - Важливо: це не звичайний повільний LCP, а ситуація, де Lighthouse не може визначити LCP-кандидат. Через це TBT також показує помилку.
+   - Останній виконаний крок:
+     - hero image зроблено стабільнішим для LCP;
+     - додано `960.webp` у preload/srcSet;
+     - прибрано transform-анімацію з LCP-зображення.
+   - Наступний технічний напрям:
+     - перевірити, чи `NO_LCP` спричинений повноекранним absolute/fixed hero layout, overlay, delayed/opacity-анімованим H1 або особливістю Lighthouse для першого viewport;
+     - рухатися маленькими контрольованими змінами з повторним PageSpeed-тестом після кожного deploy.
+
+2. **GA4 не надсилає сигнали**
+   - Користувач підтвердив: сайт точно не відправляє сигнали в GA4.
+   - Поточна реалізація:
+     - GA4 Measurement ID: `G-BM587Q3MEJ`;
+     - код підключення: `src/components/AnalyticsManager.tsx`;
+     - аналітика вмикається через cookie consent категорію `analytics`;
+     - використовується basic consent підхід, без завантаження GA4 до згоди.
+   - Наступний технічний напрям:
+     - перевірити, чи `AnalyticsManager` реально монтується у production;
+     - перевірити, чи consent state доходить до менеджера після натискання `Alle akzeptieren`;
+     - перевірити, чи `gtag/js` завантажується і чи викликаються `gtag("config")` та `gtag("event", "page_view")`;
+     - перевірити, чи не блокує відправку consent-mode логіка, adblock, CSP/server headers або доменна конфігурація GA4.
+
+**Порядок вирішення:** спочатку GA4 як критичний production tracking, потім `NO_LCP`, якщо користувач не задасть інший пріоритет.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 13:43 CEST
+
+---
+
+### 2026-04-15 — GA4 gtag repair
+
+**Сесія 22 — GA4 runtime chain fixed after consent**
+
+- Вирішено не переходити на Google Tag Manager head/body snippet:
+  - поточний ID `G-BM587Q3MEJ` є GA4 Measurement ID, не GTM container ID;
+  - для GA4 достатньо `gtag.js`;
+  - body/noscript snippet потрібен для GTM container, а не для чистого GA4 gtag.
+- Оновлено `src/components/AnalyticsManager.tsx`:
+  - `dataLayer` / `gtag` створюються перед consent/config викликами;
+  - `gtag("js")` і `gtag("config", "G-BM587Q3MEJ")` ставляться в правильному порядку лише коли analytics дозволено;
+  - ручний `page_view` відправляється тільки після завантаження `gtag.js`;
+  - до ручного `page_view` додано `send_to: "G-BM587Q3MEJ"`.
+- Локальна runtime-перевірка через Chrome після натискання `Alle akzeptieren`:
+  - `window["ga-disable-G-BM587Q3MEJ"] === false`;
+  - створюється script `https://www.googletagmanager.com/gtag/js?id=G-BM587Q3MEJ`;
+  - у `dataLayer` є `analytics_storage: "granted"`;
+  - у `dataLayer` є `config` для `G-BM587Q3MEJ`;
+  - у `dataLayer` є ручний `event: "page_view"` з `send_to: "G-BM587Q3MEJ"`.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - локальний Vite dev-server для тесту запускався на `127.0.0.1:8081` і після перевірки був зупинений.
+
+**Статус GA4:** кодовий ланцюг після consent виправлено локально; після deploy потрібно перевірити GA4 Realtime / DebugView без adblock і з очищеним consent/localStorage.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 13:49 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 13:49 CEST (Codex)*

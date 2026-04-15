@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useCookieConsent } from "@/hooks/use-cookie-consent";
 
@@ -18,6 +18,7 @@ const CLARITY_PROJECT_ID = "wbfipf9pd3";
 const CLARITY_SCRIPT_ID = "clarity-tag";
 const GA_SCRIPT_ID = "google-gtag";
 let googleAnalyticsInitialized = false;
+let googleAnalyticsJsInitialized = false;
 
 function ensureDataLayer() {
   window.dataLayer = window.dataLayer || [];
@@ -56,7 +57,7 @@ function setGoogleDisabled(disabled: boolean) {
 }
 
 function applyGoogleConsent(analyticsEnabled: boolean) {
-  if (!window.gtag) return;
+  ensureDataLayer();
 
   window.gtag("consent", "default", {
     ad_storage: "denied",
@@ -71,7 +72,11 @@ function applyGoogleConsent(analyticsEnabled: boolean) {
 
   window.gtag("set", "ads_data_redaction", true);
   window.gtag("set", "url_passthrough", true);
-  window.gtag("js", new Date());
+
+  if (analyticsEnabled && !googleAnalyticsJsInitialized) {
+    window.gtag("js", new Date());
+    googleAnalyticsJsInitialized = true;
+  }
 
   window.gtag("consent", "update", {
     ad_storage: "denied",
@@ -83,7 +88,7 @@ function applyGoogleConsent(analyticsEnabled: boolean) {
     security_storage: "granted",
   });
 
-  if (!googleAnalyticsInitialized) {
+  if (analyticsEnabled && !googleAnalyticsInitialized) {
     window.gtag("config", GA_MEASUREMENT_ID, {
       anonymize_ip: true,
       send_page_view: false,
@@ -147,6 +152,7 @@ function updateClarityConsent(analyticsEnabled: boolean) {
 const AnalyticsManager = () => {
   const { consent } = useCookieConsent();
   const location = useLocation();
+  const [googleAnalyticsReady, setGoogleAnalyticsReady] = useState(false);
   const lastTrackedPath = useRef<string | null>(null);
 
   useEffect(() => {
@@ -154,35 +160,36 @@ const AnalyticsManager = () => {
 
     if (analyticsEnabled) {
       setGoogleDisabled(false);
-      loadGoogleAnalytics(() => applyGoogleConsent(true));
+      applyGoogleConsent(true);
+      loadGoogleAnalytics(() => setGoogleAnalyticsReady(true));
       ensureClarityLoaded();
       updateClarityConsent(true);
       return;
     }
 
+    setGoogleAnalyticsReady(false);
     setGoogleDisabled(true);
-    if (window.gtag) {
-      applyGoogleConsent(false);
-    }
+    applyGoogleConsent(false);
     clearGoogleAnalyticsCookies();
     updateClarityConsent(false);
   }, [consent]);
 
   useEffect(() => {
     const analyticsEnabled = consent?.analytics ?? false;
-    if (!analyticsEnabled || !window.gtag) return;
+    if (!analyticsEnabled || !googleAnalyticsReady || !window.gtag) return;
 
     const pagePath = `${location.pathname}${location.search}`;
     if (lastTrackedPath.current === pagePath) return;
 
     window.gtag("event", "page_view", {
+      send_to: GA_MEASUREMENT_ID,
       page_title: document.title,
       page_location: `${window.location.origin}${pagePath}`,
       page_path: pagePath,
     });
 
     lastTrackedPath.current = pagePath;
-  }, [consent, location.pathname, location.search]);
+  }, [consent, googleAnalyticsReady, location.pathname, location.search]);
 
   return null;
 };

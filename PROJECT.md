@@ -1087,4 +1087,29 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 13:49 CEST (Codex)*
+### 2026-04-15 — Cookie modal mobile button height fix
+
+**Сесія 23 — Mobile cookie settings buttons restored to CTA style**
+
+- На mobile в модалці cookie consent кнопки `Auswahl speichern` / `Alle akzeptieren` виглядали як дуже тонкі смужки.
+- Причина:
+  - footer модалки має `flex flex-col` на mobile;
+  - кнопки мали `flex-1`;
+  - у column-layout `flex-1` задає `flex-basis: 0%` і перебиває очікувану `h-[52px]`.
+- Рішення в `src/components/CookieConsent.tsx`:
+  - для mobile кнопки отримали `w-full h-[52px]`;
+  - `flex-1` залишено тільки як `sm:flex-1` для горизонтального layout на ширших екранах;
+  - форма кнопок приведена до загального CTA-стилю через `rounded-full`.
+- Це застосовано до:
+  - кнопок у settings modal;
+  - кнопок у cookie banner.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - `npm test` — проходить.
+
+**Підпис:** Codex  
+**Дата/час:** 2026-04-15 15:23 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 15:23 CEST (Codex)*

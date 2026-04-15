@@ -90,24 +90,18 @@ const ParticipantItem = ({
   participant: ProjectParticipant;
   featured?: boolean;
 }) => (
-  <article
-    className={
-      featured
-        ? "grid gap-y-5 sm:grid-cols-[max-content_1fr] sm:items-start sm:gap-x-[30px]"
-        : "grid gap-y-4 sm:grid-cols-[max-content_1fr] sm:items-start sm:gap-x-[30px]"
-    }
-  >
+  <article className="flex flex-col items-center text-center gap-5">
     <div
       className={
         featured
-          ? "flex min-h-20 w-fit justify-self-center items-center justify-center bg-background sm:justify-self-start sm:justify-start"
-          : "flex min-h-14 w-fit justify-self-center items-center justify-center bg-background sm:justify-self-start sm:justify-start"
+          ? "flex min-h-20 w-fit items-center justify-center bg-background"
+          : "flex min-h-14 w-fit items-center justify-center bg-background"
       }
     >
       <LogoMark participant={participant} featured={featured} />
     </div>
 
-    <div className="text-center sm:text-left">
+    <div>
       <p className="font-body text-[10px] font-semibold uppercase tracking-[0.18em] text-[#253e54]">
         {participant.role}
       </p>

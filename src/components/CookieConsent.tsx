@@ -195,13 +195,13 @@ const CookieSettings = ({
         <div className="px-6 py-4 border-t border-border flex flex-col sm:flex-row gap-2 shrink-0">
           <button
             onClick={() => onSave(local)}
-            className="flex h-[52px] flex-1 items-center justify-center font-body text-sm font-medium px-5 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] w-full items-center justify-center font-body text-sm font-medium px-5 py-0 border border-border rounded-full text-foreground hover:bg-secondary transition-colors sm:flex-1"
           >
             Auswahl speichern
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex h-[52px] flex-1 items-center justify-center font-body text-sm font-medium px-5 py-0 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
+            className="flex h-[52px] w-full items-center justify-center font-body text-sm font-medium px-5 py-0 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors sm:flex-1"
           >
             Alle akzeptieren
           </button>
@@ -247,19 +247,19 @@ const CookieBanner = ({
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={onRejectAll}
-            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] w-full items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-full text-foreground hover:bg-secondary transition-colors sm:flex-1"
           >
             Nur Notwendige
           </button>
           <button
             onClick={onSettings}
-            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-xl text-foreground hover:bg-secondary transition-colors"
+            className="flex h-[52px] w-full items-center justify-center font-body text-xs font-medium px-4 py-0 border border-border rounded-full text-foreground hover:bg-secondary transition-colors sm:flex-1"
           >
             Einstellungen
           </button>
           <button
             onClick={onAcceptAll}
-            className="flex h-[52px] flex-1 items-center justify-center font-body text-xs font-medium px-4 py-0 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition-colors"
+            className="flex h-[52px] w-full items-center justify-center font-body text-xs font-medium px-4 py-0 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors sm:flex-1"
           >
             Alle akzeptieren
           </button>

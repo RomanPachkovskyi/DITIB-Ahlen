@@ -1,6 +1,57 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
+
+const HERO_POSTER =
+  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
+const HERO_IMAGE_SRCSET =
+  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, /img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w";
+
+const HERO_VIDEO_SOURCES = {
+  mobile: "/video/hero-720.mp4",
+  default: "/video/hero-1080.mp4",
+  vip: "/video/hero-2160.mp4",
+} as const;
+const HERO_PHOTO_HOLD_MS = 7000;
+const HERO_VIDEO_TO_PHOTO_FADE_LEAD_MS = 2200;
+const HERO_PHOTO_TO_VIDEO_FADE_MS = 1800;
+const HERO_VIDEO_TO_PHOTO_FADE_MS = 2600;
+
+type ConnectionInfo = {
+  effectiveType?: string;
+  saveData?: boolean;
+};
+
+const pickHeroVideoSource = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const connection = (navigator as Navigator & { connection?: ConnectionInfo }).connection;
+  const effectiveType = connection?.effectiveType;
+  const saveData = connection?.saveData;
+  const viewportWidth = window.innerWidth;
+  const pixelDensity = window.devicePixelRatio || 1;
+  const isSlowConnection =
+    effectiveType === "slow-2g" ||
+    effectiveType === "2g" ||
+    (effectiveType === "3g" && viewportWidth < 1024);
+
+  if (reducedMotion || saveData) {
+    return null;
+  }
+
+  if (viewportWidth < 768 || isSlowConnection) {
+    return HERO_VIDEO_SOURCES.mobile;
+  }
+
+  if (viewportWidth >= 1720 && pixelDensity >= 1.25 && effectiveType !== "3g") {
+    return HERO_VIDEO_SOURCES.vip;
+  }
+
+  return HERO_VIDEO_SOURCES.default;
+};
 
 const thumbnails = [
   {
@@ -17,9 +68,133 @@ const thumbnails = [
 
 const HeroSection = () => {
   const [activeThumb, setActiveThumb] = useState<number | null>(null);
+  const [videoSource, setVideoSource] = useState<string | null>(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const photoTimerRef = useRef<number | null>(null);
+  const hasStartedEndingFadeRef = useRef(false);
 
   useLockBodyScroll(activeThumb !== null);
+
+  useEffect(() => {
+    setVideoSource(pickHeroVideoSource());
+  }, []);
+
+  useEffect(() => {
+    if (!videoSource) {
+      return;
+    }
+
+    setIsVideoReady(false);
+    setShowVideo(false);
+
+    return () => {
+      if (photoTimerRef.current !== null) {
+        window.clearTimeout(photoTimerRef.current);
+        photoTimerRef.current = null;
+      }
+    };
+  }, [videoSource]);
+
+  useEffect(() => {
+    if (!videoSource || !isVideoReady || !videoRef.current) {
+      return;
+    }
+
+    const video = videoRef.current;
+
+    const startVideoCycle = () => {
+      hasStartedEndingFadeRef.current = false;
+      video.currentTime = 0;
+      setShowVideo(true);
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          setShowVideo(false);
+          setVideoSource(null);
+        });
+      }
+    };
+
+    const schedulePhotoDelay = () => {
+      if (photoTimerRef.current !== null) {
+        window.clearTimeout(photoTimerRef.current);
+      }
+
+      photoTimerRef.current = window.setTimeout(() => {
+        startVideoCycle();
+      }, HERO_PHOTO_HOLD_MS);
+    };
+
+    video.pause();
+    video.currentTime = 0;
+    hasStartedEndingFadeRef.current = false;
+    schedulePhotoDelay();
+
+    return () => {
+      if (photoTimerRef.current !== null) {
+        window.clearTimeout(photoTimerRef.current);
+        photoTimerRef.current = null;
+      }
+
+      video.pause();
+      video.currentTime = 0;
+      hasStartedEndingFadeRef.current = false;
+    };
+  }, [isVideoReady, videoSource]);
+
+  const handleVideoTimeUpdate = () => {
+    if (!videoRef.current || hasStartedEndingFadeRef.current) {
+      return;
+    }
+
+    const { currentTime, duration } = videoRef.current;
+    if (!Number.isFinite(duration) || duration <= 0) {
+      return;
+    }
+
+    const remainingMs = (duration - currentTime) * 1000;
+    if (remainingMs <= HERO_VIDEO_TO_PHOTO_FADE_LEAD_MS) {
+      hasStartedEndingFadeRef.current = true;
+      setShowVideo(false);
+    }
+  };
+
+  const handleVideoEnded = () => {
+    setShowVideo(false);
+    hasStartedEndingFadeRef.current = false;
+
+    if (!videoRef.current) {
+      return;
+    }
+
+    videoRef.current.pause();
+    videoRef.current.currentTime = 0;
+
+    if (photoTimerRef.current !== null) {
+      window.clearTimeout(photoTimerRef.current);
+    }
+
+    photoTimerRef.current = window.setTimeout(() => {
+      if (!videoRef.current) {
+        return;
+      }
+
+      hasStartedEndingFadeRef.current = false;
+      setShowVideo(true);
+
+      const playPromise = videoRef.current.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          setShowVideo(false);
+          setVideoSource(null);
+        });
+      }
+    }, HERO_PHOTO_HOLD_MS);
+  };
 
   return (
     <section
@@ -29,14 +204,49 @@ const HeroSection = () => {
     >
       {/* Keep the LCP image visually stable from the first paint. */}
       <div className="absolute inset-0">
+        {videoSource ? (
+          <video
+            ref={videoRef}
+            className="h-full w-full object-cover"
+            muted
+            playsInline
+            preload="auto"
+            poster={HERO_POSTER}
+            aria-hidden="true"
+            onCanPlay={() => setIsVideoReady(true)}
+            onError={() => setVideoSource(null)}
+            onEnded={handleVideoEnded}
+            onTimeUpdate={handleVideoTimeUpdate}
+          >
+            <source src={videoSource} type="video/mp4" />
+          </video>
+        ) : null}
+      </div>
+
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity ease-out ${showVideo ? "opacity-100" : "opacity-0"}`}
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
+          transitionDuration: `${HERO_VIDEO_TO_PHOTO_FADE_MS}ms`,
+        }}
+      />
+
+      <div
+        className={`absolute inset-0 transition-opacity ease-out ${showVideo ? "opacity-0" : "opacity-100"}`}
+        style={{
+          transitionDuration: showVideo
+            ? `${HERO_PHOTO_TO_VIDEO_FADE_MS}ms`
+            : `${HERO_VIDEO_TO_PHOTO_FADE_MS}ms`,
+        }}
+      >
         <picture className="block h-full w-full">
           <source
             type="image/webp"
-            srcSet="/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, /img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w"
+            srcSet={HERO_IMAGE_SRCSET}
             sizes="100vw"
           />
           <img
-            src="/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp"
+            src={HERO_POSTER}
             alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
             className="h-full w-full object-cover"
             width="960"

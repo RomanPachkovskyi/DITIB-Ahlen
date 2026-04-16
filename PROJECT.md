@@ -1130,4 +1130,52 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 15:30 CEST (Claude)*
+### 2026-04-15 — Mobile landscape guard з Lottie-іконкою
+
+**Сесія 25 — Portrait-only mobile UX**
+
+- Реалізовано заглушку для **мобільних телефонів у landscape-режимі**:
+  - у вертикальному mobile-режимі сайт працює як звичайно;
+  - на desktop/tablet заглушка не має з'являтися;
+  - при mobile landscape показується повноекранний overlay з фоном футера `#253e54`, білою анімованою іконкою та німецьким текстом `Bitte Smartphone drehen`.
+- Додано глобальний компонент `src/components/MobileLandscapeGuard.tsx`:
+  - підключений у `src/App.tsx` після `CookieConsent`;
+  - використовує `matchMedia` з умовою:
+    - `orientation: landscape`;
+    - `max-width: 960px`;
+    - `max-height: 520px`;
+    - `pointer: coarse`;
+  - має fallback на старий `MediaQueryList.addListener/removeListener`, щоб уникнути runtime-помилок у старіших mobile Safari/WebView.
+- Стилі додано в `src/index.css`:
+  - `.mobile-landscape-guard` за замовчуванням прихований;
+  - у mobile landscape стає `fixed inset-0 z-[9999]`;
+  - використовує `min-height: 100svh` і `env(safe-area-inset-*)` для телефонів з notch/safe area;
+  - Lottie-контейнер має розмір `8.5rem × 6.25rem`, бо оригінальний asset має горизонтальні пропорції.
+- Для анімації використано **окремо завантажений користувачем файл**:
+  - source: `workspace/Screen Rotate Right.json`;
+  - робоча копія в проєкті: `src/assets/screen-rotate-right.json`;
+  - файл є shape-only Lottie без solid/background layer, тому фон залишається прозорим і видно синій overlay.
+- Додано залежність `lottie-react`:
+  - потрібна тільки як Lottie-плеєр для `screen-rotate-right.json`;
+  - компонент підключає плеєр через `React.lazy`, тому runtime Lottie вантажиться тільки коли guard реально активний.
+- Прибрано невдалі проміжні варіанти:
+  - саморобний `rotate-phone-lottie.json` видалено;
+  - старі CSS/SVG animation класи для `mobile-guard-phone`, `mobile-guard-arrow`, `mobile-landscape-guard__icon` не залишились;
+  - виконано `npm prune` локально і в Docker-контейнері.
+- Важливий dev-нюанс:
+  - локальний сайт на `localhost:8080` працює через Docker (`/app/node_modules`);
+  - після додавання `lottie-react` потрібно було виконати `docker compose exec web npm install`, бо host `node_modules` і container `/app/node_modules` розділені volume.
+- **Перевірка:**
+  - `npm run build` — проходить;
+  - Docker dev server віддає `src/components/MobileLandscapeGuard.tsx` з `200 OK`;
+  - свіжий production build створено о `2026-04-15 17:08:57 CEST`;
+  - актуальні build assets: `dist/assets/index-C8iXYWvT.js` і `dist/assets/index-Dou8-wmR.css`.
+- **Примітка:**
+  - під час build `lottie-web` показує стандартне попередження про `eval` у самому пакеті; збірку це не ламає.
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-15 17:14 CEST
+
+---
+
+*Документ оновлено: 2026-04-15 17:14 CEST (Codex)*

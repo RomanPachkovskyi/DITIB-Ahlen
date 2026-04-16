@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { X, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
@@ -9,13 +9,20 @@ const images = [
   { src: "/img/ditib-ahlen-grundriss-obergeschoss.jpg", alt: "Grundriss Obergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
   { src: "/img/ditib-ahlen-grundriss-kellergeschoss.jpg", alt: "Grundriss Kellergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
   { src: "/img/ditib-ahlen-freiflaechenplan.jpg", alt: "Freiflaechenplan - Aussenbereich und Gruenflaeche des DiTiB-Ahlen-Zentrums", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg", alt: "Gebaeudeschnitt - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg", alt: "Gebaeudeschnitt - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1", hideOnMobile: true },
 ];
+const GALLERY_VIDEO_SRC = "/video/hero-1080.mp4";
+const GALLERY_VIDEO_POSTER =
+  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
 
 const ImageGallery = () => {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoHovered, setIsVideoHovered] = useState(false);
   const headerRef = useScrollReveal();
   const gridRef = useScrollReveal({ threshold: 0.04 });
+  const videoRef = useScrollReveal({ threshold: 0.12 });
+  const videoElementRef = useRef<HTMLVideoElement>(null);
 
   useLockBodyScroll(lightbox !== null);
 
@@ -23,6 +30,16 @@ const ImageGallery = () => {
   const close = () => setLightbox(null);
   const prev = () => setLightbox((i) => (i !== null ? (i - 1 + images.length) % images.length : null));
   const next = () => setLightbox((i) => (i !== null ? (i + 1) % images.length : null));
+  const toggleVideoPlayback = () => {
+    if (!videoElementRef.current) return;
+
+    if (videoElementRef.current.paused) {
+      void videoElementRef.current.play();
+      return;
+    }
+
+    videoElementRef.current.pause();
+  };
 
   useEffect(() => {
     if (lightbox === null) return;
@@ -36,7 +53,10 @@ const ImageGallery = () => {
   }, [lightbox]);
 
   return (
-    <section className="py-16 md:py-24" style={{ backgroundColor: "#253e54" }}>
+    <section
+      className="relative overflow-visible px-0 pt-16 pb-[calc(7.5rem+50px)] md:pt-24 md:pb-[22rem]"
+      style={{ backgroundColor: "#253e54" }}
+    >
       {/* Header */}
       <div ref={headerRef} className="reveal px-5 md:px-10 mb-10">
         <div className="max-w-5xl mx-auto">
@@ -55,7 +75,7 @@ const ImageGallery = () => {
             <div
               key={i}
               onClick={() => open(i)}
-              className={`${image.span} rounded-xl overflow-hidden group relative cursor-pointer border-2 border-white/10 hover:border-white/50 transition-all duration-300 hover:scale-[1.01] shadow-md hover:shadow-xl`}
+              className={`${image.span} ${image.hideOnMobile ? "hidden md:block" : ""} rounded-xl overflow-hidden group relative cursor-pointer border-2 border-white/10 hover:border-white/50 transition-all duration-300 hover:scale-[1.01] shadow-md hover:shadow-xl`}
             >
               <img
                 src={image.src}
@@ -65,6 +85,54 @@ const ImageGallery = () => {
               />
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-[calc(50%-30px)] px-4 md:translate-y-[50%] md:px-6">
+        <div
+          ref={videoRef}
+          className="pointer-events-auto reveal reveal-delay-2 mx-auto w-full max-w-[960px]"
+        >
+          <div
+            className="group relative overflow-hidden rounded-xl bg-black shadow-[0_28px_60px_rgba(0,0,0,0.28)]"
+            onMouseEnter={() => setIsVideoHovered(true)}
+            onMouseLeave={() => setIsVideoHovered(false)}
+          >
+            <video
+              ref={videoElementRef}
+              className="block h-full w-full aspect-video object-cover"
+              controls
+              controlsList="nodownload noplaybackrate noremoteplayback"
+              disablePictureInPicture
+              playsInline
+              preload="metadata"
+              poster={GALLERY_VIDEO_POSTER}
+              onPlay={() => setIsVideoPlaying(true)}
+              onPause={() => setIsVideoPlaying(false)}
+              onEnded={() => setIsVideoPlaying(false)}
+            >
+              <source src={GALLERY_VIDEO_SRC} type="video/mp4" />
+            </video>
+
+            <div
+              className={`pointer-events-none absolute inset-0 hidden items-center justify-center bg-black/10 transition-opacity duration-200 md:flex ${
+                !isVideoPlaying || isVideoHovered ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <button
+                type="button"
+                aria-label={isVideoPlaying ? "Video pausieren" : "Video abspielen"}
+                onClick={toggleVideoPlayback}
+                className="pointer-events-auto flex h-20 w-20 items-center justify-center rounded-full bg-black/50 text-white shadow-lg transition-transform duration-200 hover:scale-105"
+              >
+                {isVideoPlaying ? (
+                  <Pause className="h-9 w-9" fill="currentColor" />
+                ) : (
+                  <Play className="ml-1 h-9 w-9" fill="currentColor" />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

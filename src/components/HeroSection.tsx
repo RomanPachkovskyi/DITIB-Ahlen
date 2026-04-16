@@ -16,6 +16,7 @@ const HERO_PHOTO_HOLD_MS = 7000;
 const HERO_VIDEO_TO_PHOTO_FADE_LEAD_MS = 2200;
 const HERO_PHOTO_TO_VIDEO_FADE_MS = 1800;
 const HERO_VIDEO_TO_PHOTO_FADE_MS = 2600;
+const HERO_PLAY_RETRY_MS = 2500;
 
 type ConnectionInfo = {
   effectiveType?: string;
@@ -69,11 +70,11 @@ const thumbnails = [
 const HeroSection = () => {
   const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const [videoSource, setVideoSource] = useState<string | null>(null);
-  const [isVideoReady, setIsVideoReady] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoTimerRef = useRef<number | null>(null);
+  const playRetryTimerRef = useRef<number | null>(null);
   const hasStartedEndingFadeRef = useRef(false);
 
   useLockBodyScroll(activeThumb !== null);
@@ -87,7 +88,6 @@ const HeroSection = () => {
       return;
     }
 
-    setIsVideoReady(false);
     setShowVideo(false);
 
     return () => {
@@ -95,56 +95,75 @@ const HeroSection = () => {
         window.clearTimeout(photoTimerRef.current);
         photoTimerRef.current = null;
       }
+
+      if (playRetryTimerRef.current !== null) {
+        window.clearTimeout(playRetryTimerRef.current);
+        playRetryTimerRef.current = null;
+      }
     };
   }, [videoSource]);
 
   useEffect(() => {
-    if (!videoSource || !isVideoReady || !videoRef.current) {
+    if (!videoSource || !videoRef.current) {
       return;
     }
 
     const video = videoRef.current;
 
-    const startVideoCycle = () => {
+    const clearTimers = () => {
+      if (photoTimerRef.current !== null) {
+        window.clearTimeout(photoTimerRef.current);
+        photoTimerRef.current = null;
+      }
+
+      if (playRetryTimerRef.current !== null) {
+        window.clearTimeout(playRetryTimerRef.current);
+        playRetryTimerRef.current = null;
+      }
+    };
+
+    const attemptStartVideo = () => {
       hasStartedEndingFadeRef.current = false;
+      setShowVideo(false);
       video.currentTime = 0;
-      setShowVideo(true);
 
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === "function") {
         playPromise.catch(() => {
           setShowVideo(false);
-          setVideoSource(null);
+
+          if (playRetryTimerRef.current !== null) {
+            window.clearTimeout(playRetryTimerRef.current);
+          }
+
+          playRetryTimerRef.current = window.setTimeout(() => {
+            attemptStartVideo();
+          }, HERO_PLAY_RETRY_MS);
         });
       }
     };
 
     const schedulePhotoDelay = () => {
-      if (photoTimerRef.current !== null) {
-        window.clearTimeout(photoTimerRef.current);
-      }
+      clearTimers();
 
       photoTimerRef.current = window.setTimeout(() => {
-        startVideoCycle();
+        attemptStartVideo();
       }, HERO_PHOTO_HOLD_MS);
     };
 
+    video.load();
     video.pause();
     video.currentTime = 0;
     hasStartedEndingFadeRef.current = false;
     schedulePhotoDelay();
 
     return () => {
-      if (photoTimerRef.current !== null) {
-        window.clearTimeout(photoTimerRef.current);
-        photoTimerRef.current = null;
-      }
-
+      clearTimers();
       video.pause();
       video.currentTime = 0;
       hasStartedEndingFadeRef.current = false;
     };
-  }, [isVideoReady, videoSource]);
+  }, [videoSource]);
 
   const handleVideoTimeUpdate = () => {
     if (!videoRef.current || hasStartedEndingFadeRef.current) {
@@ -178,22 +197,44 @@ const HeroSection = () => {
       window.clearTimeout(photoTimerRef.current);
     }
 
+    if (playRetryTimerRef.current !== null) {
+      window.clearTimeout(playRetryTimerRef.current);
+      playRetryTimerRef.current = null;
+    }
+
     photoTimerRef.current = window.setTimeout(() => {
       if (!videoRef.current) {
         return;
       }
 
       hasStartedEndingFadeRef.current = false;
-      setShowVideo(true);
+      setShowVideo(false);
+      videoRef.current.currentTime = 0;
 
       const playPromise = videoRef.current.play();
       if (playPromise && typeof playPromise.catch === "function") {
         playPromise.catch(() => {
           setShowVideo(false);
-          setVideoSource(null);
+
+          playRetryTimerRef.current = window.setTimeout(() => {
+            if (!videoRef.current) {
+              return;
+            }
+
+            const retryPromise = videoRef.current.play();
+            if (retryPromise && typeof retryPromise.catch === "function") {
+              retryPromise.catch(() => {
+                setShowVideo(false);
+              });
+            }
+          }, HERO_PLAY_RETRY_MS);
         });
       }
     }, HERO_PHOTO_HOLD_MS);
+  };
+
+  const handleVideoPlaying = () => {
+    setShowVideo(true);
   };
 
   return (
@@ -213,7 +254,7 @@ const HeroSection = () => {
             preload="auto"
             poster={HERO_POSTER}
             aria-hidden="true"
-            onCanPlay={() => setIsVideoReady(true)}
+            onPlaying={handleVideoPlaying}
             onError={() => setVideoSource(null)}
             onEnded={handleVideoEnded}
             onTimeUpdate={handleVideoTimeUpdate}

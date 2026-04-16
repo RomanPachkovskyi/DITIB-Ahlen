@@ -80,6 +80,11 @@
 
 ## Хронологія змін
 
+Правило ведення цього журналу:
+- нові записи додаються строго в кінець секції `Хронологія змін`
+- порядок читання завжди зверху вниз: від старіших записів до новіших
+- службові секції `Поточний стан`, `Ключові файли`, `Команди`, `Контакти` мають бути тільки після завершення всієї хронології
+
 ### 2025-01-01 — Ініціалізація
 
 - Базовий шаблон: `vite_react_shadcn_ts` (commit `95d05da`)
@@ -336,103 +341,6 @@
 
 ---
 
-## Поточний стан (2026-04-15)
-
-### ✅ Готово
-- [x] 13 React компонентів — повністю реалізовано
-- [x] Реальні фото (6) та PDF (10)
-- [x] Scroll-анімації по всіх секціях (Hero-крива easing)
-- [x] Docker (multi-stage build + nginx)
-- [x] Apache `.htaccess`
-- [x] SEO: JSON-LD × 7, OG (jpg+png), favicons, robots, sitemap, llms.txt
-- [x] Impressum + Datenschutz (реальні дані: Ali Koca, VR 50380)
-- [x] Cookie Consent + DSGVO (self-hosted fonts, localStorage, §25 TDDDG)
-- [x] Git clean history (без Claude attribution)
-- [x] Дизайн-система: Inter Black, rounded-full кнопки, #253e54 бренд-колір
-- [x] ProjectPartners: 2 головні учасники + 3 партнери (DITIB, Theismann, Munas-Print, 8media, ASK Ahlen)
-- [x] Desktop donation card: QR-код PayPal + IBAN
-- [x] llms.txt оновлено: ціль 5M, культурний центр (не мечеть)
-- [x] Prod fixes: scroll lock для модалок/lightbox, cookie widget під overlay, action-кнопки `h-[52px]`
-
-### 🚀 До запуску на хостинг
-- [ ] Домен + DNS (A-record)
-- [ ] SSL (Let's Encrypt / Certbot)
-- [ ] Замінити числа: 2 340 000 € / 1 847 донорів — на актуальні перед запуском
-- [ ] Build → `dist/` (командою `npm run build`)
-
----
-
-## Ключові файли
-
-```
-src/
-├── components/
-│   ├── HeroSection.tsx          — головне фото + лого + CTA
-│   ├── ProjectIntro.tsx         — текстовий опис проекту
-│   ├── VisionSection.tsx        — 3 картки (Bildung/Begegnung/Gebet)
-│   ├── ImageGallery.tsx         — 6 фото grid
-│   ├── ProjectPartners.tsx      — Projektbeteiligte: 2 головні учасники + 3 партнери, data-driven layout
-│   ├── PDFDownloadSection.tsx   — 10 PDF для завантаження
-│   ├── DonationProgress.tsx     — прогрес бар + CountUp + CTA
-│   ├── SocialSection.tsx        — Instagram CTA
-│   ├── FinalCTA.tsx             — фінальна кнопка
-│   ├── Footer.tsx               — Impressum / Datenschutz / Kontakt modal
-│   ├── NavBar.tsx               — sticky header (з'являється після 60% vh)
-│   ├── StickyDonateBar.tsx      — primary bg, біла кнопка, зникає біля FinalCTA
-│   ├── CookieConsent.tsx        — Banner + Settings + Widget (Shield icon, зліва)
-│   └── Modal.tsx                — базовий modal (scroll lock, ESC, focus trap)
-├── hooks/
-│   ├── use-scroll-reveal.ts     — IntersectionObserver для анімацій
-│   ├── use-count-up.ts          — анімований лічильник чисел
-│   ├── use-cookie-consent.ts    — стан consent (localStorage)
-│   └── use-lock-body-scroll.ts  — scroll lock для modal/lightbox overlay з миттєвим restore позиції
-├── index.css                    — токени + .reveal + .reveal-stagger
-└── main.tsx                     — @fontsource imports (self-hosted)
-
-public/
-├── img/                         — фото + лого (ditib, theismann, og-image)
-├── pdf/                         — 10 архітектурних PDF
-├── robots.txt                   — SEO + AI crawlers config
-├── sitemap.xml                  — 1 URL, priority 1.0
-├── llms.txt                     — AI knowledge base (EN/DE/TR)
-├── favicon.svg / favicon.png    — фавіконки
-└── .htaccess                    — Apache production config
-
-Dockerfile                       — node:20-alpine build → nginx:alpine serve
-nginx.conf                       — gzip, cache, SPA fallback, PDF headers
-```
-
----
-
-## Команди
-
-```bash
-# Dev
-npm run dev              # Vite dev server
-
-# Build
-npm run build            # → dist/ (для хостингу)
-
-# Docker (локальний preview)
-docker compose up --build   # http://localhost:8080
-
-# Git
-git log --oneline | head -20
-```
-
----
-
-## Контакти
-
-| Роль | Контакт |
-|------|---------|
-| Bauherr | DITIB Ahlen, Rottmannstr. 62, 59229 Ahlen, +49 2382 61599, info@ditib-ahlen-projekte.de |
-| Architektur | Ingenieurbüro Theismann & Partner, Nordstraße 29, 59227 Ahlen, +49 2382 85050, info@theismannundpartner.de |
-| Web dev | Munas-Print, https://munas-print.de/ |
-| Medienpartner | 8media — Videoproduktion |
-| Projektpartner | ASK Ahlen |
-
----
 
 ### 2026-04-13 — PayPal icon refinement
 
@@ -1178,4 +1086,188 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-15 17:14 CEST (Codex)*
+### 2026-04-16 — Hero video background, adaptive quality, cyclic playback
+
+**Сесія 26 — Hero video rollout for local review and production build**
+
+- У `HeroSection` реалізовано фонове відео з адаптивним вибором якості:
+  - `720p` для mobile / слабшої мережі;
+  - `1080p` як основний desktop-варіант;
+  - `2160p` як `vip`-режим для великих екранів і доброго з'єднання.
+- Базова логіка Hero змінена з image-only на цикл `photo → video → photo`:
+  - стартовий LCP-кадр лишається фото;
+  - фото тримається `7 сек`, поки відео готове у фоні;
+  - після паузи фото плавно зникає, а відео стартує саме з `0:00`, без прихованого програвання під фото;
+  - відео програється один раз без нескінченного `loop`;
+  - перед фіналом ролика фото починає повертатись завчасно, щоб не було видно застиглий останній кадр;
+  - після завершення ролика фото знову лишається на `7 сек`, і цикл повторюється.
+- Відео відтворюється як чистий hero background:
+  - без `controls`;
+  - `muted`;
+  - `playsInline`;
+  - preload у фоні для м'якого старту.
+- Для самого відео додано окреме додаткове затемнення:
+  - поверх відео, але під фото та контентом;
+  - `20%` чорний overlay;
+  - базовий градієнт Hero при цьому збережено окремим шаром без змін.
+- Переходи Hero відполіровано під м'якіший cinematic rhythm:
+  - `photo → video` fade сповільнено;
+  - `video → photo` fade зроблено ще повільнішим;
+  - повернення фото починається приблизно за `2.2 сек` до кінця відео.
+- У проєкт додано нові runtime-відео для Hero:
+  - `public/video/hero-720.mp4`;
+  - `public/video/hero-1080.mp4`;
+  - `public/video/hero-2160.mp4`.
+- Старі коротші Hero-відео з `public/video` видалено й замінено на нові `30sec` версії, підготовлені користувачем у `workspace/video/30sec/`.
+- Локальна перевірка:
+  - тимчасово піднімався окремий Vite dev-server на `127.0.0.1:8081`, щоб перевірити віддачу нових mp4;
+  - підтверджено, що `hero-720.mp4`, `hero-1080.mp4` і `hero-2160.mp4` коректно віддаються як `video/mp4`;
+  - поточний локальний `:8080` потребував рестарту, щоб підхопити нову папку `public/video`.
+- Продакшн-збірка:
+  - `npm run build` — проходить;
+  - build успішний;
+  - лишається стандартне non-blocking попередження від `lottie-web` про `eval` у сторонньому пакеті, без впливу на результат.
+- Окремо зафіксовано deploy-нотатки для FTP:
+  - cookies не ламаються від повного перезаливу файлів самі по собі;
+  - ризик стосується не cookie, а cache consistency;
+  - безпечніше спершу заливати нові assets, а `index.html` оновлювати останнім, замість схеми `видалити все → залити заново`.
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-16 11:30 CEST
+
+---
+
+### 2026-04-16 — Impressionen video overlay + mobile polish
+
+**Сесія 27 — Відео на стику секцій, mobile cleanup**
+
+- У секцію `ImageGallery` додано відеоблок під фотосіткою:
+  - відео центроване, `1080p`, з `controls`, poster і light shadow
+  - блок сидить на стику між `Impressionen` і `ProjectPartners`
+  - розмір відео вирівняно під великий візуальний акцент галереї
+- Для desktop додано великий центрований `play/pause` overlay у стилі YouTube:
+  - кнопка з'являється на hover
+  - під час програвання ховається, якщо немає hover
+- Для mobile кастомний overlay `play/pause` прибрано:
+  - залишено нативні телефонні контролі, щоб уникнути накладання з iPhone/Android UI
+  - це прийнято як основне рішення для мобільного UX
+- У нативного відеоплеєра вимкнено зайві функції:
+  - `download`
+  - зміна швидкості програвання
+  - `picture-in-picture`
+- Відео приведено до стилю фотокарток:
+  - однакове заокруглення з photo-grid
+  - прибрано окрему обводку
+- Мобільну композицію кілька разів підганяли по реальному скріну з `iPhone 14 Pro Max`:
+  - останнє фото у `ImageGallery` приховано на mobile
+  - відео піднято на mobile на `30px`
+  - мобільні відстані над і під відео зменшено вдвічі від попереднього oversized-стану
+  - після цього ще додано сумарно `+50px` між фото і відео на mobile, щоб ролик не налазив на grid
+  - контент `ProjectPartners` додатково опущено для чистішого стику з відео
+- Кілька разів виконано production build після коригувань; фінальний стан збирається успішно.
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-16 11:56 CEST
+
+---
+
+## Поточний стан (2026-04-16)
+
+### ✅ Готово
+- [x] 13 React компонентів — повністю реалізовано
+- [x] Реальні фото (6) та PDF (10)
+- [x] Scroll-анімації по всіх секціях (Hero-крива easing)
+- [x] Docker (multi-stage build + nginx)
+- [x] Apache `.htaccess`
+- [x] SEO: JSON-LD × 7, OG (jpg+png), favicons, robots, sitemap, llms.txt
+- [x] Impressum + Datenschutz (реальні дані: Ali Koca, VR 50380)
+- [x] Cookie Consent + DSGVO (self-hosted fonts, localStorage, §25 TDDDG)
+- [x] Git clean history (без Claude attribution)
+- [x] Дизайн-система: Inter Black, rounded-full кнопки, #253e54 бренд-колір
+- [x] ProjectPartners: 2 головні учасники + 3 партнери (DITIB, Theismann, Munas-Print, 8media, ASK Ahlen)
+- [x] Desktop donation card: QR-код PayPal + IBAN
+- [x] llms.txt оновлено: ціль 5M, культурний центр (не мечеть)
+- [x] Prod fixes: scroll lock для модалок/lightbox, cookie widget під overlay, action-кнопки `h-[52px]`
+- [x] `ImageGallery`: відео на стику секцій + desktop overlay play/pause + mobile-native controls без кастомної кнопки
+
+### 🚀 До запуску на хостинг
+- [ ] Домен + DNS (A-record)
+- [ ] SSL (Let's Encrypt / Certbot)
+- [ ] Замінити числа: 2 340 000 € / 1 847 донорів — на актуальні перед запуском
+- [ ] Build → `dist/` (командою `npm run build`)
+
+---
+
+## Ключові файли
+
+```text
+src/
+├── components/
+│   ├── HeroSection.tsx          — головне фото + лого + CTA
+│   ├── ProjectIntro.tsx         — текстовий опис проекту
+│   ├── VisionSection.tsx        — 3 картки (Bildung/Begegnung/Gebet)
+│   ├── ImageGallery.tsx         — фото-grid + відео на стику секцій, lightbox, mobile/video behavior
+│   ├── ProjectPartners.tsx      — Projektbeteiligte: 2 головні учасники + 3 партнери, data-driven layout, відіграє роль нижнього стику з відео
+│   ├── PDFDownloadSection.tsx   — 10 PDF для завантаження
+│   ├── DonationProgress.tsx     — прогрес бар + CountUp + CTA
+│   ├── SocialSection.tsx        — Instagram CTA
+│   ├── FinalCTA.tsx             — фінальна кнопка
+│   ├── Footer.tsx               — Impressum / Datenschutz / Kontakt modal
+│   ├── NavBar.tsx               — sticky header (з'являється після 60% vh)
+│   ├── StickyDonateBar.tsx      — primary bg, біла кнопка, зникає біля FinalCTA
+│   ├── CookieConsent.tsx        — Banner + Settings + Widget (Shield icon, зліва)
+│   └── Modal.tsx                — базовий modal (scroll lock, ESC, focus trap)
+├── hooks/
+│   ├── use-scroll-reveal.ts     — IntersectionObserver для анімацій
+│   ├── use-count-up.ts          — анімований лічильник чисел
+│   ├── use-cookie-consent.ts    — стан consent (localStorage)
+│   └── use-lock-body-scroll.ts  — scroll lock для modal/lightbox overlay з миттєвим restore позиції
+├── index.css                    — токени + .reveal + .reveal-stagger
+└── main.tsx                     — @fontsource imports (self-hosted)
+
+public/
+├── img/                         — фото + лого (ditib, theismann, og-image)
+├── pdf/                         — 10 архітектурних PDF
+├── robots.txt                   — SEO + AI crawlers config
+├── sitemap.xml                  — 1 URL, priority 1.0
+├── llms.txt                     — AI knowledge base (EN/DE/TR)
+├── favicon.svg / favicon.png    — фавіконки
+└── .htaccess                    — Apache production config
+
+Dockerfile                       — node:20-alpine build → nginx:alpine serve
+nginx.conf                       — gzip, cache, SPA fallback, PDF headers
+```
+
+---
+
+## Команди
+
+```bash
+# Dev
+npm run dev              # Vite dev server
+
+# Build
+npm run build            # → dist/ (для хостингу)
+
+# Docker (локальний preview)
+docker compose up --build   # http://localhost:8080
+
+# Git
+git log --oneline | head -20
+```
+
+---
+
+## Контакти
+
+| Роль | Контакт |
+|------|---------|
+| Bauherr | DITIB Ahlen, Rottmannstr. 62, 59229 Ahlen, +49 2382 61599, info@ditib-ahlen-projekte.de |
+| Architektur | Ingenieurbüro Theismann & Partner, Nordstraße 29, 59227 Ahlen, +49 2382 85050, info@theismannundpartner.de |
+| Web dev | Munas-Print, https://munas-print.de/ |
+| Medienpartner | 8media — Videoproduktion |
+| Projektpartner | ASK Ahlen |
+
+---
+
+*Документ оновлено: 2026-04-16 11:56 CEST (Codex)*

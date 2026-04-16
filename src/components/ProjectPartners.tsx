@@ -129,7 +129,7 @@ const ProjectPartners = () => {
   const partnersRef = useScrollReveal({ threshold: 0.08 });
 
   return (
-    <section className="px-5 py-16 md:px-10 md:py-24">
+    <section className="relative z-0 px-5 pt-[8.5rem] pb-16 md:px-10 md:pt-[22rem] md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div ref={headerRef} className="reveal mb-12">
           <p className="section-label mb-4">— Projektbeteiligte</p>

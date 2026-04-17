@@ -2,21 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { assetUrl } from "@/lib/asset-url";
 import { useLang } from "@/i18n/useLang";
 
 // Static image metadata — src/span/visibility never change between languages
 const IMAGE_META = [
-  { src: "/img/ditib-ahlen-aussenansicht-west.jpg",        span: "col-span-2 row-span-2" },
-  { src: "/img/ditib-ahlen-grundriss-erdgeschoss.jpg",     span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-grundriss-obergeschoss.jpg",    span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-grundriss-kellergeschoss.jpg",  span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-freiflaechenplan.jpg",          span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg",           span: "col-span-1 row-span-1", hideOnMobile: true },
+  { src: assetUrl("/img/ditib-ahlen-aussenansicht-west.jpg"),       span: "col-span-2 row-span-2" },
+  { src: assetUrl("/img/ditib-ahlen-grundriss-erdgeschoss.jpg"),    span: "col-span-1 row-span-1" },
+  { src: assetUrl("/img/ditib-ahlen-grundriss-obergeschoss.jpg"),   span: "col-span-1 row-span-1" },
+  { src: assetUrl("/img/ditib-ahlen-grundriss-kellergeschoss.jpg"), span: "col-span-1 row-span-1" },
+  { src: assetUrl("/img/ditib-ahlen-freiflaechenplan.jpg"),         span: "col-span-1 row-span-1" },
+  { src: assetUrl("/img/ditib-ahlen-gebaeudeschnitt.jpg"),          span: "col-span-1 row-span-1", hideOnMobile: true },
 ] as const;
 
-const GALLERY_VIDEO_SRC = "/video/hero-1080.mp4";
+const GALLERY_VIDEO_SRC = assetUrl("/video/hero-1080.mp4");
 const GALLERY_VIDEO_POSTER =
-  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
+  assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp");
 
 const ImageGallery = () => {
   const { t } = useLang();

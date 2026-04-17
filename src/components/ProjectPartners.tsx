@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { assetUrl } from "@/lib/asset-url";
 import { useLang } from "@/i18n/useLang";
 import askLogo from "@/assets/ASK-logo.png";
 import eightMediaLogo from "@/assets/8media-logo.png";
@@ -95,14 +96,14 @@ const ProjectPartners = () => {
       role: t.partners.mainRole1,
       name: "DITIB - Ahlen (Westf.)",
       subtitle: "Türkisch Islamische Gemeinde zu Ahlen e.V.",
-      logo: "/img/ditib-ahlen-logo.png",
+      logo: assetUrl("/img/ditib-ahlen-logo.png"),
       logoAlt: "Logo der DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
     },
     {
       role: t.partners.mainRole2,
       name: "Ingenieurbüro Theismann & Partner",
       subtitle: "Dipl.-Ing. Bernd Theismann",
-      logo: "/img/ingenieurbuero-theismann-partner-logo.jpg",
+      logo: assetUrl("/img/ingenieurbuero-theismann-partner-logo.jpg"),
       logoAlt: "Logo des Ingenieurbüros Theismann und Partner, Entwurfsverfasser und Tragwerksplanung",
     },
   ];

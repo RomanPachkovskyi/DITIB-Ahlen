@@ -1,18 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
+import { assetUrl } from "@/lib/asset-url";
 import { useLang } from "@/i18n/useLang";
 import { LangSwitcher } from "@/components/LangSwitcher";
 
 const HERO_POSTER =
-  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
+  assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp");
 const HERO_IMAGE_SRCSET =
-  "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, /img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, /img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, /img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w";
+  [
+    `${assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp")} 960w`,
+    `${assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp")} 1280w`,
+    `${assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp")} 1920w`,
+    `${assetUrl("/img/ditib-ahlen-bildungs-begegnungszentrum.webp")} 2400w`,
+  ].join(", ");
 
 const HERO_VIDEO_SOURCES = {
-  mobile: "/video/hero-720.mp4",
-  default: "/video/hero-1080.mp4",
-  vip: "/video/hero-2160.mp4",
+  mobile: assetUrl("/video/hero-720.mp4"),
+  default: assetUrl("/video/hero-1080.mp4"),
+  vip: assetUrl("/video/hero-2160.mp4"),
 } as const;
 const HERO_PHOTO_HOLD_MS = 7000;
 const HERO_VIDEO_TO_PHOTO_FADE_LEAD_MS = 2200;
@@ -22,8 +28,8 @@ const HERO_PLAY_RETRY_MS = 2500;
 
 // Static image URLs — never change between languages
 const THUMB_SRCS = [
-  "/img/ditib-ahlen-aussenansicht-west.jpg",
-  "/img/ditib-ahlen-fassadenansicht.jpg",
+  assetUrl("/img/ditib-ahlen-aussenansicht-west.jpg"),
+  assetUrl("/img/ditib-ahlen-fassadenansicht.jpg"),
 ] as const;
 
 type ConnectionInfo = {
@@ -295,7 +301,7 @@ const HeroSection = () => {
             width="960"
             height="540"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
             loading="eager"
           />
         </picture>

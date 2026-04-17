@@ -3,7 +3,10 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig(() => ({
+const SITE_ORIGIN = "https://ditib-ahlen-projekte.de";
+
+export default defineConfig(({ mode }) => ({
+  base: mode === "production" ? `${SITE_ORIGIN}/` : "/",
   server: {
     host: "::",
     port: 8080,

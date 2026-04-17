@@ -22,7 +22,12 @@ const CleanInitialHash = () => {
 
 const App = () => (
   <HelmetProvider>
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <CleanInitialHash />
       <AnalyticsManager />
       <Routes>

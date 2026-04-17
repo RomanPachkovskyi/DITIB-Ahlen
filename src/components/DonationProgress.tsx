@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useCountUp } from "@/hooks/use-count-up";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { assetUrl } from "@/lib/asset-url";
 import { useLang } from "@/i18n/useLang";
 
 const GOAL = 5_000_000;
@@ -175,7 +176,7 @@ const DonationProgress = () => {
               className="block transition-transform duration-300 hover:scale-[1.02]"
             >
               <img
-                src="/img/ditib-ahlen-paypal-spenden-qr.png"
+                src={assetUrl("/img/ditib-ahlen-paypal-spenden-qr.png")}
                 alt={t.donation.qrAlt}
                 className="block w-[170px] h-auto"
                 loading="lazy"

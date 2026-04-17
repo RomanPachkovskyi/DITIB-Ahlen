@@ -58,8 +58,8 @@ const StickyDonateBar = () => {
     >
       <div className="bg-primary">
         <div className="max-w-5xl mx-auto px-4 md:px-10 h-16 flex items-center justify-between md:justify-center gap-3">
-          <div className="md:hidden shrink-0 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-white backdrop-blur-sm">
-            <LangSwitcher className="text-[13px] font-semibold tracking-[0.08em] text-white" />
+          <div className="md:hidden shrink-0 h-11 rounded-full border border-white/20 bg-white/10 px-4 text-white backdrop-blur-sm">
+            <LangSwitcher className="h-full items-center gap-2 text-sm font-semibold tracking-[0.08em] text-white [&_a]:inline-flex [&_a]:items-center [&_a]:px-1.5" />
           </div>
           <a
             href="#spenden"

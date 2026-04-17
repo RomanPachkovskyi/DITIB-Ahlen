@@ -1,8 +1,8 @@
 // src/components/LangSwitcher.tsx
-// Language switcher — real <a href> links, no JS navigation, no cookies.
-// Styling and positioning are finalized in Etap 3 when integrated into HeroSection.
+// Language switcher — real <a href> links with a persisted manual preference.
 
 import { useLang } from "@/i18n/useLang";
+import { persistLangPreference } from "@/i18n/langPreference";
 import { cn } from "@/lib/utils";
 
 export function LangSwitcher({ className }: { className?: string }) {
@@ -15,6 +15,7 @@ export function LangSwitcher({ className }: { className?: string }) {
     >
       <a
         href={langUrl("de")}
+        onClick={() => persistLangPreference("de")}
         aria-current={lang === "de" ? "page" : undefined}
         className={cn("px-1 transition-opacity", 
           lang === "de" ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-80"
@@ -27,6 +28,7 @@ export function LangSwitcher({ className }: { className?: string }) {
       </span>
       <a
         href={langUrl("tr")}
+        onClick={() => persistLangPreference("tr")}
         aria-current={lang === "tr" ? "page" : undefined}
         className={cn("px-1 transition-opacity",
           lang === "tr" ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-80"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { X, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -37,9 +37,13 @@ const ImageGallery = () => {
   useLockBodyScroll(lightbox !== null);
 
   const open = (i: number) => setLightbox(i);
-  const close = () => setLightbox(null);
-  const prev = () => setLightbox((i) => (i !== null ? (i - 1 + images.length) % images.length : null));
-  const next = () => setLightbox((i) => (i !== null ? (i + 1) % images.length : null));
+  const close = useCallback(() => setLightbox(null), []);
+  const prev = useCallback(() => {
+    setLightbox((i) => (i !== null ? (i - 1 + images.length) % images.length : null));
+  }, [images.length]);
+  const next = useCallback(() => {
+    setLightbox((i) => (i !== null ? (i + 1) % images.length : null));
+  }, [images.length]);
   const toggleVideoPlayback = () => {
     if (!videoElementRef.current) return;
 
@@ -60,7 +64,7 @@ const ImageGallery = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox]);
+  }, [close, lightbox, next, prev]);
 
   return (
     <section

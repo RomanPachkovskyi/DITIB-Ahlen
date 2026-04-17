@@ -6,8 +6,7 @@ import { useLocation } from "react-router-dom";
 import { de } from "./de";
 import { tr } from "./tr";
 import type { Translations } from "./types";
-
-export type Lang = "de" | "tr";
+import type { Lang } from "./langPreference";
 
 const translations: Record<Lang, Translations> = { de, tr };
 

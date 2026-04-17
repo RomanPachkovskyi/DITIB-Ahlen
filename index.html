@@ -3,6 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      if (window.location.pathname !== "/") return;
+
+      var COOKIE_NAME = "preferred_lang";
+
+      function normalizeLang(value) {
+        if (!value) return null;
+
+        var normalized = String(value).trim().toLowerCase();
+        return normalized === "de" || normalized === "tr" ? normalized : null;
+      }
+
+      function readSavedLang() {
+        var match = document.cookie.match(
+          new RegExp("(?:^|;\\s*)" + COOKIE_NAME + "=(de|tr)(?:;|$)", "i")
+        );
+
+        return normalizeLang(match && match[1]);
+      }
+
+      function detectBrowserLang() {
+        var candidates =
+          Array.isArray(navigator.languages) && navigator.languages.length > 0
+            ? navigator.languages
+            : [navigator.language];
+
+        for (var i = 0; i < candidates.length; i += 1) {
+          var candidate = String(candidates[i] || "")
+            .trim()
+            .toLowerCase()
+            .split(/[-_]/, 1)[0];
+          var normalized = normalizeLang(candidate);
+
+          if (normalized) return normalized;
+        }
+
+        return "de";
+      }
+
+      var targetLang = readSavedLang() || detectBrowserLang();
+
+      if (targetLang === "tr") {
+        window.location.replace("/tr/" + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
 
   <meta name="author" content="DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V." />
   <meta

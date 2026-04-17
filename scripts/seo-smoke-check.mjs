@@ -53,7 +53,7 @@ async function checkPage(key) {
     `${key}: twitter title`
   );
   assert(
-    html.includes(`<link rel="alternate" hreflang="tr" href="${BASE_URL}/tr" />`),
+    html.includes(`<link rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />`),
     `${key}: hreflang tr`
   );
 
@@ -96,7 +96,7 @@ async function checkSitemap() {
     "sitemap: de url missing"
   );
   assert(
-    sitemap.includes("<loc>https://ditib-ahlen-projekte.de/tr</loc>"),
+    sitemap.includes("<loc>https://ditib-ahlen-projekte.de/tr/</loc>"),
     "sitemap: tr url missing"
   );
   assert(

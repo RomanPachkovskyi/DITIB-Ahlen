@@ -12,7 +12,7 @@ const TWITTER_IMAGE = `${BASE_URL}/img/ditib-ahlen-bildungs-begegnungszentrum-pr
 
 export function LangMeta() {
   const { t, lang } = useLang();
-  const canonical = lang === "de" ? `${BASE_URL}/` : `${BASE_URL}/tr`;
+  const canonical = lang === "de" ? `${BASE_URL}/` : `${BASE_URL}/tr/`;
   const ogLocale = lang === "de" ? "de_DE" : "tr_TR";
   const ogLocaleAlt = lang === "de" ? "tr_TR" : "de_DE";
   const structuredData = serializeStructuredData(lang, t);
@@ -30,7 +30,7 @@ export function LangMeta() {
       {/* Canonical + hreflang */}
       <link rel="canonical" href={canonical} />
       <link rel="alternate" hreflang="de" href={`${BASE_URL}/`} />
-      <link rel="alternate" hreflang="tr" href={`${BASE_URL}/tr`} />
+      <link rel="alternate" hreflang="tr" href={`${BASE_URL}/tr/`} />
       <link rel="alternate" hreflang="x-default" href={`${BASE_URL}/`} />
 
       {/* Open Graph */}

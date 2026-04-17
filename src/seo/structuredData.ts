@@ -68,7 +68,7 @@ function localeForLang(lang: StructuredDataLang): string {
 }
 
 function canonicalForLang(lang: StructuredDataLang): string {
-  return lang === "de" ? `${BASE_URL}/` : `${BASE_URL}/tr`;
+  return lang === "de" ? `${BASE_URL}/` : `${BASE_URL}/tr/`;
 }
 
 export function buildStructuredData(

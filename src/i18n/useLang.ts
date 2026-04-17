@@ -18,7 +18,7 @@ export function useLang() {
 
   /** Returns the canonical URL for the given target language. */
   function langUrl(target: Lang): string {
-    return target === "de" ? "/" : "/tr";
+    return target === "de" ? "/" : "/tr/";
   }
 
   return {

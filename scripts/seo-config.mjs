@@ -102,7 +102,7 @@ export const SEO = {
     locale: "tr-TR",
     ogLocale: "tr_TR",
     ogLocaleAlt: "de_DE",
-    canonical: `${BASE_URL}/tr`,
+    canonical: `${BASE_URL}/tr/`,
     title: "Eğitim ve Buluşma Merkezi Ahlen – DiTiB · Geleceğe Bir Adım",
     description:
       "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezi: engelsiz, sürdürülebilir, buluşma ve paylaşım mekânı. Projeyi keşfedin ve destekleyin.",
@@ -319,7 +319,7 @@ export function buildHeadHtml(config) {
   <meta name="language" content="${config.lang}" />
   <link rel="canonical" href="${config.canonical}" />
   <link rel="alternate" hreflang="de" href="${BASE_URL}/" />
-  <link rel="alternate" hreflang="tr" href="${BASE_URL}/tr" />
+  <link rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />
   <link rel="alternate" hreflang="x-default" href="${BASE_URL}/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DiTiB Ahlen" />

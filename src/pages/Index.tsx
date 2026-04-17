@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import StickyDonateBar from "@/components/StickyDonateBar";
 import HeroSection from "@/components/HeroSection";
+import { LangMeta } from "@/components/LangMeta";
 
 const ProjectIntro = lazy(() => import("@/components/ProjectIntro"));
 const VisionSection = lazy(() => import("@/components/VisionSection"));
@@ -16,6 +17,7 @@ const Footer = lazy(() => import("@/components/Footer"));
 const Index = () => {
   return (
     <main className="min-h-screen">
+      <LangMeta />
       <StickyDonateBar />
       <HeroSection />
       <Suspense fallback={null}>

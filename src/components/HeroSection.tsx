@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
+import { useLang } from "@/i18n/useLang";
+import { LangSwitcher } from "@/components/LangSwitcher";
 
 const HERO_POSTER =
   "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
@@ -17,6 +19,12 @@ const HERO_VIDEO_TO_PHOTO_FADE_LEAD_MS = 2200;
 const HERO_PHOTO_TO_VIDEO_FADE_MS = 1800;
 const HERO_VIDEO_TO_PHOTO_FADE_MS = 2600;
 const HERO_PLAY_RETRY_MS = 2500;
+
+// Static image URLs — never change between languages
+const THUMB_SRCS = [
+  "/img/ditib-ahlen-aussenansicht-west.jpg",
+  "/img/ditib-ahlen-fassadenansicht.jpg",
+] as const;
 
 type ConnectionInfo = {
   effectiveType?: string;
@@ -54,20 +62,8 @@ const pickHeroVideoSource = () => {
   return HERO_VIDEO_SOURCES.default;
 };
 
-const thumbnails = [
-  {
-    src: "/img/ditib-ahlen-aussenansicht-west.jpg",
-    alt: "Geplantes Zentrum von DiTiB Ahlen - Aussenansicht von Westen",
-    label: "Außenansicht",
-  },
-  {
-    src: "/img/ditib-ahlen-fassadenansicht.jpg",
-    alt: "Fassadenentwurf des neuen DiTiB-Ahlen-Zentrums",
-    label: "Ansicht",
-  },
-];
-
 const HeroSection = () => {
+  const { t } = useLang();
   const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const [videoSource, setVideoSource] = useState<string | null>(null);
   const [showVideo, setShowVideo] = useState(false);
@@ -76,6 +72,12 @@ const HeroSection = () => {
   const photoTimerRef = useRef<number | null>(null);
   const playRetryTimerRef = useRef<number | null>(null);
   const hasStartedEndingFadeRef = useRef(false);
+
+  // Thumbnails — alt texts come from translations
+  const thumbnails = [
+    { src: THUMB_SRCS[0], alt: t.hero.thumbExteriorAlt },
+    { src: THUMB_SRCS[1], alt: t.hero.thumbFacadeAlt },
+  ];
 
   useLockBodyScroll(activeThumb !== null);
 
@@ -288,7 +290,7 @@ const HeroSection = () => {
           />
           <img
             src={HERO_POSTER}
-            alt="Architekturvisualisierung des neuen Bildungs- und Begegnungszentrums von DiTiB Ahlen"
+            alt={t.meta.ogImageAlt}
             className="h-full w-full object-cover"
             width="960"
             height="540"
@@ -310,74 +312,79 @@ const HeroSection = () => {
 
       {/* Main content */}
       <div className="relative z-10 flex min-h-[calc(100vh-80px)] flex-col justify-end px-6 pb-[32px] md:px-12 md:pb-[114px] lg:px-16">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+        <div className="mx-auto w-full max-w-[1440px]">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
 
-          {/* Left — text block */}
-          <div
-            className="max-w-2xl"
-          >
-            <p className="animate-hero-slide-up delay-400 font-body text-sm md:text-base font-medium tracking-widest uppercase text-white/70 mb-3">
-              DiTiB Ahlen · Ein Zukunftsprojekt
-            </p>
+            {/* Left — text block */}
+            <div className="max-w-2xl">
+              <p className="animate-hero-slide-up delay-400 font-body text-sm md:text-base font-medium tracking-widest uppercase text-white/70 mb-3">
+                {t.hero.eyebrow}
+              </p>
 
-            <h1 className="animate-hero-slide-up delay-600 font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white mb-3 drop-shadow-lg">
-              Bildungs- &amp; Begegnungszentrum
-              <br />
-              <span className="font-light italic">für Ahlen</span>
-            </h1>
+              <h1 className="animate-hero-slide-up delay-600 font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white mb-3 drop-shadow-lg">
+                {t.hero.title}
+                <br />
+                <span className="font-light italic">{t.hero.titleItalic}</span>
+              </h1>
 
-            <p className="animate-hero-slide-up delay-800 font-body text-lg md:text-xl lg:text-2xl font-light text-white/90 mb-8 drop-shadow-sm">
-              Zusammenhalt <span className="font-semibold italic">stärken</span>.
-              {" "}Ahlen gestalten.
-            </p>
+              <p className="animate-hero-slide-up delay-800 font-body text-lg md:text-xl lg:text-2xl font-light text-white/90 mb-8 drop-shadow-sm">
+                {t.hero.subtitle}{" "}
+                <span className="font-semibold italic">{t.hero.subtitleAccent}</span>
+                {t.hero.subtitleSuffix}
+              </p>
 
-            {/* CTAs */}
-            <div className="animate-hero-fade-scale delay-1000 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <a
-                href="#spenden"
-                onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
-                className="group font-body inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:bg-primary/90"
-              >
-                Jetzt unterstützen
-                <svg
-                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
+              {/* CTAs */}
+              <div className="animate-hero-fade-scale delay-1000 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <a
+                  href="#spenden"
+                  onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
+                  className="group font-body inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-[1.04] hover:shadow-2xl hover:bg-primary/90"
                 >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-              <a
-                href="#projekt"
-                onClick={(e) => handleCleanAnchorClick(e, "#projekt")}
-                className="font-body inline-flex items-center gap-2 rounded-full border border-white/30 px-8 py-4 text-base font-medium text-white/90 backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:bg-white/10"
-              >
-                Mehr erfahren
-              </a>
+                  {t.hero.cta}
+                  <svg
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a
+                  href="#projekt"
+                  onClick={(e) => handleCleanAnchorClick(e, "#projekt")}
+                  className="font-body inline-flex items-center gap-2 rounded-full border border-white/30 px-8 py-4 text-base font-medium text-white/90 backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:border-white/60 hover:bg-white/10"
+                >
+                  {t.hero.ctaSecondary}
+                </a>
+              </div>
+            </div>
+
+            {/* Right — thumbnail strip (hidden on mobile) */}
+            <div className="hidden md:flex animate-hero-fade-scale delay-1200 flex-col items-end gap-4 shrink-0">
+              <div className="flex flex-row lg:flex-col gap-3">
+                {thumbnails.map((thumb, i) => (
+                  <button
+                    key={i}
+                    className="group relative overflow-hidden rounded-xl border-2 border-white/20 hover:border-white/60 transition-all duration-300 hover:scale-[1.03] shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary"
+                    onClick={() => setActiveThumb(activeThumb === i ? null : i)}
+                    aria-label={thumb.alt}
+                  >
+                    <img
+                      src={thumb.src}
+                      alt={thumb.alt}
+                      className="h-[156px] w-[249px] object-cover transition-transform duration-500 group-hover:scale-110 md:h-[188px] md:w-[312px]"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right — thumbnail strip (hidden on mobile) */}
-          <div className="hidden md:flex animate-hero-fade-scale delay-1200 flex-col items-end gap-4 shrink-0">
-            <div className="flex flex-row lg:flex-col gap-3">
-              {thumbnails.map((thumb, i) => (
-                <button
-                  key={i}
-                  className="group relative overflow-hidden rounded-xl border-2 border-white/20 hover:border-white/60 transition-all duration-300 hover:scale-[1.03] shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary"
-                  onClick={() => setActiveThumb(activeThumb === i ? null : i)}
-                  aria-label={thumb.label}
-                >
-                  <img
-                    src={thumb.src}
-                    alt={thumb.alt}
-                    className="h-[156px] w-[249px] object-cover transition-transform duration-500 group-hover:scale-110 md:h-[188px] md:w-[312px]"
-                    loading="lazy"
-                  />
-                </button>
-              ))}
-            </div>
+          <div className="mt-9 flex justify-center text-white">
+            <LangSwitcher />
           </div>
         </div>
       </div>
@@ -400,7 +407,7 @@ const HeroSection = () => {
             <button
               onClick={() => setActiveThumb(null)}
               className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/30 transition-colors"
-              aria-label="Schließen"
+              aria-label={t.hero.lightboxClose}
             >
               <svg
                 width="20"

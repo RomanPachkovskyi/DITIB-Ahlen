@@ -1,8 +1,10 @@
 import { Heart } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
+import { useLang } from "@/i18n/useLang";
 
 const FinalCTA = () => {
+  const { t } = useLang();
   const ornamentRef = useScrollReveal();
   const headingRef = useScrollReveal();
   const ctaRef = useScrollReveal();
@@ -19,12 +21,9 @@ const FinalCTA = () => {
 
         <div ref={headingRef} className="reveal reveal-delay-1 mb-10">
           <h2 className="heading-lg text-foreground mb-5">
-            Werden Sie Teil dieses Projekts
+            {t.finalCta.heading}
           </h2>
-          <p className="body-lg max-w-md mx-auto">
-            Jeder Beitrag bringt uns einem Ort näher, der Generationen verbinden wird.
-            Gemeinsam schaffen wir etwas Bleibendes.
-          </p>
+          <p className="body-lg max-w-md mx-auto">{t.finalCta.body}</p>
         </div>
 
         <div ref={ctaRef} className="reveal reveal-delay-3">
@@ -34,7 +33,7 @@ const FinalCTA = () => {
             className="inline-flex h-[52px] items-center justify-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-sm font-medium px-9 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] hover:shadow-lg"
           >
             <Heart className="w-4 h-4" />
-            Ich möchte spenden
+            {t.finalCta.cta}
           </a>
 
           <div className="flex items-center justify-center gap-4 mt-10">

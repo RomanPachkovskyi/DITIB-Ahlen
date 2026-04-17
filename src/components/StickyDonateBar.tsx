@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
+import { useLang } from "@/i18n/useLang";
 
 const StickyDonateBar = () => {
+  const { t } = useLang();
   const [visible, setVisible] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
 
@@ -61,7 +63,7 @@ const StickyDonateBar = () => {
             className="inline-flex h-[52px] items-center justify-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-sm font-semibold px-8 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0"
           >
             <Heart className="w-3.5 h-3.5" />
-            Jetzt spenden
+            {t.stickyBar.cta}
           </a>
         </div>
       </div>

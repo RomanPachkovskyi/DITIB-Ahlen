@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useLang } from "@/i18n/useLang";
 import askLogo from "@/assets/ASK-logo.png";
 import eightMediaLogo from "@/assets/8media-logo.png";
 import munasPrintLogo from "@/assets/Munas-Print_Logo-2.png";
@@ -10,46 +11,6 @@ type ProjectParticipant = {
   logo?: string;
   logoAlt?: string;
 };
-
-const mainParticipants: ProjectParticipant[] = [
-  {
-    role: "Bauherr",
-    name: "DITIB - Ahlen (Westf.)",
-    subtitle: "Türkisch Islamische Gemeinde zu Ahlen e.V.",
-    logo: "/img/ditib-ahlen-logo.png",
-    logoAlt: "Logo der DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
-  },
-  {
-    role: "Entwurfsverfasser / Tragwerksplanung",
-    name: "Ingenieurbüro Theismann & Partner",
-    subtitle: "Dipl.-Ing. Bernd Theismann",
-    logo: "/img/ingenieurbuero-theismann-partner-logo.jpg",
-    logoAlt: "Logo des Ingenieurbüros Theismann und Partner, Entwurfsverfasser und Tragwerksplanung",
-  },
-];
-
-const projectPartners: ProjectParticipant[] = [
-  {
-    role: "Medienpartner",
-    name: "Munas-Print",
-    subtitle: "Werbeagentur",
-    logo: munasPrintLogo,
-    logoAlt: "Logo von Munas-Print Ahlen, Medienpartner des Projekts",
-  },
-  {
-    role: "Medienpartner",
-    name: "8media",
-    subtitle: "Videoproduktion",
-    logo: eightMediaLogo,
-    logoAlt: "Logo von 8media, Medienpartner des Projekts",
-  },
-  {
-    role: "Projektpartner",
-    name: "ASK Ahlen",
-    logo: askLogo,
-    logoAlt: "Logo von ASK Ahlen, Projektpartner",
-  },
-];
 
 const LogoMark = ({
   participant,
@@ -124,17 +85,58 @@ const ParticipantItem = ({
 );
 
 const ProjectPartners = () => {
+  const { t } = useLang();
   const headerRef = useScrollReveal();
   const mainRef = useScrollReveal({ threshold: 0.08 });
   const partnersRef = useScrollReveal({ threshold: 0.08 });
+
+  const mainParticipants: ProjectParticipant[] = [
+    {
+      role: t.partners.mainRole1,
+      name: "DITIB - Ahlen (Westf.)",
+      subtitle: "Türkisch Islamische Gemeinde zu Ahlen e.V.",
+      logo: "/img/ditib-ahlen-logo.png",
+      logoAlt: "Logo der DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
+    },
+    {
+      role: t.partners.mainRole2,
+      name: "Ingenieurbüro Theismann & Partner",
+      subtitle: "Dipl.-Ing. Bernd Theismann",
+      logo: "/img/ingenieurbuero-theismann-partner-logo.jpg",
+      logoAlt: "Logo des Ingenieurbüros Theismann und Partner, Entwurfsverfasser und Tragwerksplanung",
+    },
+  ];
+
+  const projectPartners: ProjectParticipant[] = [
+    {
+      role: t.partners.partnerRole,
+      name: "Munas-Print",
+      subtitle: "Werbeagentur",
+      logo: munasPrintLogo,
+      logoAlt: "Logo von Munas-Print Ahlen, Medienpartner des Projekts",
+    },
+    {
+      role: t.partners.partnerRole,
+      name: "8media",
+      subtitle: "Videoproduktion",
+      logo: eightMediaLogo,
+      logoAlt: "Logo von 8media, Medienpartner des Projekts",
+    },
+    {
+      role: t.partners.projectPartnerRole,
+      name: "ASK Ahlen",
+      logo: askLogo,
+      logoAlt: "Logo von ASK Ahlen, Projektpartner",
+    },
+  ];
 
   return (
     <section className="relative z-0 px-5 pt-[8.5rem] pb-16 md:px-10 md:pt-[22rem] md:pb-24">
       <div className="mx-auto max-w-6xl">
         <div ref={headerRef} className="reveal mb-12">
-          <p className="section-label mb-4">— Projektbeteiligte</p>
+          <p className="section-label mb-4">{t.partners.label}</p>
           <h2 className="heading-md text-foreground max-w-xl">
-            Wer baut und wer plant
+            {t.partners.heading}
           </h2>
         </div>
 

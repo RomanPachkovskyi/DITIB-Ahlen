@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import { useLang } from "@/i18n/useLang";
 
 type ModalType = "impressum" | "datenschutz" | "kontakt" | null;
 
 const Footer = () => {
+  const { t } = useLang();
   const [open, setOpen] = useState<ModalType>(null);
   const close = () => setOpen(null);
 
@@ -12,26 +14,26 @@ const Footer = () => {
       <footer className="px-5 py-10 md:px-10 md:py-8 bg-[#253e54]">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 items-center gap-6 md:gap-4 text-center md:text-left">
           <div className="order-3 font-body text-xs text-white/50 md:order-1">
-            © 2026 DiTiB Ahlen · Bildungs- & Begegnungszentrum
+            {t.footer.copyright}
           </div>
           <div className="order-1 flex flex-wrap items-center justify-center gap-2 md:order-2 md:gap-6">
             <button
               onClick={() => setOpen("impressum")}
               className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
-              Impressum
+              {t.footer.impressum}
             </button>
             <button
               onClick={() => setOpen("datenschutz")}
               className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
-              Datenschutz
+              {t.footer.datenschutz}
             </button>
             <button
               onClick={() => setOpen("kontakt")}
               className="rounded-full px-4 py-2.5 font-body text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-white md:px-0 md:py-0 md:text-xs md:hover:bg-transparent"
             >
-              Kontakt
+              {t.footer.kontakt}
             </button>
           </div>
           <a
@@ -40,13 +42,13 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="order-2 font-body text-xs text-white/60 hover:text-white transition-colors md:order-3 md:text-right"
           >
-            Digitales Handwerk mit ♥ bei Munas-Print
+            {t.footer.madeBy}
           </a>
         </div>
       </footer>
 
       {open === "impressum" && (
-        <Modal title="Impressum" onClose={close}>
+        <Modal title={t.footer.impressum} onClose={close}>
           <div className="space-y-6">
 
             <div>
@@ -236,7 +238,7 @@ const Footer = () => {
       )}
 
       {open === "kontakt" && (
-        <Modal title="Kontakt" onClose={close}>
+        <Modal title={t.footer.kontakt} onClose={close}>
           <div className="space-y-8">
 
             <div>

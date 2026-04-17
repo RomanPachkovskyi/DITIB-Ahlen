@@ -2,20 +2,24 @@ import { useState, useEffect, useRef } from "react";
 import { X, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useLang } from "@/i18n/useLang";
 
-const images = [
-  { src: "/img/ditib-ahlen-aussenansicht-west.jpg", alt: "Geplantes Zentrum von DiTiB Ahlen - Aussenansicht von Westen", span: "col-span-2 row-span-2" },
-  { src: "/img/ditib-ahlen-grundriss-erdgeschoss.jpg", alt: "Grundriss Erdgeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-grundriss-obergeschoss.jpg", alt: "Grundriss Obergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-grundriss-kellergeschoss.jpg", alt: "Grundriss Kellergeschoss - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-freiflaechenplan.jpg", alt: "Freiflaechenplan - Aussenbereich und Gruenflaeche des DiTiB-Ahlen-Zentrums", span: "col-span-1 row-span-1" },
-  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg", alt: "Gebaeudeschnitt - Neubau DiTiB Ahlen", span: "col-span-1 row-span-1", hideOnMobile: true },
-];
+// Static image metadata — src/span/visibility never change between languages
+const IMAGE_META = [
+  { src: "/img/ditib-ahlen-aussenansicht-west.jpg",        span: "col-span-2 row-span-2" },
+  { src: "/img/ditib-ahlen-grundriss-erdgeschoss.jpg",     span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-grundriss-obergeschoss.jpg",    span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-grundriss-kellergeschoss.jpg",  span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-freiflaechenplan.jpg",          span: "col-span-1 row-span-1" },
+  { src: "/img/ditib-ahlen-gebaeudeschnitt.jpg",           span: "col-span-1 row-span-1", hideOnMobile: true },
+] as const;
+
 const GALLERY_VIDEO_SRC = "/video/hero-1080.mp4";
 const GALLERY_VIDEO_POSTER =
   "/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
 
 const ImageGallery = () => {
+  const { t } = useLang();
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isVideoHovered, setIsVideoHovered] = useState(false);
@@ -23,6 +27,12 @@ const ImageGallery = () => {
   const gridRef = useScrollReveal({ threshold: 0.04 });
   const videoRef = useScrollReveal({ threshold: 0.12 });
   const videoElementRef = useRef<HTMLVideoElement>(null);
+
+  // Merge static metadata with translated alt texts
+  const images = IMAGE_META.map((meta, i) => ({
+    ...meta,
+    alt: t.gallery.images[i]?.alt ?? "",
+  }));
 
   useLockBodyScroll(lightbox !== null);
 
@@ -60,8 +70,8 @@ const ImageGallery = () => {
       {/* Header */}
       <div ref={headerRef} className="reveal px-5 md:px-10 mb-10">
         <div className="max-w-5xl mx-auto">
-          <p className="section-label mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>— Impressionen</p>
-          <h2 className="heading-md text-white">Einblicke in das Projekt</h2>
+          <p className="section-label mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>{t.gallery.label}</p>
+          <h2 className="heading-md text-white">{t.gallery.heading}</h2>
         </div>
       </div>
 
@@ -121,7 +131,7 @@ const ImageGallery = () => {
             >
               <button
                 type="button"
-                aria-label={isVideoPlaying ? "Video pausieren" : "Video abspielen"}
+                aria-label={isVideoPlaying ? t.gallery.videoPause : t.gallery.videoPlay}
                 onClick={toggleVideoPlayback}
                 className="pointer-events-auto flex h-20 w-20 items-center justify-center rounded-full bg-black/50 text-white shadow-lg transition-transform duration-200 hover:scale-105"
               >

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import CookieConsent from "./components/CookieConsent.tsx";
@@ -20,17 +21,20 @@ const CleanInitialHash = () => {
 };
 
 const App = () => (
-  <BrowserRouter>
-    <CleanInitialHash />
-    <AnalyticsManager />
-    <Routes>
-      <Route path="/" element={<Index />} />
-      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-    <CookieConsent />
-    <MobileLandscapeGuard />
-  </BrowserRouter>
+  <HelmetProvider>
+    <BrowserRouter>
+      <CleanInitialHash />
+      <AnalyticsManager />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/tr" element={<Index />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <CookieConsent />
+      <MobileLandscapeGuard />
+    </BrowserRouter>
+  </HelmetProvider>
 );
 
 export default App;

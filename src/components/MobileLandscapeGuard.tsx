@@ -1,10 +1,12 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import screenRotateRightAnimation from "@/assets/screen-rotate-right.json";
+import { useLang } from "@/i18n/useLang";
 
 const Lottie = lazy(() => import("lottie-react"));
 const LANDSCAPE_GUARD_QUERY = "(orientation: landscape) and (max-width: 960px) and (max-height: 520px) and (pointer: coarse)";
 
 const MobileLandscapeGuard = () => {
+  const { t } = useLang();
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const MobileLandscapeGuard = () => {
       className="mobile-landscape-guard"
       role="status"
       aria-live="polite"
-      aria-label="Bitte Smartphone drehen"
+      aria-label={t.landscape.text}
     >
       <Suspense fallback={<div className="mobile-landscape-guard__animation" aria-hidden="true" />}>
         <Lottie
@@ -46,7 +48,7 @@ const MobileLandscapeGuard = () => {
           rendererSettings={{ preserveAspectRatio: "xMidYMid meet" }}
         />
       </Suspense>
-      <p>Bitte Smartphone drehen</p>
+      <p>{t.landscape.text}</p>
     </div>
   );
 };

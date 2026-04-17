@@ -1,5 +1,6 @@
 import { Instagram, ArrowUpRight } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useLang } from "@/i18n/useLang";
 
 const FacebookIcon = () => (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -8,6 +9,7 @@ const FacebookIcon = () => (
 );
 
 const SocialSection = () => {
+  const { t } = useLang();
   const textRef = useScrollReveal();
   const btnsRef = useScrollReveal();
 
@@ -15,13 +17,11 @@ const SocialSection = () => {
     <section className="px-5 md:px-10 py-16 md:py-20 bg-white">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div ref={textRef} className="reveal">
-          <p className="section-label mb-3">— Folgen Sie uns</p>
+          <p className="section-label mb-3">{t.social.label}</p>
           <h2 className="font-body text-2xl md:text-3xl font-black text-foreground mb-2">
-            Baufortschritt live
+            {t.social.heading}
           </h2>
-          <p className="body-md max-w-sm">
-            Aktuelle Updates, Einblicke und Neuigkeiten direkt auf Instagram und Facebook.
-          </p>
+          <p className="body-md max-w-sm">{t.social.cta}</p>
         </div>
         <div ref={btnsRef} className="reveal reveal-delay-2 self-center md:self-auto shrink-0 flex flex-col items-center sm:flex-row gap-3">
           <a

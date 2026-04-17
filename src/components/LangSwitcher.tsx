@@ -3,21 +3,22 @@
 // Styling and positioning are finalized in Etap 3 when integrated into HeroSection.
 
 import { useLang } from "@/i18n/useLang";
+import { cn } from "@/lib/utils";
 
-export function LangSwitcher() {
+export function LangSwitcher({ className }: { className?: string }) {
   const { lang, langUrl, t } = useLang();
 
   return (
     <nav
       aria-label={t.nav.langSwitchLabel}
-      className="flex items-center gap-1 text-[15px] md:text-base font-medium"
+      className={cn("flex items-center gap-1 text-[15px] md:text-base font-medium", className)}
     >
       <a
         href={langUrl("de")}
         aria-current={lang === "de" ? "page" : undefined}
-        className={`px-1 transition-opacity ${
+        className={cn("px-1 transition-opacity", 
           lang === "de" ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-80"
-        }`}
+        )}
       >
         DE
       </a>
@@ -27,9 +28,9 @@ export function LangSwitcher() {
       <a
         href={langUrl("tr")}
         aria-current={lang === "tr" ? "page" : undefined}
-        className={`px-1 transition-opacity ${
+        className={cn("px-1 transition-opacity",
           lang === "tr" ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-80"
-        }`}
+        )}
       >
         TR
       </a>

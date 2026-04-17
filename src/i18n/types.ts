@@ -71,8 +71,6 @@ export interface Translations {
     heading: string;
     /** Short paragraph below the heading */
     subheading: string;
-    collected: string;
-    reached: string;
     /** "Fortschritt" / "İlerleme" — progress bar label */
     progressLabel: string;
     /** "Ziel" / "Hedef" — shown before goal amount */

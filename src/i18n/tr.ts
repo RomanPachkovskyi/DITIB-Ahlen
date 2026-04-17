@@ -126,8 +126,6 @@ export const tr: Translations = {
     heading: "Şeffaflık & Güven",
     subheading:
       "Her katkı önemlidir. Bağış toplamanın güncel durumunu gerçek zamanlı olarak takip edebilirsiniz.",
-    collected: "Toplanan",
-    reached: "Ulaşılan",
     progressLabel: "İlerleme",
     goalLabel: "Hedef",
     ctaPaypal: "PayPal ile Bağış Yap",

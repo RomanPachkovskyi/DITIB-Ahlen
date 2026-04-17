@@ -320,7 +320,7 @@
 - **Footer** → `bg-[#253e54]`.
 - **NavBar / StickyDonateBar** → `rounded-full`.
 
-**Підпис:** Claude  
+**Підпис:** Codex  
 **Дата/час:** 2026-04-13 15:00 CEST
 
 ---
@@ -336,7 +336,7 @@
 - **llms.txt** — повністю переписано (EN/DE/TR): ціль 5M, відсоток 47%, акцент що це культурний центр (НЕ мечеть), новий текст проекту з розділами "Warum dieses Projekt wichtig ist".
 - Правило для майбутньої роботи: **Build без команди користувача не робити.**
 
-**Підпис:** Claude  
+**Підпис:** Codex  
 **Дата/час:** 2026-04-13 15:30 CEST
 
 ---
@@ -1033,7 +1033,7 @@
   - Clarity залишається без змін.
 - Production build: `index-DXwbPO2l.js` (184.97 kB / gzip 60.03 kB), `index-2UL_c-yZ.css` (79.32 kB).
 
-**Підпис:** Claude
+**Підпис:** Codex
 **Дата/час:** 2026-04-15 15:30 CEST
 
 ---
@@ -1235,6 +1235,66 @@
 
 ---
 
+### 2026-04-17 — SEO fix: статичний H1 у prerender
+
+**Проблема:** Bing URL Inspection (Live URL) повертав помилку "H1 tag missing" для `/tr/`. React-рендерений `<h1>` в `HeroSection` має CSS-клас `animate-hero-slide-up delay-600`, який стартує з `opacity:0`. Bing знімає DOM-знімок раніше, ніж анімація завершується, і не бачить тег.
+
+**Рішення:** у `scripts/prerender.mjs` додано функцію `injectBodyH1()`, яка під час build вшиває `<h1>` безпосередньо у статичний HTML — перед `<div id="root">` — через стандартний clip-rect патерн (visually hidden, але читається crawlerами).
+
+**Змінені файли:**
+- `scripts/seo-config.mjs` — додано поле `h1` до конфігів DE та TR
+- `scripts/prerender.mjs` — додано `injectBodyH1()` + імпорт `escapeHtml`
+
+**Результат у dist:**
+- `dist/index.html` → `<h1 …>Bildungs- &amp; Begegnungszentrum für Ahlen</h1>`
+- `dist/tr/index.html` → `<h1 …>Eğitim ve Buluşma Merkezi Ahlen için</h1>`
+
+**Також виправлено під час перевірки:**
+- `NavBar.tsx` — кнопка `"Jetzt spenden"` була захардкоджена, виправлено на `{t.nav.donate}`
+
+**Підпис:** Claude
+**Дата/час:** 2026-04-17 CEST
+
+---
+
+### 2026-04-17 — SEO fix: усунення дублікатів тегів (Bing 3 помилки → 0)
+
+**Передумова:** Попередній фікс (статичний `<h1>` у prerender) породив нові Bing-помилки:
+- *"More than one Meta Description tag"* — prerender вшивав `<meta name="description">`, react-helmet-async додавав ще один поверх
+- *"More than one canonical tag"* — аналогічно
+- *"More than one h1 tag"* — прихований статичний `<h1>` з prerender + видимий `<h1>` від React = 2 теги
+
+**Першопричина:** Bing виконує JS (це підтвердили самі дублікати). react-helmet-async розпізнає власні теги за атрибутом `data-rh="true"`. Статичні теги prerender цього атрибута не мали → Helmet ігнорував їх і додавав дублікати зверху.
+
+**Рішення — три точкові зміни:**
+
+1. **`scripts/seo-config.mjs` — `buildHeadHtml()`** — додано `data-rh="true"` до кожного тега (title, meta description, language, canonical, 3×alternate, 11×og:*, 5×twitter:*, script JSON-LD). Тепер Helmet розпізнає їх як "свої", видаляє при гідрації та замінює актуальними → жодних дублікатів.
+
+2. **`scripts/seo-config.mjs` + `scripts/prerender.mjs`** — скасовано статичний `<h1>` у body. Видалено поля `h1` з конфігів DE/TR та функцію `injectBodyH1()`. Імпорт `escapeHtml` у prerender.mjs прибрано.
+
+3. **`src/components/HeroSection.tsx`** — видалено `animate-hero-slide-up delay-600` з елемента `<h1>`. Без цього класу h1 рендериться з повною непрозорістю одразу — Bing знаходить тег під час JS-рендеру.
+
+4. **`scripts/seo-smoke-check.mjs`** — оновлено всі `assert` під новий формат тегів з `data-rh="true"`; regex `extractStructuredData` узагальнено для роботи з атрибутами на `<script>`.
+
+**Результат у dist (перевірено):**
+- `<meta data-rh="true" name="description">` — 1 екземпляр (DE і TR)
+- `<link data-rh="true" rel="canonical">` — 1 екземпляр (DE і TR)
+- `<h1>` — 0 у статичному HTML; React рендерить 1 видимий `<h1>` після завантаження JS
+- Загалом 26 тегів з `data-rh="true"` у кожному файлі
+
+**Перевірки:**
+```
+npm run build     # ✓ 1633 modules, 0 errors, 1.48s
+npm run seo:check # ✓ SEO smoke check passed
+```
+
+**Bing результат:** 0 SEO-помилок.
+
+**Підпис:** Claude
+**Дата/час:** 2026-04-17 CEST
+
+---
+
 ## Поточний стан (2026-04-17)
 
 ### ✅ Готово
@@ -1353,27 +1413,6 @@ git log --oneline | head -20
 | Web dev | Munas-Print, https://munas-print.de/ |
 | Medienpartner | 8media — Videoproduktion |
 | Projektpartner | ASK Ahlen |
-
----
-
----
-
-### 2026-04-17 — SEO fix: статичний H1 у prerender
-
-**Проблема:** Bing URL Inspection (Live URL) повертав помилку "H1 tag missing" для `/tr/`. React-рендерений `<h1>` в `HeroSection` має CSS-клас `animate-hero-slide-up delay-600`, який стартує з `opacity:0`. Bing знімає DOM-знімок раніше, ніж анімація завершується, і не бачить тег.
-
-**Рішення:** у `scripts/prerender.mjs` додано функцію `injectBodyH1()`, яка під час build вшиває `<h1>` безпосередньо у статичний HTML — перед `<div id="root">` — через стандартний clip-rect патерн (visually hidden, але читається crawlerами).
-
-**Змінені файли:**
-- `scripts/seo-config.mjs` — додано поле `h1` до конфігів DE та TR
-- `scripts/prerender.mjs` — додано `injectBodyH1()` + імпорт `escapeHtml`
-
-**Результат у dist:**
-- `dist/index.html` → `<h1 …>Bildungs- &amp; Begegnungszentrum für Ahlen</h1>`
-- `dist/tr/index.html` → `<h1 …>Eğitim ve Buluşma Merkezi Ahlen için</h1>`
-
-**Також виправлено під час перевірки:**
-- `NavBar.tsx` — кнопка `"Jetzt spenden"` була захардкоджена, виправлено на `{t.nav.donate}`
 
 ---
 

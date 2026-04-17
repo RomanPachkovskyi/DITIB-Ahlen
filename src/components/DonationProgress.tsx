@@ -57,7 +57,6 @@ const AnimatedBar = ({
 const DonationProgress = () => {
   const { t } = useLang();
   const headerRef = useScrollReveal();
-  const statsRef = useScrollReveal({ threshold: 0.08 });
   const barRef = useScrollReveal({ threshold: 0.08 });
   const ctaRef = useScrollReveal({ threshold: 0.08 });
   const bankDetailsRef = useScrollReveal({ threshold: 0.08 });
@@ -65,12 +64,10 @@ const DonationProgress = () => {
   const [isPaypalAccentActive, setIsPaypalAccentActive] = useState(false);
 
   const {
-    value: currentVal,
-    ref: currentRef,
+    ref: progressTriggerRef,
     started: hasStartedProgress,
     completed: hasCompletedProgress,
   } = useCountUp(CURRENT, PROGRESS_DURATION);
-  const { value: pctVal, ref: pctRef } = useCountUp(PERCENTAGE, PROGRESS_DURATION);
 
   useEffect(() => {
     if (!hasCompletedProgress) return;
@@ -98,34 +95,11 @@ const DonationProgress = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-8 lg:gap-10 items-start">
           <div>
-            {/* Stats — stagger */}
-            <div ref={statsRef} className="reveal-stagger grid grid-cols-2 gap-px bg-border mb-px">
-              <div className="bg-background p-6 md:p-8">
-                <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                  {t.donation.collected}
-                </p>
-                <p
-                  ref={currentRef as React.RefObject<HTMLParagraphElement>}
-                  className="font-body text-2xl md:text-3xl font-semibold text-foreground tabular-nums"
-                >
-                  {formatEur(currentVal)} €
-                </p>
-              </div>
-              <div className="bg-background p-6 md:p-8">
-                <p className="font-body text-[10px] uppercase tracking-[0.18em] text-muted-foreground mb-2">
-                  {t.donation.reached}
-                </p>
-                <p
-                  ref={pctRef as React.RefObject<HTMLParagraphElement>}
-                  className="font-body text-2xl md:text-3xl font-semibold text-primary tabular-nums"
-                >
-                  {pctVal}%
-                </p>
-              </div>
-            </div>
-
             {/* Progress bar */}
-            <div ref={barRef} className="reveal reveal-delay-1 bg-background border border-border p-6 md:p-8 mb-8">
+            <div
+              ref={barRef}
+              className="reveal reveal-delay-1 bg-background border border-border p-6 md:p-8 mb-8"
+            >
               <div className="flex justify-between items-baseline mb-4">
                 <span className="font-body text-xs text-muted-foreground uppercase tracking-wider">
                   {t.donation.progressLabel}
@@ -134,11 +108,13 @@ const DonationProgress = () => {
                   {t.donation.goalLabel}: {formatEur(GOAL)} €
                 </span>
               </div>
-              <AnimatedBar
-                percentage={PERCENTAGE}
-                duration={PROGRESS_DURATION}
-                isActive={hasStartedProgress}
-              />
+              <div ref={progressTriggerRef as React.RefObject<HTMLDivElement>}>
+                <AnimatedBar
+                  percentage={PERCENTAGE}
+                  duration={PROGRESS_DURATION}
+                  isActive={hasStartedProgress}
+                />
+              </div>
             </div>
 
             {/* CTA */}
@@ -191,7 +167,7 @@ const DonationProgress = () => {
             </div>
           </div>
 
-          <aside ref={desktopDonateRef} className="hidden lg:flex reveal reveal-delay-2 justify-center pt-4">
+          <aside ref={desktopDonateRef} className="hidden lg:flex reveal reveal-delay-2 justify-center self-start">
             <a
               href={PAYPAL_URL}
               target="_blank"

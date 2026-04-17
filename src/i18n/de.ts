@@ -122,8 +122,6 @@ export const de: Translations = {
     heading: "Transparenz & Vertrauen",
     subheading:
       "Jeder Beitrag zählt. Verfolgen Sie den aktuellen Stand der Spendensammlung in Echtzeit.",
-    collected: "Gesammelt",
-    reached: "Erreicht",
     progressLabel: "Fortschritt",
     goalLabel: "Ziel",
     ctaPaypal: "Spenden mit PayPal",

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
 import { useLang } from "@/i18n/useLang";
+import { LangSwitcher } from "@/components/LangSwitcher";
 
 const StickyDonateBar = () => {
   const { t } = useLang();
@@ -56,11 +57,14 @@ const StickyDonateBar = () => {
       }`}
     >
       <div className="bg-primary">
-        <div className="max-w-5xl mx-auto px-5 md:px-10 h-16 flex items-center justify-center">
+        <div className="max-w-5xl mx-auto px-4 md:px-10 h-16 flex items-center justify-between md:justify-center gap-3">
+          <div className="md:hidden shrink-0 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-white backdrop-blur-sm">
+            <LangSwitcher className="text-[13px] font-semibold tracking-[0.08em] text-white" />
+          </div>
           <a
             href="#spenden"
             onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
-            className="inline-flex h-[52px] items-center justify-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-sm font-semibold px-8 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0"
+            className="ml-auto inline-flex h-11 md:h-[52px] items-center justify-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-[13px] md:text-sm font-semibold px-5 md:px-8 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0 md:ml-0"
           >
             <Heart className="w-3.5 h-3.5" />
             {t.stickyBar.cta}

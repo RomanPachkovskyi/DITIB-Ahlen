@@ -1295,6 +1295,46 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
+### 2026-04-17 — Автовизначення мови + cleanup старих lint-помилок
+
+**Сесія 14 — Безпечний locale redirect і стабілізація перевірок**
+
+- Додано безпечне автодетект-визначення мови на корені `/`:
+  - пріоритет: **ручний вибір користувача → мова браузера → DE**
+  - якщо перша підтримувана мова `tr`, користувач перенаправляється на `/tr/`
+  - якщо `de` або мову не визначено, залишається `/`
+- Реалізацію зроблено через ранній inline-script у `index.html`, до старту React:
+  - це прибирає flash неправильного контенту
+  - зберігає `#hash` і query-параметри під час redirect
+  - не додає серверних SEO-ризиків від жорсткого locale-redirect
+- Додано `src/i18n/langPreference.ts`:
+  - нормалізація `de/tr`
+  - читання збереженого cookie `preferred_lang`
+  - визначення першої підтримуваної мови з `navigator.languages`
+  - helper для збереження ручного вибору користувача
+- `LangSwitcher.tsx` оновлено: ручне перемикання `DE/TR` тепер зберігає вибір у cookie, щоб сайт не перевизначав мову на наступних заходах.
+- Додано автоматичні тести для мовної логіки в `src/test/example.test.ts`.
+- Локально в headless Chrome перевірено 3 сценарії:
+  - `tr-TR` → `http://127.0.0.1:4174/tr/`, `html lang="tr"`
+  - `de-DE` → `http://127.0.0.1:4174/`, `html lang="de"`
+  - fallback `en-US/fr-FR` → `http://127.0.0.1:4174/`, `html lang="de"`
+- Паралельно прибрано старі `eslint`-проблеми:
+  - `src/components/ui/command.tsx` — заміна порожнього `interface` на `type`
+  - `src/components/ui/textarea.tsx` — заміна порожнього `interface` на `type`
+  - `tailwind.config.ts` — прибрано `require()`, переведено на ESM import для `tailwindcss-animate`
+  - `ImageGallery.tsx` — стабілізовано callback-и й залежності `useEffect`
+  - `use-scroll-reveal.ts` — нормалізовано залежності observer options
+  - `eslint.config.js` — вимкнено шумне `react-refresh/only-export-components` тільки для `src/components/ui/**/*`, де це шаблонний shadcn/ui-патерн, а не реальна помилка
+- Перевірки після змін:
+  - `npm run lint` — успішно
+  - `npm test` — успішно
+  - `npm run build` — успішно
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-17 17:17 CEST
+
+---
+
 ## Поточний стан (2026-04-17)
 
 ### ✅ Готово

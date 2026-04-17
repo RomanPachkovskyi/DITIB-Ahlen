@@ -63,8 +63,9 @@ Options -MultiViews
   ExpiresByType image/webp                "access plus 1 year"
   ExpiresByType font/woff2                "access plus 1 year"
 
-  # PDF — 30 days
+  # PDF and video — 30 days
   ExpiresByType application/pdf           "access plus 30 days"
+  ExpiresByType video/mp4                 "access plus 30 days"
 
   # SEO files — 1 day
   ExpiresByType text/plain                "access plus 1 day"
@@ -84,6 +85,10 @@ Options -MultiViews
 
   <FilesMatch "\.(?:css|js|mjs|jpg|jpeg|png|gif|svg|webp|avif|woff2?)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "\.(?:mp4)$">
+    Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 
   <FilesMatch "\.(?:html)$">

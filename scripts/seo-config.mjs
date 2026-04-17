@@ -63,6 +63,8 @@ export const SEO = {
     ogLocale: "de_DE",
     ogLocaleAlt: "tr_TR",
     canonical: `${BASE_URL}/`,
+    /** Visually-hidden static h1 injected into the HTML body for crawlers */
+    h1: "Bildungs- & Begegnungszentrum für Ahlen",
     title: "Bildungs- & Begegnungszentrum Ahlen – DiTiB · Ein Zukunftsprojekt",
     description:
       "Das neue Bildungs- & Begegnungszentrum von DiTiB Ahlen: barrierefrei, nachhaltig, ein Ort für Begegnung und Austausch. Projekt entdecken und unterstützen.",
@@ -103,6 +105,8 @@ export const SEO = {
     ogLocale: "tr_TR",
     ogLocaleAlt: "de_DE",
     canonical: `${BASE_URL}/tr/`,
+    /** Visually-hidden static h1 injected into the HTML body for crawlers */
+    h1: "Eğitim ve Buluşma Merkezi Ahlen için",
     title: "Eğitim ve Buluşma Merkezi Ahlen – DiTiB · Geleceğe Bir Adım",
     description:
       "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezi: engelsiz, sürdürülebilir, buluşma ve paylaşım mekânı. Projeyi keşfedin ve destekleyin.",

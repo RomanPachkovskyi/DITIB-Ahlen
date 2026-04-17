@@ -1187,7 +1187,55 @@
 
 ---
 
-## Поточний стан (2026-04-16)
+### 2026-04-17 — Багатомовність DE/TR + multilingual SEO
+
+**Сесія 28 — Повна реалізація багатомовності**
+
+- Реалізовано повну двомовність сайту: `de` як основна мова на `/` і `tr` на `/tr/`.
+- Додано i18n-інфраструктуру:
+  - `src/i18n/types.ts` — типізована структура `Translations`
+  - `src/i18n/de.ts` / `src/i18n/tr.ts` — повні словники перекладів
+  - `src/i18n/useLang.ts` — визначення мови по URL без flash
+  - `src/components/LangMeta.tsx` — мовозалежні `<title>`, `description`, `canonical`, `hreflang`, Open Graph, Twitter і JSON-LD
+  - `src/components/LangSwitcher.tsx` — перемикач DE / TR
+- Оновлено роутинг:
+  - `src/App.tsx` підтримує `/` і `/tr/*`
+  - `src/pages/Index.tsx` працює як спільна сторінка для обох мов
+  - `src/pages/NotFound.tsx` локалізовано через `useLang`
+- На переклади переведено всі ключові секції сайту:
+  - `HeroSection`, `ProjectIntro`, `VisionSection`, `ImageGallery`, `ProjectPartners`
+  - `PDFDownloadSection`, `DonationProgress`, `SocialSection`, `FinalCTA`
+  - `StickyDonateBar`, `MobileLandscapeGuard`, `CookieConsent`, `Footer`
+  - окремо виправлено захардкоджену CTA-кнопку в `NavBar`: `Jetzt spenden` → `t.nav.donate`
+- Перемикач мови інтегровано в нижню частину `HeroSection`:
+  - по центру під hero-контентом
+  - з окремими mobile/desktop відступами
+  - збільшено typography до `15px` mobile / `16px` desktop
+- Реалізовано multilingual SEO та build-flow:
+  - `src/seo/structuredData.ts` — runtime JSON-LD генератор з мовозалежними текстами
+  - `scripts/seo-config.mjs` — build-time SEO-конфіг для DE/TR
+  - `scripts/prerender.mjs` — генерація `dist/index.html` і `dist/tr/index.html`
+  - `scripts/seo-smoke-check.mjs` — автоматична перевірка canonical, hreflang, meta і structured data
+  - `index.html` очищено від старих статичних DE meta-тегів
+- `FAQPage` у structured data залишено тільки для німецької версії, TR-сторінка його не містить.
+- Оновлено `public/sitemap.xml`:
+  - дві сторінки: `/` і `/tr/`
+  - `xhtml:link` для `de`, `tr`, `x-default`
+- Після технічної перевірки canonical-структуру уніфіковано:
+  - усі TR URL приведено до формату `/tr/`
+  - це синхронізовано в runtime, prerender, sitemap, hreflang, Open Graph і JSON-LD
+- Перевірки:
+  - `npm run build` — успішно
+  - `npm test` — успішно
+  - `npm run seo:check` — успішно
+  - ручний перегляд `dist` підтвердив окремі DE/TR HTML, мовні head-теги й коректну індексаційну розмітку
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-17 13:05 CEST
+
+---
+
+## Поточний стан (2026-04-17)
 
 ### ✅ Готово
 - [x] 13 React компонентів — повністю реалізовано
@@ -1205,12 +1253,18 @@
 - [x] llms.txt оновлено: ціль 5M, культурний центр (не мечеть)
 - [x] Prod fixes: scroll lock для модалок/lightbox, cookie widget під overlay, action-кнопки `h-[52px]`
 - [x] `ImageGallery`: відео на стику секцій + desktop overlay play/pause + mobile-native controls без кастомної кнопки
+- [x] Повна багатомовність `DE/TR`: URL-модель `/` + `/tr/`, перемикач мови, типізовані переклади, локалізовані всі секції
+- [x] Multilingual SEO: canonical + hreflang + Open Graph + Twitter + JSON-LD для обох мов
+- [x] Build-процес генерує окремі `dist/index.html` і `dist/tr/index.html`
+- [x] `FAQPage` schema залишається тільки на DE-версії
+- [x] `sitemap.xml` оновлено під 2 URL з `xhtml:link` hreflang
 
 ### 🚀 До запуску на хостинг
 - [ ] Домен + DNS (A-record)
 - [ ] SSL (Let's Encrypt / Certbot)
 - [ ] Замінити числа: 2 340 000 € / 1 847 донорів — на актуальні перед запуском
-- [ ] Build → `dist/` (командою `npm run build`)
+- [x] Build → `dist/` (командою `npm run build`)
+- [x] SEO smoke-check → `npm run seo:check`
 
 ---
 
@@ -1232,12 +1286,21 @@ src/
 │   ├── NavBar.tsx               — sticky header (з'являється після 60% vh)
 │   ├── StickyDonateBar.tsx      — primary bg, біла кнопка, зникає біля FinalCTA
 │   ├── CookieConsent.tsx        — Banner + Settings + Widget (Shield icon, зліва)
+│   ├── LangMeta.tsx             — мовозалежні SEO/head теги через react-helmet-async
+│   ├── LangSwitcher.tsx         — DE/TR перемикач мови
 │   └── Modal.tsx                — базовий modal (scroll lock, ESC, focus trap)
+├── i18n/
+│   ├── types.ts                 — тип `Translations`
+│   ├── useLang.ts               — визначення мови з URL + langUrl()
+│   ├── de.ts                    — німецькі переклади
+│   └── tr.ts                    — турецькі переклади
 ├── hooks/
 │   ├── use-scroll-reveal.ts     — IntersectionObserver для анімацій
 │   ├── use-count-up.ts          — анімований лічильник чисел
 │   ├── use-cookie-consent.ts    — стан consent (localStorage)
 │   └── use-lock-body-scroll.ts  — scroll lock для modal/lightbox overlay з миттєвим restore позиції
+├── seo/
+│   └── structuredData.ts        — JSON-LD для DE/TR, FAQ тільки для DE
 ├── index.css                    — токени + .reveal + .reveal-stagger
 └── main.tsx                     — @fontsource imports (self-hosted)
 
@@ -1245,10 +1308,15 @@ public/
 ├── img/                         — фото + лого (ditib, theismann, og-image)
 ├── pdf/                         — 10 архітектурних PDF
 ├── robots.txt                   — SEO + AI crawlers config
-├── sitemap.xml                  — 1 URL, priority 1.0
+├── sitemap.xml                  — 2 URL (`/` + `/tr/`) + hreflang
 ├── llms.txt                     — AI knowledge base (EN/DE/TR)
 ├── favicon.svg / favicon.png    — фавіконки
 └── .htaccess                    — Apache production config
+
+scripts/
+├── prerender.mjs                — build-time генерація multilingual HTML
+├── seo-config.mjs               — DE/TR SEO-конфіг для prerender
+└── seo-smoke-check.mjs          — перевірка SEO/head після build
 
 Dockerfile                       — node:20-alpine build → nginx:alpine serve
 nginx.conf                       — gzip, cache, SPA fallback, PDF headers
@@ -1264,6 +1332,8 @@ npm run dev              # Vite dev server
 
 # Build
 npm run build            # → dist/ (для хостингу)
+npm run seo:check        # smoke-check multilingual SEO/head
+npm test                 # базова перевірка проекту
 
 # Docker (локальний preview)
 docker compose up --build   # http://localhost:8080
@@ -1286,4 +1356,25 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-16 11:56 CEST (Codex)*
+---
+
+### 2026-04-17 — SEO fix: статичний H1 у prerender
+
+**Проблема:** Bing URL Inspection (Live URL) повертав помилку "H1 tag missing" для `/tr/`. React-рендерений `<h1>` в `HeroSection` має CSS-клас `animate-hero-slide-up delay-600`, який стартує з `opacity:0`. Bing знімає DOM-знімок раніше, ніж анімація завершується, і не бачить тег.
+
+**Рішення:** у `scripts/prerender.mjs` додано функцію `injectBodyH1()`, яка під час build вшиває `<h1>` безпосередньо у статичний HTML — перед `<div id="root">` — через стандартний clip-rect патерн (visually hidden, але читається crawlerами).
+
+**Змінені файли:**
+- `scripts/seo-config.mjs` — додано поле `h1` до конфігів DE та TR
+- `scripts/prerender.mjs` — додано `injectBodyH1()` + імпорт `escapeHtml`
+
+**Результат у dist:**
+- `dist/index.html` → `<h1 …>Bildungs- &amp; Begegnungszentrum für Ahlen</h1>`
+- `dist/tr/index.html` → `<h1 …>Eğitim ve Buluşma Merkezi Ahlen için</h1>`
+
+**Також виправлено під час перевірки:**
+- `NavBar.tsx` — кнопка `"Jetzt spenden"` була захардкоджена, виправлено на `{t.nav.donate}`
+
+---
+
+*Документ оновлено: 2026-04-17 CEST (Codex)*

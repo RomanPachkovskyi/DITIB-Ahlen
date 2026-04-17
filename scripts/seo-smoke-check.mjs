@@ -20,7 +20,7 @@ function getNodeByType(graph, type) {
 
 function extractStructuredData(html, key) {
   const match = html.match(
-    /<script id="structured-data" type="application\/ld\+json">([\s\S]*?)<\/script>/
+    /<script[^>]+id="structured-data"[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/
   );
 
   assert(match, `${key}: structured data script missing`);
@@ -35,26 +35,32 @@ async function checkPage(key) {
   const html = await readFile(filePath, "utf8");
   const config = SEO[key];
 
+  // Tags are prerendered with data-rh="true" so react-helmet-async can manage them on hydration.
   assert(html.includes(`<html lang="${config.lang}">`), `${key}: html lang`);
   assert(
-    html.includes(`<link rel="canonical" href="${config.canonical}" />`),
+    html.includes(`<link data-rh="true" rel="canonical" href="${config.canonical}" />`),
     `${key}: canonical`
   );
   assert(
-    html.includes(`<meta name="description" content="${escapeHtml(config.description)}" />`),
+    html.includes(`<meta data-rh="true" name="description" content="${escapeHtml(config.description)}" />`),
     `${key}: description`
   );
   assert(
-    html.includes(`<meta property="og:locale" content="${config.ogLocale}" />`),
+    html.includes(`<meta data-rh="true" property="og:locale" content="${config.ogLocale}" />`),
     `${key}: og locale`
   );
   assert(
-    html.includes(`<meta name="twitter:title" content="${escapeHtml(config.twitterTitle)}" />`),
+    html.includes(`<meta data-rh="true" name="twitter:title" content="${escapeHtml(config.twitterTitle)}" />`),
     `${key}: twitter title`
   );
   assert(
-    html.includes(`<link rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />`),
+    html.includes(`<link data-rh="true" rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />`),
     `${key}: hreflang tr`
+  );
+  // Structured-data script also carries data-rh="true"
+  assert(
+    html.includes(`<script data-rh="true" id="structured-data"`),
+    `${key}: structured-data data-rh`
   );
 
   const structuredData = extractStructuredData(html, key);

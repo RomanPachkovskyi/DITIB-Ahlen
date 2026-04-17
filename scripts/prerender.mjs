@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { SEO, buildHeadHtml, escapeHtml } from "./seo-config.mjs";
+import { SEO, buildHeadHtml } from "./seo-config.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,24 +39,10 @@ function injectHead(html, headHtml) {
   return html.replace("</head>", `  ${headHtml}\n</head>`);
 }
 
-/**
- * Injects a visually-hidden <h1> directly into the static HTML body,
- * before <div id="root">. This ensures crawlers (Bing, Google) that
- * parse the static HTML find the h1 immediately, without waiting for
- * React to render or for CSS animations to complete.
- * The element is hidden via the standard clip-rect pattern — invisible
- * to users, fully readable by bots.
- */
-function injectBodyH1(html, h1Text) {
-  const tag = `<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0">${escapeHtml(h1Text)}</h1>`;
-  return html.replace(/<div id="root">/, `${tag}<div id="root">`);
-}
-
 function renderPage(template, config) {
   const withoutSeo = stripSeo(template);
   const withLang = setHtmlLang(withoutSeo, config.lang);
-  const withHead = injectHead(withLang, buildHeadHtml(config));
-  return config.h1 ? injectBodyH1(withHead, config.h1) : withHead;
+  return injectHead(withLang, buildHeadHtml(config));
 }
 
 async function main() {

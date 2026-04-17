@@ -63,8 +63,6 @@ export const SEO = {
     ogLocale: "de_DE",
     ogLocaleAlt: "tr_TR",
     canonical: `${BASE_URL}/`,
-    /** Visually-hidden static h1 injected into the HTML body for crawlers */
-    h1: "Bildungs- & Begegnungszentrum für Ahlen",
     title: "Bildungs- & Begegnungszentrum Ahlen – DiTiB · Ein Zukunftsprojekt",
     description:
       "Das neue Bildungs- & Begegnungszentrum von DiTiB Ahlen: barrierefrei, nachhaltig, ein Ort für Begegnung und Austausch. Projekt entdecken und unterstützen.",
@@ -105,8 +103,6 @@ export const SEO = {
     ogLocale: "tr_TR",
     ogLocaleAlt: "de_DE",
     canonical: `${BASE_URL}/tr/`,
-    /** Visually-hidden static h1 injected into the HTML body for crawlers */
-    h1: "Eğitim ve Buluşma Merkezi Ahlen için",
     title: "Eğitim ve Buluşma Merkezi Ahlen – DiTiB · Geleceğe Bir Adım",
     description:
       "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezi: engelsiz, sürdürülebilir, buluşma ve paylaşım mekânı. Projeyi keşfedin ve destekleyin.",
@@ -317,31 +313,33 @@ export function buildStructuredData(config) {
 export function buildHeadHtml(config) {
   const structuredData = JSON.stringify(buildStructuredData(config));
 
+  // data-rh="true" tells react-helmet-async these are its managed tags.
+  // On hydration it will remove them and re-inject its own, preventing duplicates.
   return `
-  <title>${escapeHtml(config.title)}</title>
-  <meta name="description" content="${escapeHtml(config.description)}" />
-  <meta name="language" content="${config.lang}" />
-  <link rel="canonical" href="${config.canonical}" />
-  <link rel="alternate" hreflang="de" href="${BASE_URL}/" />
-  <link rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />
-  <link rel="alternate" hreflang="x-default" href="${BASE_URL}/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="DiTiB Ahlen" />
-  <meta property="og:title" content="${escapeHtml(config.ogTitle)}" />
-  <meta property="og:description" content="${escapeHtml(config.ogDescription)}" />
-  <meta property="og:url" content="${config.canonical}" />
-  <meta property="og:locale" content="${config.ogLocale}" />
-  <meta property="og:locale:alternate" content="${config.ogLocaleAlt}" />
-  <meta property="og:image" content="${OG_IMAGE}" />
-  <meta property="og:image:secure_url" content="${OG_IMAGE}" />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="${escapeHtml(config.twitterTitle)}" />
-  <meta name="twitter:description" content="${escapeHtml(config.twitterDescription)}" />
-  <meta name="twitter:image" content="${TWITTER_IMAGE}" />
-  <meta name="twitter:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
-  <script id="structured-data" type="application/ld+json">${structuredData}</script>`.trim();
+  <title data-rh="true">${escapeHtml(config.title)}</title>
+  <meta data-rh="true" name="description" content="${escapeHtml(config.description)}" />
+  <meta data-rh="true" name="language" content="${config.lang}" />
+  <link data-rh="true" rel="canonical" href="${config.canonical}" />
+  <link data-rh="true" rel="alternate" hreflang="de" href="${BASE_URL}/" />
+  <link data-rh="true" rel="alternate" hreflang="tr" href="${BASE_URL}/tr/" />
+  <link data-rh="true" rel="alternate" hreflang="x-default" href="${BASE_URL}/" />
+  <meta data-rh="true" property="og:type" content="website" />
+  <meta data-rh="true" property="og:site_name" content="DiTiB Ahlen" />
+  <meta data-rh="true" property="og:title" content="${escapeHtml(config.ogTitle)}" />
+  <meta data-rh="true" property="og:description" content="${escapeHtml(config.ogDescription)}" />
+  <meta data-rh="true" property="og:url" content="${config.canonical}" />
+  <meta data-rh="true" property="og:locale" content="${config.ogLocale}" />
+  <meta data-rh="true" property="og:locale:alternate" content="${config.ogLocaleAlt}" />
+  <meta data-rh="true" property="og:image" content="${OG_IMAGE}" />
+  <meta data-rh="true" property="og:image:secure_url" content="${OG_IMAGE}" />
+  <meta data-rh="true" property="og:image:type" content="image/jpeg" />
+  <meta data-rh="true" property="og:image:width" content="1200" />
+  <meta data-rh="true" property="og:image:height" content="630" />
+  <meta data-rh="true" property="og:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
+  <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+  <meta data-rh="true" name="twitter:title" content="${escapeHtml(config.twitterTitle)}" />
+  <meta data-rh="true" name="twitter:description" content="${escapeHtml(config.twitterDescription)}" />
+  <meta data-rh="true" name="twitter:image" content="${TWITTER_IMAGE}" />
+  <meta data-rh="true" name="twitter:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
+  <script data-rh="true" id="structured-data" type="application/ld+json">${structuredData}</script>`.trim();
 }

@@ -321,7 +321,7 @@ const HeroSection = () => {
                 {t.hero.eyebrow}
               </p>
 
-              <h1 className="animate-hero-slide-up delay-600 font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white mb-3 drop-shadow-lg">
+              <h1 className="font-body text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white mb-3 drop-shadow-lg">
                 {t.hero.title}
                 <br />
                 <span className="font-light italic">{t.hero.titleItalic}</span>

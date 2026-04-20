@@ -162,6 +162,24 @@ export const de: Translations = {
     ],
   },
 
+  // ─── Map Section ─────────────────────────────────────────────────
+  mapSection: {
+    label: "— Standort auf der Karte",
+    heading: "Hier entsteht das neue Zentrum",
+    body: "Der geplante Bauort ist bereits im geografischen Kontext sichtbar. Im nächsten Schritt wird diese Fläche mit einer interaktiven Google-Karte, Projektgrenze und Umgebung ergänzt.",
+    siteLabel: "Geplanter Bauort",
+    siteName: "Neues Bildungs- & Begegnungszentrum",
+    coordinatesLabel: "Koordinaten",
+    decimalLabel: "Dezimal",
+    primaryCta: "In Google Maps öffnen",
+    statusBadge: "Projektfläche",
+    contextBadge: "Kontextansicht",
+    liveBadge: "Interaktive Karte aktiv",
+    fallbackBadge: "Stilisierte Vorschau",
+    fallbackNote: "Sobald ein Google-Maps-API-Schlüssel hinterlegt ist, erscheint hier automatisch die interaktive Karte.",
+    loadingLabel: "Karte wird geladen",
+  },
+
   // ─── Social ───────────────────────────────────────────────────────
   social: {
     label: "— Folgen Sie uns",

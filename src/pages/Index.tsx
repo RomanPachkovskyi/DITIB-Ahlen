@@ -10,6 +10,7 @@ const ProjectPartners = lazy(() => import("@/components/ProjectPartners"));
 const PDFDownloadSection = lazy(() => import("@/components/PDFDownloadSection"));
 const DonationProgress = lazy(() => import("@/components/DonationProgress"));
 const CompanySupportSection = lazy(() => import("@/components/CompanySupportSection"));
+const MapSection = lazy(() => import("@/components/MapSection"));
 const SocialSection = lazy(() => import("@/components/SocialSection"));
 const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -28,6 +29,7 @@ const Index = () => {
         <PDFDownloadSection />
         <DonationProgress />
         <CompanySupportSection />
+        <MapSection />
         <SocialSection />
         <FinalCTA />
         <Footer />

@@ -167,6 +167,24 @@ export const tr: Translations = {
     ],
   },
 
+  // ─── Map Section ─────────────────────────────────────────────────
+  mapSection: {
+    label: "— Harita Üzerindeki Konum",
+    heading: "Yeni merkez burada yükselecek",
+    body: "Planlanan inşaat alanı artık coğrafi bağlamıyla görülebiliyor. Bir sonraki adımda bu bölüm, interaktif Google haritası, proje sınırı ve çevre bilgileriyle tamamlanacak.",
+    siteLabel: "Planlanan inşaat alanı",
+    siteName: "Yeni Eğitim ve Buluşma Merkezi",
+    coordinatesLabel: "Koordinatlar",
+    decimalLabel: "Ondalık",
+    primaryCta: "Google Maps'te aç",
+    statusBadge: "Proje alanı",
+    contextBadge: "Bağlam görünümü",
+    liveBadge: "İnteraktif harita aktif",
+    fallbackBadge: "Stilize önizleme",
+    fallbackNote: "Google Maps API anahtarı eklendiğinde interaktif harita burada otomatik olarak görünecek.",
+    loadingLabel: "Harita yükleniyor",
+  },
+
   // ─── Social ───────────────────────────────────────────────────────
   social: {
     label: "— Bizi Takip Edin",

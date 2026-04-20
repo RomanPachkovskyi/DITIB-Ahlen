@@ -96,6 +96,22 @@ export interface Translations {
       description: string;
     }>;
   };
+  mapSection: {
+    label: string;
+    heading: string;
+    body: string;
+    siteLabel: string;
+    siteName: string;
+    coordinatesLabel: string;
+    decimalLabel: string;
+    primaryCta: string;
+    statusBadge: string;
+    contextBadge: string;
+    liveBadge: string;
+    fallbackBadge: string;
+    fallbackNote: string;
+    loadingLabel: string;
+  };
   social: {
     label: string;
     heading: string;

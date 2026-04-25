@@ -178,6 +178,10 @@ export const de: Translations = {
     fallbackBadge: "Stilisierte Vorschau",
     fallbackNote: "Sobald ein Google-Maps-API-Schlüssel hinterlegt ist, erscheint hier automatisch die interaktive Karte.",
     loadingLabel: "Karte wird geladen",
+    consentGateTitle: "Interaktive Karte erst nach Einwilligung",
+    consentGateBody:
+      "Zum Schutz Ihrer Daten wird Google Maps erst geladen, wenn Sie in externe Inhalte einwilligen. Mit einem Klick auf „Karte laden“ stimmen Sie dem Laden der Karte zu.",
+    consentGateCta: "Karte laden",
   },
 
   // ─── Social ───────────────────────────────────────────────────────
@@ -225,7 +229,7 @@ export const de: Translations = {
   cookie: {
     bannerTitle: "Ihre Privatsphäre ist uns wichtig",
     bannerText:
-      "Wir verwenden technisch notwendige Speichermethoden, damit diese Website funktioniert. Analyse & Statistik umfasst auf dieser Website Google Analytics 4 und Microsoft Clarity und wird nur mit Ihrer Einwilligung aktiviert. Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol unten rechts anpassen.",
+      "Wir verwenden technisch notwendige Speichermethoden, damit diese Website funktioniert. Analyse & Statistik umfasst auf dieser Website Google Analytics 4 und Microsoft Clarity. Externe Inhalte umfasst unter anderem die interaktive Google-Maps-Karte. Optionale Kategorien werden nur mit Ihrer Einwilligung aktiviert. Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol unten rechts anpassen.",
     acceptAll: "Alle akzeptieren",
     rejectAll: "Nur Notwendige",
     settings: "Einstellungen",
@@ -253,9 +257,9 @@ export const de: Translations = {
       },
       external: {
         label: "Externe Inhalte",
-        description: "Ermöglichen die Einbindung externer Medien und Dienste.",
+        description: "Ermöglichen die Einbindung externer Dienste wie Google Maps.",
         details:
-          "Betrifft die Einbindung externer Inhalte wie eingebettete Videos, Karten oder Social-Media-Beiträge. Beim Laden solcher Inhalte kann Ihre IP-Adresse an Drittanbieter übermittelt werden. Derzeit werden keine externen Inhalte automatisch geladen.",
+          "Betrifft die Einbindung externer Inhalte wie Google Maps, eingebettete Videos oder Social-Media-Beiträge. Beim Laden solcher Inhalte kann insbesondere Ihre IP-Adresse an Drittanbieter übermittelt werden. Die interaktive Google-Maps-Karte wird auf dieser Website erst nach Ihrer Einwilligung in externe Inhalte geladen.",
       },
     },
   },

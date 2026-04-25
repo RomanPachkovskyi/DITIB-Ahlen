@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
+import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useLang } from "@/i18n/useLang";
 import { buildGoogleMapsUrl, getStyledMapOptions, loadGoogleMapsApi } from "@/lib/google-maps";
+import mapPlaceholderImage from "@/assets/map-placeholder.jpg";
 
 const SITE_COORDINATES_DECIMAL = {
   lat: 51.759361,
@@ -35,15 +37,16 @@ const fallbackParcelShape = {
 
 const MapSection = () => {
   const { t } = useLang();
+  const { consent, saveCustom } = useCookieConsent();
   const headerRef = useScrollReveal();
   const mapRef = useScrollReveal({ threshold: 0.06 });
   const liveMapRef = useRef<HTMLDivElement>(null);
-  const [mapStatus, setMapStatus] = useState<"idle" | "loading" | "ready" | "error">(
-    GOOGLE_MAPS_API_KEY ? "loading" : "idle"
-  );
+  const canLoadExternalMap = Boolean(consent?.external);
+  const [mapStatus, setMapStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
 
   useEffect(() => {
-    if (!GOOGLE_MAPS_API_KEY || !liveMapRef.current) {
+    if (!canLoadExternalMap || !GOOGLE_MAPS_API_KEY || !liveMapRef.current) {
+      setMapStatus("idle");
       return;
     }
 
@@ -94,9 +97,18 @@ const MapSection = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [canLoadExternalMap]);
 
   const hasLiveMap = mapStatus === "ready";
+  const showConsentPlaceholder = !canLoadExternalMap;
+
+  const handleLoadMap = () => {
+    saveCustom({
+      necessary: true,
+      analytics: consent?.analytics ?? false,
+      external: true,
+    });
+  };
 
   return (
     <section className="px-5 py-16 md:px-10 md:py-24">
@@ -114,15 +126,15 @@ const MapSection = () => {
             href={GOOGLE_MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex h-[52px] w-full items-center justify-center gap-3 rounded-full bg-primary px-8 py-0 font-body text-sm font-medium text-primary-foreground shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none md:w-auto md:shrink-0"
+            className="group hidden items-center gap-2 font-body text-sm font-medium text-foreground underline decoration-1 underline-offset-4 transition-colors duration-200 hover:text-primary md:inline-flex md:shrink-0"
           >
             {t.mapSection.primaryCta}
-            <ArrowUpRight className="h-3.5 w-3.5 opacity-50 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+            <ArrowUpRight className="h-3.5 w-3.5 opacity-60 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
           </a>
         </div>
       </div>
 
-      <div className="px-4 md:px-6">
+      <div className="px-0 md:px-6">
         <div
           ref={mapRef}
           className="reveal reveal-delay-2 mx-auto max-w-[1440px] overflow-hidden rounded-xl border border-[#d8d0bf] bg-[#f5efe5] shadow-[0_30px_80px_rgba(37,62,84,0.12)]"
@@ -156,7 +168,45 @@ const MapSection = () => {
                 </div>
               </>
             )}
+
+            {showConsentPlaceholder && (
+              <div className="absolute inset-0 flex items-center justify-center p-6 md:p-10">
+                <div
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${mapPlaceholderImage})` }}
+                />
+                <div className="absolute inset-0 bg-white/30 backdrop-blur-[6px]" />
+
+                <div className="relative max-w-xl rounded-xl border border-white/70 bg-white/82 px-6 py-7 text-center shadow-[0_20px_50px_rgba(37,62,84,0.14)] backdrop-blur">
+                  <p className="mb-3 font-body text-lg font-semibold text-foreground md:text-xl">
+                    {t.mapSection.consentGateTitle}
+                  </p>
+                  <p className="body-md mx-auto max-w-lg text-sm md:text-base">
+                    {t.mapSection.consentGateBody}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleLoadMap}
+                    className="mt-6 inline-flex h-[52px] items-center justify-center rounded-full bg-primary px-8 py-0 font-body text-sm font-medium text-primary-foreground shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none"
+                  >
+                    {t.mapSection.consentGateCta}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
+        </div>
+
+        <div className="mx-auto mt-4 flex max-w-[1440px] px-5 md:hidden">
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 font-body text-sm font-medium text-foreground underline decoration-1 underline-offset-4 transition-colors duration-200 hover:text-primary"
+          >
+            {t.mapSection.primaryCta}
+            <ArrowUpRight className="h-3.5 w-3.5 opacity-60 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+          </a>
         </div>
       </div>
     </section>

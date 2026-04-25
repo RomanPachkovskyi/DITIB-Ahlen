@@ -183,6 +183,10 @@ export const tr: Translations = {
     fallbackBadge: "Stilize önizleme",
     fallbackNote: "Google Maps API anahtarı eklendiğinde interaktif harita burada otomatik olarak görünecek.",
     loadingLabel: "Harita yükleniyor",
+    consentGateTitle: "İnteraktif harita ancak onaydan sonra yüklenir",
+    consentGateBody:
+      "Verilerinizi korumak için Google Maps ancak harici içeriklere onay verdiğinizde yüklenir. “Haritayı yükle” düğmesine tıklayarak haritanın yüklenmesine onay vermiş olursunuz.",
+    consentGateCta: "Haritayı yükle",
   },
 
   // ─── Social ───────────────────────────────────────────────────────
@@ -231,7 +235,7 @@ export const tr: Translations = {
   cookie: {
     bannerTitle: "Gizliliğiniz bizim için önemlidir",
     bannerText:
-      "Bu web sitesinin çalışması için teknik olarak gerekli depolama yöntemleri kullanmaktayız. Analiz ve İstatistik, bu web sitesinde Google Analytics 4 ve Microsoft Clarity'yi kapsamakta olup yalnızca onayınızla etkinleştirilmektedir. Ayarlarınızı istediğiniz zaman sağ alttaki Veri Koruma simgesi aracılığıyla değiştirebilirsiniz.",
+      "Bu web sitesinin çalışması için teknik olarak gerekli depolama yöntemleri kullanmaktayız. Analiz ve İstatistik bu web sitesinde Google Analytics 4 ve Microsoft Clarity'yi kapsar. Harici içerikler arasında interaktif Google Maps haritası da yer alır. İsteğe bağlı kategoriler yalnızca onayınızla etkinleştirilir. Ayarlarınızı istediğiniz zaman sağ alttaki Veri Koruma simgesi aracılığıyla değiştirebilirsiniz.",
     acceptAll: "Tümünü kabul et",
     rejectAll: "Sadece gerekli olanlar",
     settings: "Ayarlar",
@@ -259,9 +263,9 @@ export const tr: Translations = {
       },
       external: {
         label: "Harici Icerikler",
-        description: "Harici medya ve hizmetlerin entegrasyonunu saglar.",
+        description: "Google Maps gibi harici hizmetlerin entegrasyonunu sağlar.",
         details:
-          "Gomulu videolar, haritalar veya sosyal medya icerikleri gibi harici iceriklerin entegrasyonunu kapsar. Bu icerikler yuklenirken IP adresiniz ucuncu taraf saglayicilara aktarilabilir. Su anda harici icerikler otomatik olarak yuklenmemektedir.",
+          "Google Maps, gömülü videolar veya sosyal medya içerikleri gibi harici içeriklerin entegrasyonunu kapsar. Bu içerikler yüklenirken özellikle IP adresiniz üçüncü taraf sağlayıcılara aktarılabilir. Bu web sitesindeki interaktif Google Maps haritası ancak harici içeriklere onay verdikten sonra yüklenir.",
       },
     },
   },

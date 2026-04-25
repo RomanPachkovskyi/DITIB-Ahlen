@@ -158,7 +158,7 @@ const Footer = () => {
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li><strong className="text-foreground">Technisch notwendig</strong> (immer aktiv): Speichert Ihren Einwilligungsstatus im Local Storage des Browsers (Schlüssel: <code className="text-xs bg-secondary px-1 py-0.5 rounded">ditib_cookie_consent</code>). Es werden dabei eine Versionsnummer, ein Zeitstempel und Ihre gewählten Einstellungen gespeichert — keine personenbezogenen Daten.</li>
                 <li><strong className="text-foreground">Analyse & Statistik</strong> (optional): Bei Ihrer Einwilligung aktivieren wir Google Analytics 4 und Microsoft Clarity zur Reichweitenmessung, Nutzungsanalyse und Verbesserung der Website.</li>
-                <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Derzeit nicht im Einsatz. Kategorie für eine mögliche zukünftige Einbindung externer Medien.</li>
+                <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Betrifft insbesondere die interaktive Google-Maps-Karte sowie weitere mögliche externe Medien. Diese Inhalte werden erst nach Ihrer Einwilligung geladen.</li>
               </ul>
               <p className="mt-2">Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol (unten rechts) ändern oder widerrufen.</p>
               <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG (technisch notwendig) bzw. § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO (optionale Kategorien, nur nach Einwilligung).</p>
@@ -178,23 +178,33 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">7. Externe Links</p>
-              <p>Diese Website enthält Links zu externen Websites (z. B. Instagram). Erst wenn Sie einen solchen Link aktiv anklicken, wird eine Verbindung zum jeweiligen Drittanbieter hergestellt. Für die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+              <p className="font-semibold text-foreground mb-2">7. Google Maps</p>
+              <p>Auf dieser Website ist eine interaktive Karte von Google Maps eingebunden. Die Karte wird nicht automatisch geladen, sondern erst, wenn Sie in die Kategorie „Externe Inhalte" einwilligen oder im Kartenbereich ausdrücklich auf „Karte laden" klicken. Erst danach wird eine Verbindung zu Servern von Google hergestellt.</p>
+              <p className="mt-2"><strong className="text-foreground">Anbieter:</strong> Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
+              <p className="mt-2">Beim Laden der Karte können insbesondere Ihre IP-Adresse, Browser- und Gerätedaten, Referrer-Informationen sowie je nach Konfiguration und Google-Dienst auch Angaben zu Ihrer ungefähren Standortregion an Google übermittelt werden. Auf diese Datenverarbeitung durch Google haben wir nach dem Laden der Karte keinen vollständigen Einfluss.</p>
+              <p className="mt-2">Weitere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Google</a>, in den Informationen dazu, <a href="https://policies.google.com/technologies/location-data" target="_blank" rel="noreferrer" className="text-primary hover:underline">wie Google Standortinformationen verwendet</a>, sowie in der <a href="https://developers.google.com/maps/documentation/javascript" target="_blank" rel="noreferrer" className="text-primary hover:underline">Dokumentation zur Maps JavaScript API</a>.</p>
+              <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO.</p>
+              <p className="mt-2"><strong className="text-foreground">Widerruf:</strong> Sie können eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft über das Datenschutz-Symbol unten rechts widerrufen. Bereits aufgebaute Verbindungen zu Google können dadurch für die Vergangenheit jedoch nicht rückgängig gemacht werden.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">8. Spenden über externe Zahlungsdienste</p>
+              <p className="font-semibold text-foreground mb-2">8. Externe Links</p>
+              <p>Diese Website enthält Links zu externen Websites (z. B. Instagram, Facebook oder Google Maps als externe Vollansicht). Erst wenn Sie einen solchen Link aktiv anklicken, wird eine Verbindung zum jeweiligen Drittanbieter hergestellt. Für die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-2">9. Spenden über externe Zahlungsdienste</p>
               <p>Wenn Sie auf einen Spendenlink klicken, werden Sie auf die Website des jeweiligen Zahlungsdienstleisters weitergeleitet. Dabei können insbesondere Ihre IP-Adresse, technische Verbindungsdaten sowie weitere von Ihnen dort eingegebene Zahlungs- oder Kontaktdaten durch den jeweiligen Anbieter verarbeitet werden.</p>
               <p className="mt-2">Auf dieser Website selbst werden keine Zahlungsdaten erhoben oder gespeichert. Für die Datenverarbeitung auf der Zahlungsseite ist ausschließlich der jeweilige Zahlungsdienstleister verantwortlich. Bitte beachten Sie die dort geltenden Datenschutzinformationen, insbesondere bei PayPal.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">9. SSL-/TLS-Verschlüsselung</p>
+              <p className="font-semibold text-foreground mb-2">10. SSL-/TLS-Verschlüsselung</p>
               <p>Diese Website nutzt eine SSL-/TLS-Verschlüsselung, um die Übertragung vertraulicher Inhalte zu schützen.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">10. Analyse- und Tracking-Dienste</p>
+              <p className="font-semibold text-foreground mb-2">11. Analyse- und Tracking-Dienste</p>
               <p>Sofern Sie im Consent-Banner in die Kategorie „Analyse & Statistik" einwilligen, verwenden wir Google Analytics 4 und Microsoft Clarity. Diese Dienste helfen uns zu verstehen, wie Besucherinnen und Besucher unsere Website nutzen, welche Inhalte relevant sind und an welchen Stellen wir die Nutzererfahrung verbessern können.</p>
               <p className="mt-2">Google Analytics 4 wird erst nach Ihrer Einwilligung geladen und im Basic Consent Mode betrieben. Microsoft Clarity wird ebenfalls erst nach Ihrer Einwilligung geladen. Ohne Ihre Zustimmung werden diese Dienste auf dieser Website nicht aktiviert.</p>
               <p className="mt-2"><strong className="text-foreground">Google Analytics 4:</strong> Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Weitere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Google</a> und in den Informationen zu <a href="https://support.google.com/analytics/answer/12017362" target="_blank" rel="noreferrer" className="text-primary hover:underline">Google Analytics 4</a>.</p>
@@ -205,7 +215,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">11. Ihre Rechte</p>
+              <p className="font-semibold text-foreground mb-2">12. Ihre Rechte</p>
               <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
@@ -219,17 +229,17 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">12. Beschwerderecht bei einer Aufsichtsbehörde</p>
+              <p className="font-semibold text-foreground mb-2">13. Beschwerderecht bei einer Aufsichtsbehörde</p>
               <p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in Nordrhein-Westfalen ist der Landesbeauftragte für Datenschutz und Informationsfreiheit (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">13. Keine automatisierte Entscheidungsfindung</p>
+              <p className="font-semibold text-foreground mb-2">14. Keine automatisierte Entscheidungsfindung</p>
               <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">14. Aktualisierung dieser Datenschutzerklärung</p>
+              <p className="font-semibold text-foreground mb-2">15. Aktualisierung dieser Datenschutzerklärung</p>
               <p>Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer oder organisatorischer Änderungen erforderlich wird. Stand: April 2026.</p>
             </div>
 

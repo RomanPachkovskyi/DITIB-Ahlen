@@ -69,11 +69,13 @@
 6.  ProjectPartners     — 2 Hauptbeteiligte (DITIB, Theismann) + Partner (Munas-Print, 8media, ASK Ahlen)
 7.  PDFDownloadSection  — 10 архітектурних PDF для завантаження
 8.  DonationProgress    — прогрес бар 47%, анімовані лічильники, CTA + desktop QR+IBAN картка
-9.  SocialSection       — посилання на Instagram @ditibahlen
-10. FinalCTA            — фінальна кнопка пожертвування
-11. Footer              — модальні вікна: Impressum / Datenschutz / Kontakt
-12. StickyDonateBar     — фіксована панель знизу (primary bg, біла кнопка)
-13. CookieConsent       — банер / налаштування / floating widget
+9.  CompanySupportSection — підтримка для Unternehmen / Sachleistungen / Dienstleistungen
+10. MapSection         — Google Maps карта ділянки з точним polygon-контуром забудови
+11. SocialSection      — Instagram + Facebook CTA
+12. FinalCTA           — фінальна кнопка пожертвування
+13. Footer             — модальні вікна: Impressum / Datenschutz / Kontakt
+14. StickyDonateBar    — фіксована панель знизу (primary bg, біла кнопка)
+15. CookieConsent      — банер / налаштування / floating widget
 ```
 
 ---
@@ -1335,10 +1337,96 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
-## Поточний стан (2026-04-17)
+### 2026-04-20 — Інтеграція Google Maps для ділянки забудови
+
+**Сесія 15 — Жива карта, polygon ділянки та cleanup UI**
+
+- Підтверджено поточний runtime-стек для цього завдання:
+  - бойовий сайт працює з `/Users/roman/Project/DITIB-Ahlen/main`
+  - стек: `React + Vite + TypeScript`
+  - локальний preview/dev використовує `http://localhost:8080`
+- Додано нову секцію `MapSection` і вставлено її на головній сторінці між:
+  - `CompanySupportSection`
+  - `SocialSection`
+- Для секції карти реалізовано 2-рівневу інтеграцію:
+  1. **graceful fallback** — стилізований preview-блок без API
+  2. **live Google Map** — якщо в оточенні присутній `VITE_GOOGLE_MAPS_API_KEY`
+- Додано новий helper `src/lib/google-maps.ts`:
+  - динамічне завантаження `Maps JavaScript API`
+  - `buildGoogleMapsUrl()`
+  - `getStyledMapOptions()`
+  - fallback на локальний JSON-style, якщо `mapId` не заданий
+- Розширено env-типізацію в `src/vite-env.d.ts`:
+  - `VITE_GOOGLE_MAPS_API_KEY`
+  - `VITE_GOOGLE_MAPS_MAP_ID`
+- Через `i18n` додано тексти для нової карти:
+  - оновлено `src/i18n/types.ts`
+  - додано блок `mapSection` у `src/i18n/de.ts` і `src/i18n/tr.ts`
+- Після підключення `Map ID` перевірено, що сайт реально передає cloud-style в runtime:
+  - карта створюється з `mapId`, якщо присутній `VITE_GOOGLE_MAPS_MAP_ID`
+  - fallback `styles: [...]` використовується лише коли `mapId` відсутній
+- Виправлено критичну логічну помилку першої версії:
+  - контейнер live-карти спочатку монтувався тільки після стану `ready`
+  - через це Google Maps не мала куди ініціалізуватись
+  - виправлено: контейнер існує завжди, а видимість контролюється через `opacity`
+- На вимогу UX/UI спрощено блок карти:
+  - прибрано всі службові плашки поверх самої карти
+  - прибрано маркер і тимчасове коло
+  - кнопку `In Google Maps öffnen` перенесено в header-рядок секції, праворуч від заголовка
+  - текст під заголовком прибрано
+  - праву інформаційну колонку прибрано повністю
+  - карта розтягнута на всю ширину wide-контейнера
+  - заокруглення контейнера приведено до стилю фото-блоків (`rounded-xl`)
+- Зафіксовано робочий layout секції:
+  - текстовий header у `max-w-5xl`
+  - сама карта у `max-w-[1440px]`, аналогічно wide-grid у `ImageGallery`
+- На основі PDF-планів з `workspace/pdf/` проведено відбір джерела для точного контуру:
+  - `Genehmigungsplanung_Ditib_Ahlen_GE04_EG.pdf` визнано найкращим для зняття меж ділянки
+  - `Freiflächenplan...` / `Poster_Freiflächenplan...` залишено як допоміжні masterplan-референси
+- Тимчасовий апроксимований контур ділянки замінено на точний polygon з 4 вершин:
+  - `51.75907866481751, 7.90587609407315`
+  - `51.75954529463544, 7.9057430554382275`
+  - `51.75960149902202, 7.906201299625186`
+  - `51.75911395631686, 7.906328003087017`
+  - порядок: за годинниковою стрілкою
+- Карта автоматично масштабується по bounds polygon-а через `fitBounds(...)`
+- В процесі налаштування `Map ID` виявлено, що зміни стилю Google Maps не відображались одразу:
+  - локально підтверджено, що `mapId` реально потрапляє в bundle
+  - після `Save + Publish` cloud-style почав застосовуватись коректно
+  - додатково користувачу пояснено відмінність між `Draft`, `Published`, кешем tiles і прив'язкою style ↔ map ID
+- Практичний результат:
+  - на сторінці є чистий live-блок Google Maps
+  - зайві інформаційні overlay-елементи прибрані
+  - ділянка забудови виділена точним polygon-контуром
+  - карта візуально узгоджена з широкими фото-блоками сайту
+
+**Змінені файли:**
+- `src/pages/Index.tsx`
+- `src/components/MapSection.tsx`
+- `src/lib/google-maps.ts`
+- `src/i18n/types.ts`
+- `src/i18n/de.ts`
+- `src/i18n/tr.ts`
+- `src/vite-env.d.ts`
+
+**Перевірки:**
+- `npm run build` — успішно на кожному етапі інтеграції
+- локально підтверджено роботу live Google Map після перезапуску dev server
+
+**Статус релізу:**
+- зміни перевірено локально
+- окремий релізний build для цієї версії перед публікацією ще не зафіксовано
+- деплой цієї версії на хостинг ще не виконувався; заплановано разом з наступним пакетом правок
+
+**Підпис:** Codex
+**Дата/час:** 2026-04-20 15:25 CEST
+
+---
+
+## Поточний стан (2026-04-20)
 
 ### ✅ Готово
-- [x] 13 React компонентів — повністю реалізовано
+- [x] 15 React компонентів — повністю реалізовано
 - [x] Реальні фото (6) та PDF (10)
 - [x] Scroll-анімації по всіх секціях (Hero-крива easing)
 - [x] Docker (multi-stage build + nginx)
@@ -1358,11 +1446,16 @@ npm run seo:check # ✓ SEO smoke check passed
 - [x] Build-процес генерує окремі `dist/index.html` і `dist/tr/index.html`
 - [x] `FAQPage` schema залишається тільки на DE-версії
 - [x] `sitemap.xml` оновлено під 2 URL з `xhtml:link` hreflang
+- [x] `MapSection`: live Google Maps блок між `CompanySupportSection` і `SocialSection`
+- [x] Google Maps `Map ID` + cloud styling підключено через `VITE_GOOGLE_MAPS_MAP_ID`
+- [x] Точний polygon ділянки забудови нанесено по 4 координатах замовника
+- [ ] Поточна Google Maps версія ще не деплоєна на хостинг
 
 ### 🚀 До запуску на хостинг
 - [ ] Домен + DNS (A-record)
 - [ ] SSL (Let's Encrypt / Certbot)
 - [ ] Замінити числа: 2 340 000 € / 1 847 донорів — на актуальні перед запуском
+- [ ] Зробити фінальний build і деплой версії з Google Maps разом з наступними правками
 - [x] Build → `dist/` (командою `npm run build`)
 - [x] SEO smoke-check → `npm run seo:check`
 
@@ -1380,7 +1473,9 @@ src/
 │   ├── ProjectPartners.tsx      — Projektbeteiligte: 2 головні учасники + 3 партнери, data-driven layout, відіграє роль нижнього стику з відео
 │   ├── PDFDownloadSection.tsx   — 10 PDF для завантаження
 │   ├── DonationProgress.tsx     — прогрес бар + CountUp + CTA
-│   ├── SocialSection.tsx        — Instagram CTA
+│   ├── CompanySupportSection.tsx — підтримка для Unternehmen / Sachleistungen / Dienstleistungen
+│   ├── MapSection.tsx           — Google Maps блок з live map, polygon ділянки та CTA у header
+│   ├── SocialSection.tsx        — Instagram + Facebook CTA
 │   ├── FinalCTA.tsx             — фінальна кнопка
 │   ├── Footer.tsx               — Impressum / Datenschutz / Kontakt modal
 │   ├── NavBar.tsx               — sticky header (з'являється після 60% vh)
@@ -1389,6 +1484,11 @@ src/
 │   ├── LangMeta.tsx             — мовозалежні SEO/head теги через react-helmet-async
 │   ├── LangSwitcher.tsx         — DE/TR перемикач мови
 │   └── Modal.tsx                — базовий modal (scroll lock, ESC, focus trap)
+├── lib/
+│   ├── google-maps.ts           — lazy loader Maps JS API + mapId/fallback style helpers
+│   ├── asset-url.ts             — абсолютні asset URL для img/video/pdf
+│   ├── clean-anchor-navigation.ts — плавний scroll до секцій з чистим hash
+│   └── utils.ts                 — `cn()` helper
 ├── i18n/
 │   ├── types.ts                 — тип `Translations`
 │   ├── useLang.ts               — визначення мови з URL + langUrl()
@@ -1456,4 +1556,4 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-17 CEST (Codex)*
+*Документ оновлено: 2026-04-20 CEST (Codex)*

@@ -111,6 +111,9 @@ export interface Translations {
     fallbackBadge: string;
     fallbackNote: string;
     loadingLabel: string;
+    consentGateTitle: string;
+    consentGateBody: string;
+    consentGateCta: string;
   };
   social: {
     label: string;

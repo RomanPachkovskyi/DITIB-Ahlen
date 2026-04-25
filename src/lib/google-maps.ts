@@ -20,8 +20,8 @@ const customMapStyles = [
 declare global {
   interface Window {
     [GOOGLE_MAPS_CALLBACK]?: () => void;
-    __googleMapsScriptPromise?: Promise<any>;
-    google?: any;
+    __googleMapsScriptPromise?: Promise<unknown>;
+    google?: { maps?: unknown };
   }
 }
 

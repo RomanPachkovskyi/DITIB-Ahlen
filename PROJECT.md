@@ -1458,6 +1458,68 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
+### 2026-05-04 — Instagram live feed: Stage 2 `Runtime PHP layer`
+
+**Сесія 25 — Реалізація PHP runtime**
+
+ТЗ для цього етапу: `docs/instagram-live-feed-stage-2-php-runtime-spec.md`.
+Перед стартом ТЗ проревʼювано і розширено за 7 уточнюючими питаннями
+(токен runtime feed, refresh flow, локальна перевірка, HTTP timeout,
+логування, захист реального конфігу, версія Graph API).
+
+**Створені файли:**
+- `main/public/api/instagram-feed.php` — runtime endpoint
+- `main/public/api/instagram-refresh-token.php` — двокроковий refresh `fb_exchange_token` → `/me/accounts`
+- `main/public/api/instagram-config.example.php` — шаблон без секретів
+- `main/public/api/instagram-config.php` — реальні секрети, **локально, не в git**
+- `main/public/api/.htaccess` — захист config, dot-файлів, `cache/`
+- `main/public/api/cache/.gitignore` — `*` + `!.gitignore`
+
+**Змінені файли:**
+- `main/.gitignore` — додано `public/api/instagram-config.php`
+
+**Як працює runtime flow:**
+1. `GET /api/instagram-feed.php` → читає `instagram-config.php`.
+2. Якщо `cache/instagram-feed.json` молодший за 15 хв → `source=cache`.
+3. Інакше `curl` до `graph.facebook.com/{vNN}/{IG_USER_ID}/media?fields=...&limit=3` з `connect_timeout=3s, timeout=5s`.
+4. Нормалізує `IMAGE/VIDEO/CAROUSEL_ALBUM` → `{id,type,imageUrl,permalink,caption,timestamp}`, пише кеш, віддає `source=live`.
+5. Будь-яка помилка → fallback на last-good-cache (`source=cache,error=true`) або `{items:[],source:"empty",error:true}`. Лог у `cache/instagram-feed.error.log` без секретів.
+6. `instagram-refresh-token.php` оновлює user token, дістає новий page token через `/me/accounts`, пише `cache/instagram-token.json`.
+
+**Перевірки (локально, `php -S 127.0.0.1:8765 -t public`):**
+- холодний виклик → `source=live`, 3 пости, `Content-Type: application/json; charset=utf-8` ✓
+- теплий виклик у TTL → `source=cache` ✓
+- зламаний токен зі stale-кешем → `source=cache, error=true` ✓
+- зламаний токен без кешу → `source=empty, error=true, items=[]` ✓
+- error log пише `meta_fetch_failed` ✓
+- refresh створив свіжий `instagram-token.json` (новий user + page token, `expires_at=null`)
+
+**Code review (тестувальник):**
+- значущих багів немає
+- P3: refresh timeouts вирівняно зі специфікацією (3s/5s замість 5s/10s)
+- P3: failure-сценарії перевірив тільки Claude локально — потребують незалежного підтвердження на pre-prod
+- P3: довжини токенів змінні від рефреша до рефреша, не валідувати по `len`
+
+**Відомі обмеження / питання до Етапу 3:**
+- `expires_at=null` після refresh — потрібен додатковий виклик `/debug_token`
+- `instagram-refresh-token.php` публічний — додати guard (секрет у query або `Require ip`)
+- cron на PixelX ще не налаштований
+- Vite dev `:8080` PHP не виконує — для Етапу 4 окремий PHP-server + `server.proxy['/api']`
+
+**Документація:**
+- `docs/instagram-live-feed-plan.md` — Stage 2 чек-лист позначено виконаним, додано підтверджені перевірки і відомі обмеження
+- `docs/instagram-live-feed-stage-2-php-runtime-spec.md` — додано Status block + тимчасовий розділ "Implementation notes" (видалити після закриття Stages 3–4)
+
+**Статус:**
+- Stage 2 (`Runtime PHP layer`) реалізовано локально
+- Stage 3 (`Token maintenance`) — частково (refresh-script готовий, cron і guard ще ні)
+- Stage 4 (`Frontend integration`) ще не починався
+
+**Підпис:** Claude (Opus 4.7)
+**Дата/час:** 2026-05-04 10:55 CEST
+
+---
+
 ## Поточний стан (2026-04-20)
 
 ### ✅ Готово
@@ -1485,6 +1547,11 @@ npm run seo:check # ✓ SEO smoke check passed
 - [x] Google Maps `Map ID` + cloud styling підключено через `VITE_GOOGLE_MAPS_MAP_ID`
 - [x] Точний polygon ділянки забудови нанесено по 4 координатах замовника
 - [ ] Поточна Google Maps версія ще не деплоєна на хостинг
+- [x] Instagram live feed Stage 1 (`Meta preparation`) — токени, IDs, перевірка Graph API
+- [x] Instagram live feed Stage 2 (`Runtime PHP layer`) — `public/api/` готовий локально (feed + refresh + кеш + fallback + .htaccess)
+- [ ] Instagram live feed Stage 3 (`Token maintenance`) — cron + guard на refresh endpoint + `/debug_token`
+- [ ] Instagram live feed Stage 4 (`Frontend integration`) — React-компонент, Vite proxy для local PHP
+- [ ] Instagram live feed Stage 5 (`Privacy / consent gate`)
 
 ### 🚀 До запуску на хостинг
 - [ ] Домен + DNS (A-record)
@@ -1542,6 +1609,13 @@ src/
 public/
 ├── img/                         — фото + лого (ditib, theismann, og-image)
 ├── pdf/                         — 10 архітектурних PDF
+├── api/                         — Instagram runtime PHP layer (Stage 2)
+│   ├── instagram-feed.php       — runtime endpoint (GET /api/instagram-feed.php)
+│   ├── instagram-refresh-token.php — двокроковий refresh user→page token
+│   ├── instagram-config.example.php — шаблон без секретів
+│   ├── instagram-config.php     — реальні секрети, локально, не в git
+│   ├── .htaccess                — захист config / dot-файлів / cache
+│   └── cache/                   — runtime кеш + token-state (вміст в .gitignore)
 ├── robots.txt                   — SEO + AI crawlers config
 ├── sitemap.xml                  — 2 URL (`/` + `/tr/`) + hreflang
 ├── llms.txt                     — AI knowledge base (EN/DE/TR)
@@ -1591,4 +1665,4 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-04-20 CEST (Codex)*
+*Документ оновлено: 2026-05-04 CEST (Claude — Stage 2 Instagram runtime)*

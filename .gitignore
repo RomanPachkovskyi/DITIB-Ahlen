@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Instagram runtime — real config with secrets
+public/api/instagram-config.php

@@ -1,0 +1,35 @@
+# ════════════════════════════════════════════════════════════
+# Instagram runtime layer — Apache config
+# ════════════════════════════════════════════════════════════
+
+Options -Indexes
+Options -MultiViews
+
+# Allow PHP execution explicitly (most shared hosts already do this).
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>
+
+# Block direct access to the real config file (with secrets).
+<Files "instagram-config.php">
+    Require all denied
+</Files>
+
+# Block direct access to the example config too — not strictly secret,
+# but no reason to expose it.
+<Files "instagram-config.example.php">
+    Require all denied
+</Files>
+
+# Block any .env* file just in case.
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+# Block dotfiles in this directory.
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Block the entire cache/ subdirectory from web access.
+RedirectMatch 404 ^/api/cache(/.*)?$

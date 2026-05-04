@@ -1423,6 +1423,41 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
+### 2026-05-04 — Meta / Instagram API підготовка для live feed
+
+**Сесія 24 — Завершення Stage 1 для Instagram Live Feed**
+
+- Для Instagram live feed виконано підготовку Meta-контуру:
+  - акаунт `ditib_ahlen_projekte` переведено в `Professional`
+  - створено Facebook Page `DITIB Bildungs- & Begegnungszentrum`
+  - сторінку прив’язано до Instagram акаунта
+  - створено окремий Meta App `DITIB Ahlen Feed`
+- Підтверджено робочі ідентифікатори:
+  - `INSTAGRAM_APP_ID=1623528855432943`
+  - `INSTAGRAM_PAGE_ID=1083007281566669`
+  - `INSTAGRAM_IG_USER_ID=17841433989345669`
+- Отримано і локально зафіксовано токени для наступного етапу runtime-інтеграції:
+  - short-lived user token
+  - long-lived user token
+  - page access token
+- Виконано живу перевірку Graph API:
+  - підтверджено `me/accounts`
+  - підтверджено запит профілю Instagram business account
+  - підтверджено роботу media endpoint для останніх постів
+- Документацію по цьому етапу оновлено:
+  - `docs/instagram-live-feed-plan.md` доповнено фактичним статусом, ідентифікаторами та чек-листом розробки
+  - робочі API-артефакти збережено в `workspace/API/`
+  - локальний конфіг із секретами збережено в `main/.env.instagram.local`
+
+**Статус:**
+- Stage 1 (`Meta preparation`) завершено
+- Stage 2 (`Runtime PHP layer`) ще не починався
+
+**Підпис:** Codex
+**Дата/час:** 2026-05-04 10:35 CEST
+
+---
+
 ## Поточний стан (2026-04-20)
 
 ### ✅ Готово

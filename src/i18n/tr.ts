@@ -194,6 +194,10 @@ export const tr: Translations = {
     label: "— Bizi Takip Edin",
     heading: "İnşaat süreci canlı",
     cta: "Güncel haberler, içgörüler ve gelişmeler doğrudan Instagram ve Facebook'ta.",
+    feedHint: "Instagram'daki son paylaşımlar",
+    feedEmpty: "Şu anda gösterilecek paylaşım yok.",
+    feedError: "Paylaşımlar şu an yüklenemedi.",
+    feedViewOnInstagram: "Instagram'da görüntüle",
   },
 
   // ─── Final CTA ────────────────────────────────────────────────────

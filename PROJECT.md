@@ -1520,6 +1520,96 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
+### 2026-05-04 — Instagram live feed: Stage 3 `Token maintenance` (код-частина)
+
+**Сесія 26 — CLI/HTTP guard, `/debug_token`, success log, cron-інструкція**
+
+З Stage 2 лишалися 2 ризики (publicly callable refresh endpoint;
+`expires_at=null` після refresh) і 1 невиконаний пункт (cron на хостингу).
+У цій сесії закрита code-частина Stage 3; конфігурація cron на PixelX —
+наступний крок користувача за готовою інструкцією.
+
+**Узгоджені рішення (Q1–Q4):**
+- guard: CLI завжди дозволено, HTTP — лише при заданому `INSTAGRAM_REFRESH_SECRET` + collisional-safe `hash_equals` на `?key=`
+- основний cron-режим: Plesk **Run a PHP script** (CLI), HTTP+secret — fallback
+- додаємо `/debug_token` для реального `expires_at`
+- додаємо `cache/instagram-refresh.log` для аудиту автоматичних запусків
+- інструкція з налаштування cron — окремий документ із 2 варіантами
+
+**Створені файли:**
+- `main/docs/instagram-cron-setup.md` — інструкція для Plesk Scheduled Task (CLI + HTTP-fallback варіанти, перевірки, troubleshooting, prod-плейсхолдер для фіксації обраного варіанту)
+
+**Змінені файли:**
+- `main/public/api/instagram-refresh-token.php` — CLI/HTTP guard, виклик `/debug_token`, окремий success-лог, розширений state JSON
+- `main/public/api/instagram-config.example.php` — додано `INSTAGRAM_REFRESH_SECRET` з коментарем (порожній за замовчуванням = CLI-only)
+- `main/public/api/instagram-config.php` — додано `INSTAGRAM_REFRESH_SECRET` (локально для тестів)
+- `main/docs/instagram-live-feed-plan.md` — Stage 3 чек-лист оновлено, додано посилання на cron-setup
+
+**Розширення `instagram-token.json`:**
+- `expires_at` (primary, fallback chain: page_token_expires_at → page_data_access_expires_at → user_token_expires_at)
+- `user_token_expires_at`, `page_token_expires_at`, `page_data_access_expires_at` — окремо
+- `scopes` — список з debug_token
+
+**Перевірки локально (`php -S 127.0.0.1:8765 -t public`):**
+- CLI mode: `php instagram-refresh-token.php` → exit 0, JSON у stdout, success-лог `mode=cli` ✓
+- HTTP без `?key=` → 403 `http_forbidden` ✓
+- HTTP з невірним `?key=` → 403 `http_forbidden` ✓
+- HTTP з вірним `?key=` → 200, success-лог `mode=http` ✓
+- `instagram-token.json` після refresh: `expires_at=2026-08-02T07:52:29+00:00` (≈90 днів від `data_access_expires_at`) ✓
+- `cache/instagram-refresh.log` пише структуровані рядки без секретів ✓
+- `cache/instagram-feed.error.log` пише `refresh:http_forbidden` для відхилених спроб ✓
+
+**Відомі обмеження після Сесії 26:**
+- `page_token_expires_at` = `null` — Meta для page tokens, що походять від long-lived user token, повертає `expires_at=0` ("never expires"). Це нормально; як індикатор "коли треба перерефрешити" використовуємо `page_data_access_expires_at` (≈90 днів). Cron щодня подовжує цей термін.
+- Точна форма поля Script path у Plesk не відома до першого налаштування — інструкція містить три варіанти.
+
+**Відкриті задачі для самого користувача (поза code base):**
+1. Зайти в Plesk → Scheduled Tasks за документацією, додати щоденний task на 03:00 Europe/Berlin.
+2. Натиснути **Run Now**, переконатись, що `instagram-token.json` оновився і `instagram-refresh.log` має `mode=cli`.
+3. Через 24+ години — повторно перевірити лог.
+4. Повідомити, який саме рядок Script path / URL спрацював, щоб зафіксувати в `docs/instagram-cron-setup.md` (секція "Зафіксований prod-варіант") і в цьому журналі.
+
+**Статус:**
+- Stage 2 (`Runtime PHP layer`) — виконано локально
+- Stage 3 (`Token maintenance`) — code-частина виконана; cron-конфігурація на хостингу очікує дій користувача
+- Stage 4 (`Frontend integration`) — не починався
+
+**Підпис:** Claude (Opus 4.7)
+**Дата/час:** 2026-05-04 11:35 CEST
+
+---
+
+### 2026-05-04 — Instagram live feed: Stage 3 cron на проді підтверджено
+
+**Сесія 27 — Plesk Scheduled Task запрацював**
+
+Файли з Сесій 25–26 залиті на PixelX, Plesk Scheduled Task створений
+у CLI-режимі.
+
+**Зафіксований prod-варіант:**
+- режим: **Run a PHP script** (CLI), `INSTAGRAM_REFRESH_SECRET` на хостингу порожній → HTTP-вхід заблокований 403
+- Script path: `httpdocs/api/instagram-refresh-token.php`
+- розклад: `Daily at 03:00 Europe/Berlin`
+- перший `Run Now` пройшов успішно **2026-05-04 11:45:39 +02:00** (`ok=true`, `expires_at=2026-08-02T09:52:29+02:00`)
+- хост-файли оновились: `cache/instagram-token.json` має свіжий `refreshed_at`, `cache/instagram-refresh.log` має рядок `mode=cli`
+
+**Документація:**
+- `docs/instagram-cron-setup.md` — заповнений блок "Зафіксований prod-варіант"
+- `docs/instagram-live-feed-plan.md` — Stage 3 чек-лист і "Чеклист готовності" оновлено
+
+**Залишилось у Stage 3:**
+- підтвердження "без ручного втручання" — після першого автоматичного запуску о 03:00 (некритично, формальна перевірка наступної доби)
+
+**Статус:**
+- Stage 2 (`Runtime PHP layer`) — виконано локально
+- Stage 3 (`Token maintenance`) — **виконано на проді**, очікує добового self-test
+- Stage 4 (`Frontend integration`) — наступний
+
+**Підпис:** Claude (Opus 4.7)
+**Дата/час:** 2026-05-04 11:50 CEST
+
+---
+
 ## Поточний стан (2026-04-20)
 
 ### ✅ Готово
@@ -1549,7 +1639,7 @@ npm run seo:check # ✓ SEO smoke check passed
 - [ ] Поточна Google Maps версія ще не деплоєна на хостинг
 - [x] Instagram live feed Stage 1 (`Meta preparation`) — токени, IDs, перевірка Graph API
 - [x] Instagram live feed Stage 2 (`Runtime PHP layer`) — `public/api/` готовий локально (feed + refresh + кеш + fallback + .htaccess)
-- [ ] Instagram live feed Stage 3 (`Token maintenance`) — cron + guard на refresh endpoint + `/debug_token`
+- [x] Instagram live feed Stage 3 (`Token maintenance`) — повністю: CLI/HTTP guard, `/debug_token`, success-лог, Plesk cron `Run a PHP script` daily 03:00, перший `Run Now` 2026-05-04 успішний
 - [ ] Instagram live feed Stage 4 (`Frontend integration`) — React-компонент, Vite proxy для local PHP
 - [ ] Instagram live feed Stage 5 (`Privacy / consent gate`)
 
@@ -1665,4 +1755,4 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-05-04 CEST (Claude — Stage 2 Instagram runtime)*
+*Документ оновлено: 2026-05-04 CEST (Claude — Stage 3 Instagram token maintenance, prod confirmed)*

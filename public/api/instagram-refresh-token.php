@@ -2,15 +2,20 @@
 /**
  * Instagram token maintenance script.
  *
- * Two-step refresh flow:
- *   1) Exchange long-lived user token via fb_exchange_token to get a fresh
- *      long-lived user token.
- *   2) Call /me/accounts with that user token to obtain a fresh page access
- *      token for the linked Facebook Page.
+ * Three-step refresh flow:
+ *   1) fb_exchange_token: refresh the long-lived user token.
+ *   2) /me/accounts: obtain a fresh page access token for the linked Page.
+ *   3) /debug_token: read real expiration timestamps for both tokens.
  *
  * Writes the resulting state to public/api/cache/instagram-token.json.
  *
- * Designed for cron use later, but is also runnable on demand.
+ * Access modes:
+ *   - CLI (php /path/.../instagram-refresh-token.php) — always allowed.
+ *     Recommended cron mode: "Run a PHP script" or "php <path>".
+ *   - HTTP (GET /api/instagram-refresh-token.php?key=SECRET) — allowed
+ *     only if INSTAGRAM_REFRESH_SECRET is non-empty in config AND the
+ *     query "key" parameter matches it (constant-time compare).
+ *     If the secret is empty, HTTP access is rejected with 403.
  */
 
 declare(strict_types=1);
@@ -18,14 +23,19 @@ declare(strict_types=1);
 @ini_set('display_errors', '0');
 error_reporting(E_ERROR | E_PARSE);
 
-header('Content-Type: application/json; charset=utf-8');
-
 const REFRESH_CONNECT_TIMEOUT = 3;
 const REFRESH_TIMEOUT         = 5;
+
+$isCli = php_sapi_name() === 'cli';
+
+if (!$isCli) {
+    header('Content-Type: application/json; charset=utf-8');
+}
 
 $cacheDir   = __DIR__ . '/cache';
 $tokenFile  = $cacheDir . '/instagram-token.json';
 $errorLog   = $cacheDir . '/instagram-feed.error.log';
+$refreshLog = $cacheDir . '/instagram-refresh.log';
 $configFile = __DIR__ . '/instagram-config.php';
 
 if (!is_dir($cacheDir)) {
@@ -33,7 +43,7 @@ if (!is_dir($cacheDir)) {
 }
 
 if (!is_file($configFile)) {
-    fail('config_missing', $errorLog);
+    fail('config_missing', $errorLog, $isCli);
 }
 
 $config = require $configFile;
@@ -43,9 +53,21 @@ $appId         = $config['INSTAGRAM_APP_ID'] ?? '';
 $appSecret     = $config['INSTAGRAM_APP_SECRET'] ?? '';
 $pageId        = $config['INSTAGRAM_PAGE_ID'] ?? '';
 $existingUser  = $config['INSTAGRAM_LONG_LIVED_USER_TOKEN'] ?? '';
+$refreshSecret = (string) ($config['INSTAGRAM_REFRESH_SECRET'] ?? '');
+
+// Guard: HTTP requires a configured secret + matching query param.
+if (!$isCli) {
+    if ($refreshSecret === '') {
+        fail('http_disabled_no_secret', $errorLog, false, 403);
+    }
+    $providedKey = (string) ($_GET['key'] ?? '');
+    if ($providedKey === '' || !hash_equals($refreshSecret, $providedKey)) {
+        fail('http_forbidden', $errorLog, false, 403);
+    }
+}
 
 if ($appId === '' || $appSecret === '' || $existingUser === '' || $pageId === '') {
-    fail('config_incomplete', $errorLog);
+    fail('config_incomplete', $errorLog, $isCli);
 }
 
 // Step 1: refresh long-lived user token.
@@ -59,13 +81,13 @@ $exchangeUrl = sprintf(
 
 $exchange = http_get_json($exchangeUrl);
 if ($exchange === null || empty($exchange['access_token'])) {
-    fail('user_token_exchange_failed', $errorLog);
+    fail('user_token_exchange_failed', $errorLog, $isCli);
 }
 
 $newUserToken = (string) $exchange['access_token'];
 $tokenType    = (string) ($exchange['token_type'] ?? 'bearer');
 $expiresIn    = isset($exchange['expires_in']) ? (int) $exchange['expires_in'] : null;
-$expiresAt    = $expiresIn ? date('c', time() + $expiresIn) : null;
+$userExpiresAt = $expiresIn ? date('c', time() + $expiresIn) : null;
 
 // Step 2: fetch fresh page access token via /me/accounts.
 $accountsUrl = sprintf(
@@ -76,7 +98,7 @@ $accountsUrl = sprintf(
 
 $accounts = http_get_json($accountsUrl);
 if ($accounts === null || empty($accounts['data']) || !is_array($accounts['data'])) {
-    fail('me_accounts_failed', $errorLog);
+    fail('me_accounts_failed', $errorLog, $isCli);
 }
 
 $pageToken = null;
@@ -88,33 +110,86 @@ foreach ($accounts['data'] as $page) {
 }
 
 if ($pageToken === null) {
-    fail('page_token_not_found', $errorLog);
+    fail('page_token_not_found', $errorLog, $isCli);
+}
+
+// Step 3: ask Meta for real expiration of the page token via debug_token.
+$pageTokenExpiresAt   = null;
+$pageDataAccessExpAt  = null;
+$pageTokenScopes      = null;
+
+$debugUrl = sprintf(
+    'https://graph.facebook.com/%s/debug_token?input_token=%s&access_token=%s',
+    rawurlencode($version),
+    rawurlencode($pageToken),
+    rawurlencode($appId . '|' . $appSecret)
+);
+
+$debug = http_get_json($debugUrl);
+if (is_array($debug) && isset($debug['data']) && is_array($debug['data'])) {
+    $d = $debug['data'];
+    if (!empty($d['expires_at'])) {
+        $expTs = (int) $d['expires_at'];
+        $pageTokenExpiresAt = $expTs > 0 ? date('c', $expTs) : null;
+    }
+    if (!empty($d['data_access_expires_at'])) {
+        $dTs = (int) $d['data_access_expires_at'];
+        $pageDataAccessExpAt = $dTs > 0 ? date('c', $dTs) : null;
+    }
+    if (!empty($d['scopes']) && is_array($d['scopes'])) {
+        $pageTokenScopes = $d['scopes'];
+    }
 }
 
 $state = [
-    'graph_api_version' => $version,
-    'access_token'      => $newUserToken,
-    'page_access_token' => $pageToken,
-    'token_type'        => $tokenType,
-    'expires_at'        => $expiresAt,
-    'refreshed_at'      => date('c'),
-    'source'            => 'refresh',
+    'graph_api_version'           => $version,
+    'access_token'                => $newUserToken,
+    'page_access_token'           => $pageToken,
+    'token_type'                  => $tokenType,
+    'expires_at'                  => $pageTokenExpiresAt ?? $pageDataAccessExpAt ?? $userExpiresAt,
+    'user_token_expires_at'       => $userExpiresAt,
+    'page_token_expires_at'       => $pageTokenExpiresAt,
+    'page_data_access_expires_at' => $pageDataAccessExpAt,
+    'scopes'                      => $pageTokenScopes,
+    'refreshed_at'                => date('c'),
+    'source'                      => 'refresh',
 ];
 
 $tmp = $tokenFile . '.tmp';
 if (@file_put_contents($tmp, json_encode($state, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)) === false) {
-    fail('token_state_write_failed', $errorLog);
+    fail('token_state_write_failed', $errorLog, $isCli);
 }
 @rename($tmp, $tokenFile);
 
-// Public response — no raw secrets.
-echo json_encode([
-    'ok'                => true,
-    'graph_api_version' => $version,
-    'expires_at'        => $expiresAt,
-    'refreshed_at'      => $state['refreshed_at'],
-    'page_id'           => $pageId,
-], JSON_UNESCAPED_SLASHES);
+// Success log line — no secrets, only timestamps and IDs.
+$logLine = sprintf(
+    "[%s] ok mode=%s page_id=%s user_expires_at=%s page_expires_at=%s page_data_access_expires_at=%s\n",
+    date('c'),
+    $isCli ? 'cli' : 'http',
+    $pageId,
+    $userExpiresAt ?? '-',
+    $pageTokenExpiresAt ?? '-',
+    $pageDataAccessExpAt ?? '-'
+);
+@file_put_contents($refreshLog, $logLine, FILE_APPEND);
+
+// Response.
+$response = [
+    'ok'                          => true,
+    'graph_api_version'           => $version,
+    'page_id'                     => $pageId,
+    'expires_at'                  => $state['expires_at'],
+    'user_token_expires_at'       => $userExpiresAt,
+    'page_token_expires_at'       => $pageTokenExpiresAt,
+    'page_data_access_expires_at' => $pageDataAccessExpAt,
+    'refreshed_at'                => $state['refreshed_at'],
+];
+
+if ($isCli) {
+    fwrite(STDOUT, json_encode($response, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n");
+} else {
+    echo json_encode($response, JSON_UNESCAPED_SLASHES);
+}
 
 // ---------- helpers ----------
 
@@ -137,11 +212,16 @@ function http_get_json(string $url): ?array
     return is_array($data) ? $data : null;
 }
 
-function fail(string $reason, string $logFile): void
+function fail(string $reason, string $logFile, bool $isCli, int $httpStatus = 500): void
 {
     $line = sprintf("[%s] refresh:%s\n", date('c'), $reason);
     @file_put_contents($logFile, $line, FILE_APPEND);
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => $reason], JSON_UNESCAPED_SLASHES);
+    $payload = ['ok' => false, 'error' => $reason];
+    if ($isCli) {
+        fwrite(STDERR, json_encode($payload, JSON_UNESCAPED_SLASHES) . "\n");
+        exit(1);
+    }
+    http_response_code($httpStatus);
+    echo json_encode($payload, JSON_UNESCAPED_SLASHES);
     exit;
 }

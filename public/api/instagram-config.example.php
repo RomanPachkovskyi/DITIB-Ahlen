@@ -14,4 +14,17 @@ return [
     'INSTAGRAM_IG_USER_ID'            => '',
     'INSTAGRAM_LONG_LIVED_USER_TOKEN' => '',
     'INSTAGRAM_PAGE_ACCESS_TOKEN'     => '',
+
+    /**
+     * Optional: shared secret for HTTP access to instagram-refresh-token.php.
+     *
+     * Recommended cron mode is CLI ("Run a PHP script" in Plesk), which does
+     * not need this secret — leave it empty in that case so HTTP access is
+     * fully blocked (403).
+     *
+     * Set this only as a fallback if CLI cron is unavailable. Use a long,
+     * random string (e.g. `openssl rand -hex 32`). The cron then calls
+     * `https://.../api/instagram-refresh-token.php?key=<this-secret>`.
+     */
+    'INSTAGRAM_REFRESH_SECRET'        => '',
 ];

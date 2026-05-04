@@ -119,6 +119,10 @@ export interface Translations {
     label: string;
     heading: string;
     cta: string;
+    feedHint: string;
+    feedEmpty: string;
+    feedError: string;
+    feedViewOnInstagram: string;
   };
   finalCta: {
     heading: string;

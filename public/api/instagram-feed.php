@@ -138,6 +138,7 @@ function fetch_meta_media(array $config): ?array
     }
 
     $fields = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username,'
+            . 'like_count,comments_count,'
             . 'children{media_type,media_url,thumbnail_url,permalink}';
 
     $url = sprintf(
@@ -221,12 +222,14 @@ function normalize_item(array $it): ?array
     }
 
     return [
-        'id'        => $id,
-        'type'      => $outType,
-        'imageUrl'  => $imageUrl,
-        'permalink' => (string) ($it['permalink'] ?? ''),
-        'caption'   => (string) ($it['caption'] ?? ''),
-        'timestamp' => (string) ($it['timestamp'] ?? ''),
+        'id'            => $id,
+        'type'          => $outType,
+        'imageUrl'      => $imageUrl,
+        'permalink'     => (string) ($it['permalink'] ?? ''),
+        'caption'       => (string) ($it['caption'] ?? ''),
+        'timestamp'     => (string) ($it['timestamp'] ?? ''),
+        'likeCount'     => isset($it['like_count']) ? (int) $it['like_count'] : null,
+        'commentsCount' => isset($it['comments_count']) ? (int) $it['comments_count'] : null,
     ];
 }
 

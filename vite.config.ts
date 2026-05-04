@@ -13,6 +13,13 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      "/api": {
+        target: SITE_ORIGIN,
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
   plugins: [react()],
   resolve: {

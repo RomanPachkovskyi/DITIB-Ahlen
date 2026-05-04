@@ -431,8 +431,12 @@ src/components/InstagramFeedSection.tsx
 
 - [x] зробити формат `instagram-token.json` (заготовка створена в Етапі 2)
 - [x] реалізувати refresh-script (двокроковий flow реалізовано в Етапі 2)
-- [ ] налаштувати cron на PixelX
-- [ ] перевірити, що token refresh працює без ручного втручання
+- [x] додати `/debug_token` крок для реального `expires_at` (фіксує `page_data_access_expires_at` ≈ 90 днів)
+- [x] додати CLI/HTTP guard у refresh-script (CLI завжди дозволено, HTTP — тільки з `INSTAGRAM_REFRESH_SECRET`)
+- [x] додати окремий success-лог `cache/instagram-refresh.log`
+- [x] підготувати інструкцію для Plesk: [instagram-cron-setup.md](/Users/roman/Project/DITIB-Ahlen/main/docs/instagram-cron-setup.md)
+- [x] налаштувати cron на PixelX (Plesk Scheduled Task, `Run a PHP script`, `httpdocs/api/instagram-refresh-token.php`, daily 03:00 Europe/Berlin) — перший `Run Now` 2026-05-04 11:45:39+02:00 успішний
+- [ ] перевірити, що token refresh працює без ручного втручання (підтверджується після першого автоматичного запуску о 03:00)
 
 ### Етап 4. Frontend integration
 
@@ -463,8 +467,8 @@ src/components/InstagramFeedSection.tsx
 - [x] Отримано long-lived token
 - [x] Отримано page access token
 - [x] `instagram-feed.php` працює локально/на тесті
-- [x] `instagram-refresh-token.php` оновлює token
-- [ ] cron на PixelX налаштований
+- [x] `instagram-refresh-token.php` оновлює token (CLI + HTTP+secret режими, `/debug_token` для `expires_at`)
+- [x] cron на PixelX налаштований (Plesk → `Run a PHP script` → `httpdocs/api/instagram-refresh-token.php` → daily 03:00, перший Run Now успішний 2026-05-04)
 - [x] `api/.htaccess` блокує доступ до конфігів і кешу
 - [ ] React-компонент рендерить 3 пости
 - [ ] без нового build новий пост з’являється через runtime endpoint

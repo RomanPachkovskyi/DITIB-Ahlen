@@ -189,6 +189,10 @@ export const de: Translations = {
     label: "— Folgen Sie uns",
     heading: "Baufortschritt live",
     cta: "Aktuelle Updates, Einblicke und Neuigkeiten direkt auf Instagram und Facebook.",
+    feedHint: "Die letzten Beiträge auf Instagram",
+    feedEmpty: "Aktuell keine Beiträge verfügbar.",
+    feedError: "Beiträge konnten gerade nicht geladen werden.",
+    feedViewOnInstagram: "Auf Instagram ansehen",
   },
 
   // ─── Final CTA ────────────────────────────────────────────────────

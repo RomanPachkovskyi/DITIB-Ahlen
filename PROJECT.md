@@ -1610,6 +1610,154 @@ npm run seo:check # ✓ SEO smoke check passed
 
 ---
 
+### 2026-05-04 — Instagram live feed: Stage 4 `Frontend integration` (перша версія)
+
+**Сесія 28 — Feed-grid у `SocialSection`**
+
+**Архітектурне рішення:** замість окремого `InstagramFeedSection.tsx` вставили
+feed безпосередньо в існуючий `SocialSection`. Логіка: feed і CTA на профіль
+живуть у одному блоці "Folgen Sie uns / Baufortschritt live" і не повинні
+розриватися окремими секціями.
+
+**Створені файли:**
+- `main/src/lib/instagram-feed.ts` — типи `InstagramItem`, `InstagramFeed`, fetcher `fetchInstagramFeed(signal)`
+
+**Змінені файли:**
+- `main/src/components/SocialSection.tsx` — повністю переписано: feed-grid (3 квадрати) під CTA-кнопками, `useEffect` з AbortController, окремі стани skeleton/grid/empty/error
+- `main/src/i18n/types.ts`, `de.ts`, `tr.ts` — додано `feedHint`, `feedEmpty`, `feedError`, `feedViewOnInstagram`
+- `main/vite.config.ts` — `server.proxy['/api']` → прод-домен (PHP виконується тільки на хостингу; локальний dev через Docker отримує feed з прода)
+- `main/public/api/instagram-feed.php` — у Graph API fields додано `like_count, comments_count`; у нормалізованому payload — `likeCount`, `commentsCount` (з типом `number | null` для post-types, які не мають реакцій)
+
+**Дизайн картки (перша версія):**
+- square image (`aspect-square`, `rounded-lg`)
+- БЕЗ номерів 01/02/03 (явно відкинуто за рефом)
+- hover-overlay: `bg-black/45` затемнення + Instagram icon + текст "Auf Instagram ansehen" / "Instagram'da görüntüle" з плавною transform+opacity анімацією (350–400ms, soft easing)
+- caption — реальний з Meta API, `line-clamp-2`, `font-light text-muted-foreground`
+- лічильники — реальні Heart (likes) + MessageCircle (comments) із бекенду; `formatCount()` згортає 10000+ → "12.3k"
+- skeleton — 3 анімовані квадрати поки feed грузиться
+- empty/error — центровий рядок "Aktuell keine Beiträge verfügbar" / "Beiträge konnten gerade nicht geladen werden"
+- адаптив: `grid-cols-1` на mobile, `grid-cols-3` на desktop, `gap-6/gap-8`
+
+**Розташування на сторінці:**
+- секція `SocialSection` між `MapSection` і `FinalCTA`
+- усередині: header (label + heading + CTA-кнопки Instagram/Facebook) → feed-grid знизу
+
+**Локальний dev (узгоджено в окремій memory):**
+- Docker `localhost:8080` у користувача завжди запущений з vite dev + HMR
+- vite proxy `/api/*` → `https://ditib-ahlen-projekte.de/api/*` — feed читається з прод-PHP
+- `preview_start` у цьому проєкті більше не використовуємо
+
+**Перевірки:**
+- HMR підтягнув зміни на користувацькому `localhost:8080`, користувач підтвердив "зміни вже видно"
+- лічильники likes/comments тягнуться з реального Graph API (`like_count`, `comments_count` доступні для Business акаунта)
+- caption тягнеться з реального Graph API
+- Stage 5 (consent gate) не торкався — за чек-листом це окремий етап
+
+**Залишилось у Stage 4:**
+- остаточна звірка адаптивності desktop/mobile після візуального ревʼю
+- можливі правки за фідбеком: розташування feed-блоку, розмір карток, додаткові деталі (дата поста, бейдж типу контенту, divider зверху, "показати більше")
+
+**Статус:**
+- Stage 4 (`Frontend integration`) — перша версія в проді dev (через user Docker), очікує дизайн-фідбек
+- Stage 5 (`Privacy / consent gate`) — не починався
+
+**Підпис:** Claude (Opus 4.7)
+**Дата/час:** 2026-05-04 13:20 CEST
+
+---
+
+### 2026-05-04 — Instagram live feed: Stage 4 carousel + PHP limit=6 + dev-mock
+
+**Сесія 29 — Карусель 6 постів, PHP upgrade, dev-mock**
+
+Фідбек після першої версії feed-grid:
+- Хочемо 6 постів замість 3
+- Карусель по логіці VisionSection (drag/swipe, стрілки, лічильник, fade-peek)
+- API повертала пости 1, 2, 4 (пост 3 пропускався через фільтр)
+- Лічильники likes/comments показували `—` (стара кеш без цих полів)
+
+**Змінені файли:**
+
+`main/public/api/instagram-feed.php`:
+- `FEED_LIMIT` 3 → **6**
+- `normalize_items()` — debug-лог в `instagram-feed.error.log` при відфільтруванні поста (id, media_type, наявність thumbnail_url/media_url)
+- `CAROUSEL_ALBUM` normalization — доданий fallback на `media_url`/`thumbnail_url` батька, якщо children не мають зображення (вирішує пропущений пост 3)
+
+`main/src/components/SocialSection.tsx` — **повністю переписано**:
+- Замість статичного `grid-cols-3` — Embla/shadcn `Carousel` + `CarouselContent` + `CarouselItem`
+- `basis-[82%]` mobile / `basis-[48%]` sm / `basis-[31%]` xl → 3 видно + 4-й підглядає
+- Лічильник `01 / 06`, стрілки Prev/Next зі станами `disabled`
+- Right-fade градієнт (`from-white to-transparent`) як peek-натяк
+- Drag/swipe підтримка через Embla (`cursor-grab`, `loop: false`)
+- `FeedSkeleton`, empty, error стани збережено
+
+`main/vite.config.ts`:
+- Доданий `instagramMockPlugin()` — Vite `configureServer` middleware
+- В dev-режимі перехоплює `/api/instagram-feed.php` **до** proxy
+- Повертає 6 постів з реальними imageUrl (з продакшн-кешу) + тестові `likeCount`/`commentsCount`
+- Дозволяє бачити карусель з 6 постів локально без деплою PHP
+- У production build не потрапляє (`apply: "serve"`)
+
+**Залишилось для Stage 4 production:**
+- Задеплоїти `instagram-feed.php` на прод (limit=6, like_count, CAROUSEL_ALBUM fallback)
+- Видалити `cache/instagram-feed.json` на проді → перший запит підтягне 6 постів з Meta API
+- Після цього `instagramMockPlugin` у `vite.config.ts` можна прибрати або залишити для dev
+
+**Залишилось для design review:**
+- Фінальна мобільна адаптивність після живого перегляду
+- Можливі дизайн-правки карток
+
+**Підпис:** Claude (Opus 4.7)
+**Дата/час:** 2026-05-04 CEST
+
+---
+
+### 2026-05-04 — Instagram live feed: production verification + cached media fix
+
+**Сесія 30 — Прод-верифікація, purge кешу, виправлення 404 для cached media**
+
+Що з'ясували під час smoke-check на проді:
+- frontend спочатку ховав весь фід, якщо `/api/instagram-feed.php` повертав `error: true`, навіть коли `items` у fallback-кеші були присутні
+- локальний dev-сервер завжди підміняв `/api/instagram-feed.php` dev-mock'ом, хоча мав робити це лише при `VITE_INSTAGRAM_MOCK=true`
+- продовий API після деплою `instagram-feed.php` усе ще віддавав лише 3 пости, бо читав старий `api/cache/instagram-feed.json`
+- після очищення продового `instagram-feed.json` endpoint почав повертати 6 постів і локальні шляхи `/api/cache/instagram-media/*.jpg`
+- картинки все одно не вантажилися, бо `api/.htaccess` блокував увесь `/api/cache`, включно з `instagram-media/`
+
+**Змінені файли:**
+
+`main/src/components/SocialSection.tsx`:
+- фід більше не ховається при `feed.error === true`, якщо в payload є `items`
+- це дозволяє показувати last-good-cache під час тимчасового збою Meta API
+
+`main/vite.config.ts`:
+- `instagramMockPlugin()` тепер вмикається лише при `VITE_INSTAGRAM_MOCK=true`
+- стандартний dev-режим знову ходить у реальний `/api` через proxy, а не в жорстко вбудований mock
+
+`main/public/api/instagram-feed.php`:
+- додано локальне кешування картинок у `api/cache/instagram-media/`
+- fallback-кеш також намагається догрузити й закешувати image assets, якщо live fetch недоступний
+
+`main/public/api/.htaccess`:
+- правило `RedirectMatch 404 ^/api/cache(/.*)?$` замінено на
+  `RedirectMatch 404 ^/api/cache/(?!instagram-media/)(.*)?$`
+- у результаті `instagram-feed.json`, `*.log`, token/cache-файли лишаються закритими, але `instagram-media/*.jpg` віддаються публічно
+
+**Фактична перевірка production (2026-05-04):**
+- `https://ditib-ahlen-projekte.de/api/instagram-feed.php` → `HTTP 200`
+- після purge кешу endpoint повертає **6 постів**
+- `source: "cache"` і `updatedAt: "2026-05-04T17:11:11+02:00"`
+- `imageUrl` тепер мають вигляд `/api/cache/instagram-media/<post-id>.jpg`
+- перевірені image URL віддають `HTTP 200` і `content-type: image/jpeg`
+
+**Підсумок:**
+- Stage 4 для production закрито повністю: 6 live posts, carousel, cached media, робочі картинки на проді
+- наступний етап для Instagram feed — лише Stage 5 (`Privacy / consent gate`)
+
+**Підпис:** Codex
+**Дата/час:** 2026-05-04 CEST
+
+---
+
 ## Поточний стан (2026-04-20)
 
 ### ✅ Готово
@@ -1640,7 +1788,7 @@ npm run seo:check # ✓ SEO smoke check passed
 - [x] Instagram live feed Stage 1 (`Meta preparation`) — токени, IDs, перевірка Graph API
 - [x] Instagram live feed Stage 2 (`Runtime PHP layer`) — `public/api/` готовий локально (feed + refresh + кеш + fallback + .htaccess)
 - [x] Instagram live feed Stage 3 (`Token maintenance`) — повністю: CLI/HTTP guard, `/debug_token`, success-лог, Plesk cron `Run a PHP script` daily 03:00, перший `Run Now` 2026-05-04 успішний
-- [ ] Instagram live feed Stage 4 (`Frontend integration`) — React-компонент, Vite proxy для local PHP
+- [x] Instagram live feed Stage 4 (`Frontend integration`) — карусель 6 постів у `SocialSection` (VisionSection-style, Embla, стрілки, fade-peek, лічильник). PHP limit=6 + CAROUSEL_ALBUM fallback. Prod API оновлено, кеш очищено, media thumbnails віддаються через `/api/cache/instagram-media/*.jpg`
 - [ ] Instagram live feed Stage 5 (`Privacy / consent gate`)
 
 ### 🚀 До запуску на хостинг
@@ -1755,4 +1903,4 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-05-04 CEST (Claude — Stage 3 Instagram token maintenance, prod confirmed)*
+*Документ оновлено: 2026-05-04 CEST (Claude — Stage 4 carousel 6 постів, PHP limit=6, dev-mock)*

@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Heart, Instagram, MessageCircle } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Instagram,
+  MessageCircle,
+} from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useLang } from "@/i18n/useLang";
 import {
   fetchInstagramFeed,
   type InstagramItem,
 } from "@/lib/instagram-feed";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const FacebookIcon = () => (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -19,25 +32,34 @@ const formatCount = (n: number | null): string => {
   return String(n);
 };
 
-const FeedCard = ({ item, viewLabel }: { item: InstagramItem; viewLabel: string }) => (
+const arrowClassName =
+  "inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-all duration-300 hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-35";
+
+const FeedCard = ({
+  item,
+  viewLabel,
+}: {
+  item: InstagramItem;
+  viewLabel: string;
+}) => (
   <a
     href={item.permalink}
     target="_blank"
     rel="noopener noreferrer"
     aria-label={viewLabel}
-    className="group flex h-full flex-col"
+    className="group flex h-full flex-col select-none"
   >
     <div className="relative overflow-hidden rounded-lg bg-muted">
       <img
         src={item.imageUrl}
         alt=""
         loading="lazy"
-        width={768}
-        height={768}
-        className="aspect-square h-full w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:scale-[1.03]"
+        width={640}
+        height={640}
+        className="aspect-square h-full w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:scale-[1.04]"
       />
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-black/0 opacity-0 transition-opacity duration-[350ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:bg-black/45 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-black/0 opacity-0 transition-all duration-[350ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:bg-black/45 group-hover:opacity-100 rounded-lg" />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-white opacity-0 transition-opacity duration-[350ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:opacity-100">
         <Instagram
           className="h-6 w-6 translate-y-1.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.32,0.72,0.24,1)] group-hover:translate-y-0"
@@ -51,13 +73,13 @@ const FeedCard = ({ item, viewLabel }: { item: InstagramItem; viewLabel: string 
 
     {/* Caption */}
     {item.caption && (
-      <p className="mt-4 line-clamp-2 text-[13.5px] font-light leading-relaxed text-muted-foreground">
+      <p className="mt-3 line-clamp-2 text-[13px] font-light leading-relaxed text-muted-foreground">
         {item.caption}
       </p>
     )}
 
     {/* Counters */}
-    <div className="mt-3 flex items-center gap-4 text-xs font-light text-muted-foreground/80">
+    <div className="mt-2.5 flex items-center gap-4 text-xs font-light text-muted-foreground/80">
       <span className="inline-flex items-center gap-1.5">
         <Heart className="h-3.5 w-3.5" strokeWidth={1.5} />
         {formatCount(item.likeCount)}
@@ -71,11 +93,14 @@ const FeedCard = ({ item, viewLabel }: { item: InstagramItem; viewLabel: string 
 );
 
 const FeedSkeleton = () => (
-  <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+  <div className="flex gap-5">
     {[0, 1, 2].map((i) => (
-      <div key={i} className="flex flex-col">
+      <div
+        key={i}
+        className="flex shrink-0 basis-[calc((100%-1.25rem)/1.5)] flex-col sm:basis-[calc((100%-2.5rem)/2.5)] lg:basis-[calc((100%-3.75rem)/3.5)]"
+      >
         <div className="aspect-square w-full animate-pulse rounded-lg bg-muted" />
-        <div className="mt-4 h-3 w-3/4 animate-pulse rounded bg-muted" />
+        <div className="mt-3 h-3 w-3/4 animate-pulse rounded bg-muted" />
         <div className="mt-2 h-3 w-1/2 animate-pulse rounded bg-muted" />
       </div>
     ))}
@@ -91,14 +116,22 @@ const SocialSection = () => {
   const [items, setItems] = useState<InstagramItem[] | null>(null);
   const [error, setError] = useState(false);
 
+  const [api, setApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   useEffect(() => {
     const ctrl = new AbortController();
     fetchInstagramFeed(ctrl.signal)
       .then((feed) => {
-        if (feed.error || !feed.items?.length) {
+        if (!feed.items?.length) {
           setItems([]);
         } else {
           setItems(feed.items);
+          if (feed.error) {
+            setError(true);
+          }
         }
       })
       .catch((e) => {
@@ -109,10 +142,31 @@ const SocialSection = () => {
     return () => ctrl.abort();
   }, []);
 
+  useEffect(() => {
+    if (!api) return;
+
+    const update = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+      setSelectedIndex(api.selectedScrollSnap());
+    };
+
+    update();
+    api.on("select", update);
+    api.on("reInit", update);
+
+    return () => {
+      api.off("select", update);
+      api.off("reInit", update);
+    };
+  }, [api]);
+
   const showSkeleton = items === null && !error;
   const showEmpty = items !== null && items.length === 0 && !error;
   const showError = error;
-  const showGrid = items !== null && items.length > 0;
+  const showCarousel = items !== null && items.length > 0;
+
+  const total = items?.length ?? 0;
 
   return (
     <section className="px-5 md:px-10 py-16 md:py-20 bg-white">
@@ -156,17 +210,72 @@ const SocialSection = () => {
         {/* Feed */}
         <div ref={feedRef} className="reveal mt-12 md:mt-16">
           {showSkeleton && <FeedSkeleton />}
-          {showGrid && (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-              {items!.slice(0, 3).map((item) => (
-                <FeedCard
-                  key={item.id}
-                  item={item}
-                  viewLabel={t.social.feedViewOnInstagram}
-                />
-              ))}
-            </div>
+
+          {showCarousel && (
+            <>
+              {/* Counter + arrows */}
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground md:hidden">
+                  {t.social.feedHint}
+                </p>
+                <div className="flex items-center gap-3 ml-auto">
+                  <span className="min-w-[56px] text-right font-body text-xs tracking-[0.18em] text-muted-foreground">
+                    {String(selectedIndex + 1).padStart(2, "0")} /{" "}
+                    {String(total).padStart(2, "0")}
+                  </span>
+                  <button
+                    type="button"
+                    className={arrowClassName}
+                    onClick={() => api?.scrollPrev()}
+                    disabled={!canScrollPrev}
+                    aria-label="Vorheriger Beitrag"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="button"
+                    className={arrowClassName}
+                    onClick={() => api?.scrollNext()}
+                    disabled={!canScrollNext}
+                    aria-label="Nächster Beitrag"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Carousel */}
+              <div className="relative">
+                {/* Right fade — hint for next card */}
+                <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent md:w-20" />
+                <Carousel
+                  setApi={setApi}
+                  opts={{
+                    align: "start",
+                    dragFree: false,
+                    containScroll: "trimSnaps",
+                    loop: false,
+                  }}
+                  className="cursor-grab select-none active:cursor-grabbing"
+                >
+                  <CarouselContent className="ml-0 gap-5">
+                    {items!.map((item) => (
+                      <CarouselItem
+                        key={item.id}
+                        className="basis-[calc((100%-1.25rem)/1.5)] pl-0 sm:basis-[calc((100%-2.5rem)/2.5)] lg:basis-[calc((100%-3.75rem)/3.5)]"
+                      >
+                        <FeedCard
+                          item={item}
+                          viewLabel={t.social.feedViewOnInstagram}
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </div>
+            </>
           )}
+
           {showEmpty && (
             <p className="py-8 text-center text-sm font-light text-muted-foreground">
               {t.social.feedEmpty}

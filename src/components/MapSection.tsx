@@ -14,6 +14,7 @@ const SITE_COORDINATES_DECIMAL = {
 const GOOGLE_MAPS_URL = buildGoogleMapsUrl(SITE_COORDINATES_DECIMAL.lat, SITE_COORDINATES_DECIMAL.lng);
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const GOOGLE_MAPS_MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
+const INITIAL_ZOOM_OUT_STEPS = 2;
 
 const SITE_POLYGON_PATH = [
   { lat: 51.75907866481751, lng: 7.90587609407315 },
@@ -83,6 +84,12 @@ const MapSection = () => {
         const bounds = new window.google.maps.LatLngBounds();
         polygon.getPath().forEach((point: google.maps.LatLng) => bounds.extend(point));
         map.fitBounds(bounds, 56);
+        window.google.maps.event.addListenerOnce(map, "idle", () => {
+          const fittedZoom = map.getZoom();
+          if (typeof fittedZoom === "number") {
+            map.setZoom(fittedZoom - INITIAL_ZOOM_OUT_STEPS);
+          }
+        });
 
         if (!cancelled) {
           setMapStatus("ready");

@@ -31,5 +31,5 @@ Options -MultiViews
     Require all denied
 </FilesMatch>
 
-# Block the entire cache/ subdirectory from web access.
-RedirectMatch 404 ^/api/cache(/.*)?$
+# Keep feed/cache internals private, but allow cached Instagram thumbnails.
+RedirectMatch 404 ^/api/cache/(?!instagram-media/)(.*)?$

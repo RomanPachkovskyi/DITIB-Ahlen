@@ -158,7 +158,7 @@ const Footer = () => {
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li><strong className="text-foreground">Technisch notwendig</strong> (immer aktiv): Speichert Ihren Einwilligungsstatus im Local Storage des Browsers (Schlüssel: <code className="text-xs bg-secondary px-1 py-0.5 rounded">ditib_cookie_consent</code>). Es werden dabei eine Versionsnummer, ein Zeitstempel und Ihre gewählten Einstellungen gespeichert — keine personenbezogenen Daten.</li>
                 <li><strong className="text-foreground">Analyse & Statistik</strong> (optional): Bei Ihrer Einwilligung aktivieren wir Google Analytics 4 und Microsoft Clarity zur Reichweitenmessung, Nutzungsanalyse und Verbesserung der Website.</li>
-                <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Betrifft insbesondere die interaktive Google-Maps-Karte sowie weitere mögliche externe Medien. Diese Inhalte werden erst nach Ihrer Einwilligung geladen.</li>
+                <li><strong className="text-foreground">Externe Inhalte</strong> (optional): Betrifft insbesondere die interaktive Google-Maps-Karte, aktuelle Instagram-Beiträge sowie weitere mögliche externe Medien. Diese Inhalte werden erst nach Ihrer Einwilligung geladen.</li>
               </ul>
               <p className="mt-2">Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol (unten rechts) ändern oder widerrufen.</p>
               <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 2 Nr. 2 TDDDG (technisch notwendig) bzw. § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO (optionale Kategorien, nur nach Einwilligung).</p>
@@ -188,23 +188,33 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">8. Externe Links</p>
+              <p className="font-semibold text-foreground mb-2">8. Instagram-Beiträge</p>
+              <p>Auf dieser Website können aktuelle Beiträge unseres Instagram-Profils angezeigt werden. Die Beiträge werden über einen serverseitigen Feed unseres Webservers vorbereitet und als Vorschaubilder, Bild- oder Videovorschauen, Bildunterschriften, Zeitangaben, Permalinks sowie gegebenenfalls Reaktionszahlen dargestellt.</p>
+              <p className="mt-2">Der Instagram-Feed wird nicht automatisch geladen, sondern erst, wenn Sie in die Kategorie „Externe Inhalte" einwilligen oder im Instagram-Bereich ausdrücklich auf „Instagram-Beiträge laden" klicken. Erst danach ruft Ihr Browser die für die Darstellung erforderlichen Feed- und Mediendateien von unserem Server ab. Beim Anklicken eines Beitrags werden Sie zu Instagram weitergeleitet; dort gelten die Datenschutzinformationen von Instagram/Meta.</p>
+              <p className="mt-2"><strong className="text-foreground">Anbieter des Instagram-Dienstes:</strong> Meta Platforms Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Irland.</p>
+              <p className="mt-2">Weitere Informationen finden Sie in der <a href="https://privacycenter.instagram.com/policy/" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Instagram</a> und in den <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzinformationen von Meta</a>.</p>
+              <p className="mt-2"><strong className="text-foreground">Rechtsgrundlage:</strong> § 25 Abs. 1 TDDDG i. V. m. Art. 6 Abs. 1 lit. a DSGVO.</p>
+              <p className="mt-2"><strong className="text-foreground">Widerruf:</strong> Sie können eine erteilte Einwilligung jederzeit mit Wirkung für die Zukunft über das Datenschutz-Symbol unten rechts widerrufen. Bereits geladene Inhalte oder ein anschließender Besuch bei Instagram können dadurch für die Vergangenheit nicht rückgängig gemacht werden.</p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-foreground mb-2">9. Externe Links</p>
               <p>Diese Website enthält Links zu externen Websites (z. B. Instagram, Facebook oder Google Maps als externe Vollansicht). Erst wenn Sie einen solchen Link aktiv anklicken, wird eine Verbindung zum jeweiligen Drittanbieter hergestellt. Für die Datenverarbeitung auf den verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">9. Spenden über externe Zahlungsdienste</p>
+              <p className="font-semibold text-foreground mb-2">10. Spenden über externe Zahlungsdienste</p>
               <p>Wenn Sie auf einen Spendenlink klicken, werden Sie auf die Website des jeweiligen Zahlungsdienstleisters weitergeleitet. Dabei können insbesondere Ihre IP-Adresse, technische Verbindungsdaten sowie weitere von Ihnen dort eingegebene Zahlungs- oder Kontaktdaten durch den jeweiligen Anbieter verarbeitet werden.</p>
               <p className="mt-2">Auf dieser Website selbst werden keine Zahlungsdaten erhoben oder gespeichert. Für die Datenverarbeitung auf der Zahlungsseite ist ausschließlich der jeweilige Zahlungsdienstleister verantwortlich. Bitte beachten Sie die dort geltenden Datenschutzinformationen, insbesondere bei PayPal.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">10. SSL-/TLS-Verschlüsselung</p>
+              <p className="font-semibold text-foreground mb-2">11. SSL-/TLS-Verschlüsselung</p>
               <p>Diese Website nutzt eine SSL-/TLS-Verschlüsselung, um die Übertragung vertraulicher Inhalte zu schützen.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">11. Analyse- und Tracking-Dienste</p>
+              <p className="font-semibold text-foreground mb-2">12. Analyse- und Tracking-Dienste</p>
               <p>Sofern Sie im Consent-Banner in die Kategorie „Analyse & Statistik" einwilligen, verwenden wir Google Analytics 4 und Microsoft Clarity. Diese Dienste helfen uns zu verstehen, wie Besucherinnen und Besucher unsere Website nutzen, welche Inhalte relevant sind und an welchen Stellen wir die Nutzererfahrung verbessern können.</p>
               <p className="mt-2">Google Analytics 4 wird erst nach Ihrer Einwilligung geladen und im Basic Consent Mode betrieben. Microsoft Clarity wird ebenfalls erst nach Ihrer Einwilligung geladen. Ohne Ihre Zustimmung werden diese Dienste auf dieser Website nicht aktiviert.</p>
               <p className="mt-2"><strong className="text-foreground">Google Analytics 4:</strong> Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Weitere Informationen finden Sie in der <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Datenschutzerklärung von Google</a> und in den Informationen zu <a href="https://support.google.com/analytics/answer/12017362" target="_blank" rel="noreferrer" className="text-primary hover:underline">Google Analytics 4</a>.</p>
@@ -215,7 +225,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">12. Ihre Rechte</p>
+              <p className="font-semibold text-foreground mb-2">13. Ihre Rechte</p>
               <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
@@ -229,18 +239,18 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">13. Beschwerderecht bei einer Aufsichtsbehörde</p>
+              <p className="font-semibold text-foreground mb-2">14. Beschwerderecht bei einer Aufsichtsbehörde</p>
               <p>Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in Nordrhein-Westfalen ist der Landesbeauftragte für Datenschutz und Informationsfreiheit (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">14. Keine automatisierte Entscheidungsfindung</p>
+              <p className="font-semibold text-foreground mb-2">15. Keine automatisierte Entscheidungsfindung</p>
               <p>Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet im Rahmen dieser Website nicht statt.</p>
             </div>
 
             <div>
-              <p className="font-semibold text-foreground mb-2">15. Aktualisierung dieser Datenschutzerklärung</p>
-              <p>Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer oder organisatorischer Änderungen erforderlich wird. Stand: April 2026.</p>
+              <p className="font-semibold text-foreground mb-2">16. Aktualisierung dieser Datenschutzerklärung</p>
+              <p>Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer oder organisatorischer Änderungen erforderlich wird. Stand: Mai 2026.</p>
             </div>
 
           </div>

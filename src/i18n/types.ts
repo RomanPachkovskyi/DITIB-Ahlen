@@ -122,6 +122,9 @@ export interface Translations {
     feedHint: string;
     feedEmpty: string;
     feedError: string;
+    feedConsentTitle: string;
+    feedConsentBody: string;
+    feedConsentCta: string;
     feedViewOnInstagram: string;
   };
   finalCta: {

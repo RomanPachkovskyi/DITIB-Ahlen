@@ -192,6 +192,10 @@ export const de: Translations = {
     feedHint: "Die letzten Beiträge auf Instagram",
     feedEmpty: "Aktuell keine Beiträge verfügbar.",
     feedError: "Beiträge konnten gerade nicht geladen werden.",
+    feedConsentTitle: "Instagram-Beiträge erst nach Einwilligung",
+    feedConsentBody:
+      "Zum Schutz Ihrer Daten laden wir die aktuellen Instagram-Beiträge erst, wenn Sie externe Inhalte erlauben. Mit einem Klick stimmen Sie dem Laden dieses Social-Media-Inhalts zu.",
+    feedConsentCta: "Instagram-Beiträge laden",
     feedViewOnInstagram: "Auf Instagram ansehen",
   },
 
@@ -233,7 +237,7 @@ export const de: Translations = {
   cookie: {
     bannerTitle: "Ihre Privatsphäre ist uns wichtig",
     bannerText:
-      "Wir verwenden technisch notwendige Speichermethoden, damit diese Website funktioniert. Analyse & Statistik umfasst auf dieser Website Google Analytics 4 und Microsoft Clarity. Externe Inhalte umfasst unter anderem die interaktive Google-Maps-Karte. Optionale Kategorien werden nur mit Ihrer Einwilligung aktiviert. Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol unten rechts anpassen.",
+      "Wir verwenden technisch notwendige Speichermethoden, damit diese Website funktioniert. Analyse & Statistik umfasst auf dieser Website Google Analytics 4 und Microsoft Clarity. Externe Inhalte umfasst unter anderem die interaktive Google-Maps-Karte und aktuelle Instagram-Beiträge. Optionale Kategorien werden nur mit Ihrer Einwilligung aktiviert. Sie können Ihre Einstellungen jederzeit über das Datenschutz-Symbol unten rechts anpassen.",
     acceptAll: "Alle akzeptieren",
     rejectAll: "Nur Notwendige",
     settings: "Einstellungen",
@@ -261,9 +265,9 @@ export const de: Translations = {
       },
       external: {
         label: "Externe Inhalte",
-        description: "Ermöglichen die Einbindung externer Dienste wie Google Maps.",
+        description: "Ermöglichen die Einbindung externer Dienste wie Google Maps und Instagram.",
         details:
-          "Betrifft die Einbindung externer Inhalte wie Google Maps, eingebettete Videos oder Social-Media-Beiträge. Beim Laden solcher Inhalte kann insbesondere Ihre IP-Adresse an Drittanbieter übermittelt werden. Die interaktive Google-Maps-Karte wird auf dieser Website erst nach Ihrer Einwilligung in externe Inhalte geladen.",
+          "Betrifft die Einbindung externer Inhalte wie Google Maps, eingebettete Videos oder Social-Media-Beiträge. Beim Laden solcher Inhalte kann insbesondere Ihre IP-Adresse an Drittanbieter übermittelt werden. Die interaktive Google-Maps-Karte und die aktuellen Instagram-Beiträge werden auf dieser Website erst nach Ihrer Einwilligung in externe Inhalte geladen.",
       },
     },
   },

@@ -124,6 +124,7 @@
   - Які дані збираються
   - Cookie policy
   - Google Analytics 4 / Microsoft Clarity тільки після згоди
+  - Google Maps і Instagram feed тільки після згоди на `Externe Inhalte`
 
 ---
 

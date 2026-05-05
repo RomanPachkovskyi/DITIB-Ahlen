@@ -98,11 +98,11 @@ React component in main
 ### Потік даних
 
 1. Користувач відкриває сайт.
-2. React-компонент робить `fetch('/api/instagram-feed.php')`.
+2. Після згоди на `External Content` React-компонент робить `fetch('/api/instagram-feed.php')`.
 3. PHP endpoint на PixelX перевіряє локальний кеш.
 4. Якщо кеш свіжий, віддає кешований JSON.
 5. Якщо кеш прострочений, endpoint звертається до Meta API, оновлює кеш і віддає свіжі дані.
-6. React рендерить 3 останні пости.
+6. React рендерить 6 останніх постів у каруселі.
 
 ## Технічна структура
 
@@ -120,7 +120,7 @@ main/
 │           └── .gitignore
 ├── src/
 │   ├── components/
-│   │   └── InstagramFeedSection.tsx
+│   │   └── SocialSection.tsx
 │   ├── lib/
 │   │   └── instagram-feed.ts
 │   └── i18n/
@@ -324,20 +324,19 @@ Refresh flow фіксуємо як двокроковий:
 
 ## Frontend у `main`
 
-### Новий компонент
-
-Створюємо:
+### Компонент
 
 ```text
-src/components/InstagramFeedSection.tsx
+src/components/SocialSection.tsx
 ```
 
 ### Поведінка компонента
 
-- робить `fetch('/api/instagram-feed.php')`
-- показує 3 картки
+- до згоди на `External Content` показує consent-placeholder і не робить API-запит
+- після згоди робить `fetch('/api/instagram-feed.php')`
+- показує 6 карток у каруселі
 - кожна картка веде на `permalink`
-- під картками лишається CTA на Instagram профіль
+- над каруселлю лишаються CTA на Instagram і Facebook профілі
 - секція стилістично підпорядковується існуючому дизайну `main`
 
 ### Де вставляємо
@@ -350,13 +349,13 @@ src/components/InstagramFeedSection.tsx
 
 ## Privacy / DSGVO
 
-Оскільки на фронтенді будуть завантажуватись `media_url` / `thumbnail_url` з Instagram CDN, це треба трактувати як **зовнішній контент Meta**.
+Instagram feed трактуємо як **зовнішній / social-media content**. Фактичні медіа для карток кешуються на нашому сервері в `api/cache/instagram-media/`, щоб браузер не залежав від тимчасових Instagram CDN URL. Але сам зміст походить з Instagram/Meta, а клік по картці веде користувача на Instagram.
 
 Отже, під час реалізації потрібно:
 
 1. додати Instagram feed до логіки `External Content`
-2. не вантажити feed до згоди користувача, якщо цей режим обрано для зовнішнього контенту
-3. оновити текст у Datenschutz, якщо це потрібно після фінальної реалізації
+2. не вантажити feed до згоди користувача
+3. оновити Cookie-тексти і Datenschutz під Instagram/Meta feed
 
 Цей пункт не змінює архітектуру. Це частина тієї ж самої реалізації.
 
@@ -412,7 +411,7 @@ src/components/InstagramFeedSection.tsx
 
 **Підтверджено локально (Сесія 25, 2026-05-04):**
 
-- холодний виклик повертає `source=live` з 3 нормалізованими постами
+- холодний виклик повертає `source=live` з нормалізованими постами
 - теплий виклик у межах TTL читає кеш (`source=cache`)
 - `Content-Type: application/json; charset=utf-8`
 - `instagram-refresh-token.php` створює валідний `instagram-token.json` (новий long-lived user token + новий page access token)
@@ -429,7 +428,7 @@ src/components/InstagramFeedSection.tsx
 - `instagram-refresh-token.php` зараз публічний. На Етапі 3 додати простий guard (секрет у query або `Require ip` у `.htaccess`), щоб ззовні його не могли смикати.
 - довжини токенів змінні від рефреша до рефреша — як критерій валідації не використовувати.
 - Vite dev (`:8080`) PHP не виконує. Для Етапу 4 або підняти PHP-server збоку (`php -S 127.0.0.1:8765 -t public`) і налаштувати `server.proxy['/api']` у `vite.config.ts`, або тестувати фронт лише на хості після першого деплою.
-- `imageUrl` веде на `*.cdninstagram.com` — на Етапі 5 обов'язково під External Content gate.
+- після Stage 4 `imageUrl` веде на локальний `/api/cache/instagram-media/*.jpg`; сам feed все одно залишається під External Content gate, бо це social-media content з Instagram/Meta.
 
 ### Етап 3. Token maintenance
 
@@ -440,7 +439,7 @@ src/components/InstagramFeedSection.tsx
 - [x] додати окремий success-лог `cache/instagram-refresh.log`
 - [x] підготувати інструкцію для Plesk: [instagram-cron-setup.md](/Users/roman/Project/DITIB-Ahlen/main/docs/instagram-cron-setup.md)
 - [x] налаштувати cron на PixelX (Plesk Scheduled Task, `Run a PHP script`, `httpdocs/api/instagram-refresh-token.php`, daily 03:00 Europe/Berlin) — перший `Run Now` 2026-05-04 11:45:39+02:00 успішний
-- [ ] перевірити, що token refresh працює без ручного втручання (підтверджується після першого автоматичного запуску о 03:00)
+- [x] перевірити, що token refresh працює без ручного втручання — підтверджено після автоматичного запуску о 03:00
 
 ### Етап 4. Frontend integration
 
@@ -456,15 +455,18 @@ src/components/InstagramFeedSection.tsx
 - [x] dev-mock middleware у `vite.config.ts` (`instagramMockPlugin`) — перехоплює `/api/instagram-feed.php` лише при `VITE_INSTAGRAM_MOCK=true`, повертає 6 постів з реальними imageUrl та тестовими likeCount/commentsCount
 - [x] fallback-feed у React більше не ховається при `error: true`, якщо `items` присутні
 - [x] media cache: `instagram-feed.php` зберігає image assets у `api/cache/instagram-media/`, а `api/.htaccess` дозволяє доступ лише до цієї підпапки
-- [ ] фінальні правки дизайну за фідбеком (мобільна адаптивність, деталі карток)
+- [x] фінальні правки дизайну за фідбеком (мобільна адаптивність, деталі карток) — підтверджено
 - [x] задеплоїти оновлений `instagram-feed.php` на прод (limit=6 + like_count + fallback) і очистити `cache/instagram-feed.json` для свіжих даних
 - [x] оновити `api/.htaccess` на проді, щоб `/api/cache/instagram-media/*.jpg` віддавалися без 404
 
 ### Етап 5. Privacy integration
 
-- [ ] вбудувати секцію в існуючу логіку consent / external content
-- [ ] перевірити, що без згоди Instagram feed не підтягується
-- [ ] перевірити, що після згоди секція працює
+- [x] вбудувати секцію в існуючу логіку consent / external content (`SocialSection.tsx` читає `consent.external`)
+- [x] перевірити на рівні коду, що без згоди Instagram feed не підтягується (`fetchInstagramFeed` не викликається до `external=true`)
+- [x] додати consent-placeholder з CTA для завантаження Instagram feed
+- [x] оновити Cookie-тексти DE/TR: категорія `Externe Inhalte` тепер явно згадує Google Maps + Instagram
+- [x] оновити Datenschutz: окремий розділ `Instagram-Beiträge`, Stand: Mai 2026
+- [x] перевірити поведінку в браузері після згоди/відкликання згоди — підтверджено
 
 ### Етап 6. Production hardening
 
@@ -486,8 +488,8 @@ src/components/InstagramFeedSection.tsx
 - [x] `api/.htaccess` блокує доступ до конфігів і cache internals, але дозволяє `/api/cache/instagram-media/*.jpg`
 - [x] React-компонент рендерить 6 постів у каруселі (через dev-mock локально; на проді після деплою PHP + очистки кешу)
 - [x] без нового build новий пост з’являється через runtime endpoint
-- [ ] поведінка коректна на mobile
-- [ ] consent / privacy логіка не порушена
+- [x] поведінка коректна на mobile
+- [x] consent / privacy логіка додана для Instagram feed
 - [ ] FTP deploy повністю відтворює систему
 
 ## Критичні заборони

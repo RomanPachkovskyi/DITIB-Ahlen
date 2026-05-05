@@ -197,6 +197,10 @@ export const tr: Translations = {
     feedHint: "Instagram'daki son paylaşımlar",
     feedEmpty: "Şu anda gösterilecek paylaşım yok.",
     feedError: "Paylaşımlar şu an yüklenemedi.",
+    feedConsentTitle: "Instagram paylaşımları ancak onaydan sonra yüklenir",
+    feedConsentBody:
+      "Verilerinizi korumak için güncel Instagram paylaşımlarını ancak harici içeriklere onay verdiğinizde yükleriz. Bu düğmeye tıklayarak bu sosyal medya içeriğinin yüklenmesine onay vermiş olursunuz.",
+    feedConsentCta: "Instagram paylaşımlarını yükle",
     feedViewOnInstagram: "Instagram'da görüntüle",
   },
 
@@ -239,7 +243,7 @@ export const tr: Translations = {
   cookie: {
     bannerTitle: "Gizliliğiniz bizim için önemlidir",
     bannerText:
-      "Bu web sitesinin çalışması için teknik olarak gerekli depolama yöntemleri kullanmaktayız. Analiz ve İstatistik bu web sitesinde Google Analytics 4 ve Microsoft Clarity'yi kapsar. Harici içerikler arasında interaktif Google Maps haritası da yer alır. İsteğe bağlı kategoriler yalnızca onayınızla etkinleştirilir. Ayarlarınızı istediğiniz zaman sağ alttaki Veri Koruma simgesi aracılığıyla değiştirebilirsiniz.",
+      "Bu web sitesinin çalışması için teknik olarak gerekli depolama yöntemleri kullanmaktayız. Analiz ve İstatistik bu web sitesinde Google Analytics 4 ve Microsoft Clarity'yi kapsar. Harici içerikler arasında interaktif Google Maps haritası ve güncel Instagram paylaşımları da yer alır. İsteğe bağlı kategoriler yalnızca onayınızla etkinleştirilir. Ayarlarınızı istediğiniz zaman sağ alttaki Veri Koruma simgesi aracılığıyla değiştirebilirsiniz.",
     acceptAll: "Tümünü kabul et",
     rejectAll: "Sadece gerekli olanlar",
     settings: "Ayarlar",
@@ -267,9 +271,9 @@ export const tr: Translations = {
       },
       external: {
         label: "Harici Icerikler",
-        description: "Google Maps gibi harici hizmetlerin entegrasyonunu sağlar.",
+        description: "Google Maps ve Instagram gibi harici hizmetlerin entegrasyonunu sağlar.",
         details:
-          "Google Maps, gömülü videolar veya sosyal medya içerikleri gibi harici içeriklerin entegrasyonunu kapsar. Bu içerikler yüklenirken özellikle IP adresiniz üçüncü taraf sağlayıcılara aktarılabilir. Bu web sitesindeki interaktif Google Maps haritası ancak harici içeriklere onay verdikten sonra yüklenir.",
+          "Google Maps, gömülü videolar veya sosyal medya içerikleri gibi harici içeriklerin entegrasyonunu kapsar. Bu içerikler yüklenirken özellikle IP adresiniz üçüncü taraf sağlayıcılara aktarılabilir. Bu web sitesindeki interaktif Google Maps haritası ve güncel Instagram paylaşımları ancak harici içeriklere onay verdikten sonra yüklenir.",
       },
     },
   },

@@ -8,6 +8,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useCookieConsent } from "@/hooks/use-cookie-consent";
 import { useLang } from "@/i18n/useLang";
 import {
   fetchInstagramFeed,
@@ -109,9 +110,11 @@ const FeedSkeleton = () => (
 
 const SocialSection = () => {
   const { t } = useLang();
+  const { consent, saveCustom } = useCookieConsent();
   const textRef = useScrollReveal();
   const btnsRef = useScrollReveal();
   const feedRef = useScrollReveal({ threshold: 0.06 });
+  const canLoadInstagramFeed = Boolean(consent?.external);
 
   const [items, setItems] = useState<InstagramItem[] | null>(null);
   const [error, setError] = useState(false);
@@ -122,6 +125,12 @@ const SocialSection = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
+    if (!canLoadInstagramFeed) {
+      setItems(null);
+      setError(false);
+      return;
+    }
+
     const ctrl = new AbortController();
     fetchInstagramFeed(ctrl.signal)
       .then((feed) => {
@@ -140,7 +149,7 @@ const SocialSection = () => {
         setItems([]);
       });
     return () => ctrl.abort();
-  }, []);
+  }, [canLoadInstagramFeed]);
 
   useEffect(() => {
     if (!api) return;
@@ -162,11 +171,20 @@ const SocialSection = () => {
   }, [api]);
 
   const showSkeleton = items === null && !error;
+  const showConsentPlaceholder = !canLoadInstagramFeed;
   const showEmpty = items !== null && items.length === 0 && !error;
   const showError = error;
-  const showCarousel = items !== null && items.length > 0;
+  const showCarousel = canLoadInstagramFeed && items !== null && items.length > 0;
 
   const total = items?.length ?? 0;
+
+  const handleLoadFeed = () => {
+    saveCustom({
+      necessary: true,
+      analytics: consent?.analytics ?? false,
+      external: true,
+    });
+  };
 
   return (
     <section className="px-5 md:px-10 py-16 md:py-20 bg-white">
@@ -209,7 +227,31 @@ const SocialSection = () => {
 
         {/* Feed */}
         <div ref={feedRef} className="reveal mt-12 md:mt-16">
-          {showSkeleton && <FeedSkeleton />}
+          {showConsentPlaceholder && (
+            <div className="flex min-h-[260px] items-center justify-center rounded-lg border border-border bg-secondary/35 px-6 py-10 text-center">
+              <div className="max-w-xl">
+                <Instagram
+                  className="mx-auto mb-4 h-7 w-7 text-muted-foreground"
+                  strokeWidth={1.5}
+                />
+                <p className="font-body text-lg font-semibold text-foreground md:text-xl">
+                  {t.social.feedConsentTitle}
+                </p>
+                <p className="body-md mx-auto mt-3 max-w-lg text-sm md:text-base">
+                  {t.social.feedConsentBody}
+                </p>
+                <button
+                  type="button"
+                  onClick={handleLoadFeed}
+                  className="mt-6 inline-flex h-[52px] items-center justify-center rounded-full bg-primary px-8 py-0 font-body text-sm font-medium text-primary-foreground shadow-[0_10px_24px_rgba(199,65,65,0.16)] transition-all duration-300 hover:scale-[1.02] hover:bg-primary/90 hover:shadow-[0_18px_36px_rgba(199,65,65,0.22)] motion-reduce:transform-none"
+                >
+                  {t.social.feedConsentCta}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {!showConsentPlaceholder && showSkeleton && <FeedSkeleton />}
 
           {showCarousel && (
             <>

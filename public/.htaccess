@@ -11,17 +11,19 @@ Options -MultiViews
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+  # Force HTTPS + non-www in a single hop
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://ditib-ahlen-projekte.de%{REQUEST_URI} [R=301,L]
 
-  # Force non-www
-  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-  RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+  # Normalize /tr → /tr/ (trailing slash)
+  RewriteRule ^tr$ /tr/ [R=301,L]
 
-  # SPA fallback — serve index.html for all non-file routes
+  # SPA fallback — only for extension-less app routes
+  # Static file paths (js, css, images, etc.) fall through to Apache's 404
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|svg|webp|avif|woff2?|ttf|ico|pdf|mp4|txt|xml|json|php|map)$ [NC]
   RewriteRule ^ /index.html [L]
 </IfModule>
 
@@ -82,6 +84,33 @@ Options -MultiViews
   Header always set X-XSS-Protection          "1; mode=block"
   Header always set Referrer-Policy           "strict-origin-when-cross-origin"
   Header always set Permissions-Policy        "camera=(), microphone=(), geolocation=()"
+
+  # HSTS — 1 year, includes portal subdomain (mitglied.*).
+  # No preload: preload-list submission is a long-term irreversible commitment.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # CSP DRAFT — не активований. Активувати після тестування consent-flow.
+  # Причина: GA/Clarity/Maps/lottie потребують unsafe-inline та unsafe-eval;
+  # блокуючий CSP без live-тесту може зламати analytics та карту.
+  #
+  # Header always set Content-Security-Policy "\
+  #   default-src 'self'; \
+  #   script-src 'self' 'unsafe-inline' 'unsafe-eval' \
+  #     https://www.googletagmanager.com \
+  #     https://www.google-analytics.com \
+  #     https://www.clarity.ms \
+  #     https://maps.googleapis.com; \
+  #   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+  #   font-src 'self' https://fonts.gstatic.com; \
+  #   img-src 'self' data: https: blob:; \
+  #   frame-src https://www.google.com; \
+  #   connect-src 'self' \
+  #     https://www.google-analytics.com \
+  #     https://www.clarity.ms \
+  #     https://maps.googleapis.com; \
+  #   media-src 'self'; \
+  #   object-src 'none'; \
+  #   base-uri 'self'"
 
   <FilesMatch "\.(?:css|js|mjs|jpg|jpeg|png|gif|svg|webp|avif|woff2?)$">
     Header set Cache-Control "public, max-age=31536000, immutable"

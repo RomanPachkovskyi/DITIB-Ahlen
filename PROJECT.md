@@ -1926,4 +1926,177 @@ git log --oneline | head -20
 
 ---
 
-*Документ оновлено: 2026-05-04 CEST (Claude — Stage 4 carousel 6 постів, PHP limit=6, dev-mock)*
+---
+
+### 2026-05-18 — Legal pages UX, navigation polish, SEO breadcrumbs
+
+**Сесія — Редизайн LegalLayout, мовна навігація, BreadcrumbList, виправлення помилок**
+
+#### LegalLayout.tsx — повний редизайн хедера
+
+- Хедер legal-сторінок переведено з `sticky` + білий фон → `absolute` + прозорий (не залипає при скролі).
+- Логотип: перенесено з центра на ліву сторону, вирівняний по лівому краю контенту (`max-w-3xl`); розмір збільшено `h-9 → h-12`.
+- Додано `LangSwitcher` у правий кут хедера (вирівняний по правому краю контенту).
+- Кнопка «Zur Startseite» / «Ana sayfaya dön» перенесена з хедера в зону контенту — розміщується над заголовком сторінки (`h1`).
+- Ширина хедера вирівняна по ширині контенту: `max-w-5xl → max-w-3xl`, `justify-between`.
+- Домашній URL (`homeUrl`) обчислюється безпосередньо: `lang === "tr" ? "/tr/" : "/"` — без `langUrl()`, щоб уникнути рекурсивного редиректу.
+
+#### StickyDonateBar — розширення на legal-сторінки
+
+- `StickyDonateBar` додано до `LegalLayout.tsx` — плашка тепер присутня на Impressum / Datenschutz / Kontakt.
+- Посилання кнопки адаптується до поточної сторінки:
+  - на головній: `#spenden` (плавний scroll з чистим hash);
+  - на legal-сторінках: `/#spenden` або `/tr/#spenden` (навігація на головну + scroll).
+- `onClick` обробник підключається лише на головній сторінці; на legal — стандартна href-навігація.
+- Логіка приховування плашки розширена: якщо `#final-cta` не знайдено (legal-сторінки) — спостерігає за `<footer>`. Плашка ховається при будь-якому варіанті.
+
+#### useLang.ts — path-aware langUrl()
+
+- Функція `langUrl(target)` переписана: тепер зберігає поточний шлях при переключенні мови.
+- Попередня поведінка: завжди повертала `/` або `/tr/`.
+- Нова поведінка:
+  - `/impressum` → TR: `/tr/impressum`;
+  - `/tr/datenschutz` → DE: `/datenschutz`;
+  - `/kontakt` → TR: `/tr/kontakt`;
+  - головна (`/`) → TR: `/tr/` (поведінка не змінилась).
+- Логіка: стриппає `/tr` prefix для DE, додає `/tr` prefix для TR.
+
+#### App.tsx — ScrollToTop
+
+- Додано компонент `ScrollToTop` (всередині `BrowserRouter`): при зміні `pathname` викликає `window.scrollTo({ top: 0, behavior: "instant" })`.
+- Нові сторінки тепер завжди відкриваються з самого верху (раніше браузер зберігав позицію скролу).
+
+#### index.css — анімація входу для legal-сторінок
+
+- Додано `@keyframes legalFadeIn` (opacity 0→1 + translateY 10px→0, 0.35s ease-out).
+- Клас `.legal-page-enter` застосовується до контентної зони `LegalLayout` (`max-w-3xl`).
+- **Увага:** клас `legal-page-enter` не можна застосовувати до елемента, що містить `position: fixed` дочірні елементи — `transform` в анімації ламає fixed positioning (створює новий stacking context). Тому клас застосований до внутрішнього `div`, а не до `<main>`.
+
+#### BreadcrumbList structured data
+
+- `BreadcrumbList` schema.org доданий до `@graph` у всіх трьох legal-сторінках:
+  - `Impressum.tsx`: `DiTiB Ahlen → Impressum`
+  - `Datenschutz.tsx`: `DiTiB Ahlen → Datenschutzerklärung / Gizlilik Politikası`
+  - `Kontakt.tsx`: `DiTiB Ahlen → Kontakt / İletişim`
+- Кожен елемент використовує правильний `item` URL для поточної мови (DE/TR).
+
+#### index.html — умовний preload hero-зображення
+
+- Статичний `<link rel="preload">` для hero-зображення замінено на inline-скрипт, що вставляє preload лише для homepage-маршрутів (`/`, `/tr/`, `/tr`).
+- Причина: preload-тег в `<head>` застосовується до всіх сторінок SPA (включаючи legal), а hero-зображення використовується виключно на головній — це призводило до `preload but not used` попередження на `/impressum`, `/datenschutz`, `/kontakt`.
+
+#### google-maps.ts — loading=async
+
+- До URL Maps JS API додано параметр `loading=async`:
+  `...&v=weekly&loading=async&libraries=places&callback=...`
+- Усуває консольне попередження `loaded directly without loading=async`.
+
+#### MapSection.tsx — захист від падіння при RefererNotAllowedMapError
+
+- Ініціалізацію `new window.google.maps.Map(...)` і подальший setup (Polygon, fitBounds, listeners) обгорнуто у `try/catch`.
+- Причина: при `RefererNotAllowedMapError` (обмеження API ключа — тільки локально) Maps API є «завантаженим», але об'єкт `Map` під час конструювання запускає внутрішній `IntersectionObserver` у зламаному стані → `Uncaught TypeError`. `try/catch` переводить компонент у стан `"error"` замість падіння.
+- В продакшні (де ключ авторизований для домену) ця помилка не виникає.
+
+#### .env.development — виправлення порту
+
+- `VITE_SITE_ORIGIN=http://localhost:8080 → http://localhost:8082`.
+- Причина: preload-URL і asset-URL будувались з портом 8080, хоча dev-сервер запущений на 8082 — браузерний preload cache не спрацьовував (cross-origin mismatch).
+
+**Підпис:** Claude (claude-sonnet-4-6)
+**Дата/час:** 2026-05-18 CEST
+
+---
+
+### 2026-05-18 — Production Cleanup: SEO, Redirects, Security, GDPR
+
+**Сесія — Блоки 1–6 з ТЗ `docs/claude-code-production-cleanup-tz.md`**
+
+#### Блок 1 — Canonical, Hreflang, Sitemap (перевірка)
+
+Перевірено всі файли: `sitemap.xml`, `LangMeta.tsx`, `seo-config.mjs`, `prerender.mjs`, усі legal-сторінки. Все було коректно — змін не потребувало. `npm run seo:check` пройшов.
+
+Проблема `https://ditib-ahlen-projekte.de/tr` у Google Search Console — серверний redirect (відсутність trailing slash), вирішено у Блоці 2.
+
+#### Блок 2 — `.htaccess`: redirect policy і SPA 404
+
+Три виправлення у `public/.htaccess`:
+
+**1. HTTPS + non-www — один hop замість двох.**  
+Два окремі правила (спочатку `http→https`, потім `www→non-www`) замінено одним із hardcoded canonical domain. Для `http://www.` скорочує ланцюжок з 2 до 1 hop:
+
+```apache
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://ditib-ahlen-projekte.de%{REQUEST_URI} [R=301,L]
+```
+
+**2. Явний redirect `/tr` → `/tr/`.**  
+Apache автоматично редиректить директорії, але тепер це зафіксовано явним правилом для прозорості:
+
+```apache
+RewriteRule ^tr$ /tr/ [R=301,L]
+```
+
+**3. SPA fallback — missing static files тепер повертають 404.**  
+Раніше `/assets/not-found.js`, `/img/not-found.webp` тощо повертали `200 text/html`. Виправлено: fallback спрацьовує тільки для шляхів без файлового розширення (app routes):
+
+```apache
+RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|svg|webp|avif|woff2?|ttf|ico|pdf|mp4|txt|xml|json|php|map)$ [NC]
+RewriteRule ^ /index.html [L]
+```
+
+#### Блок 3 — Build artifact: секрети більше не потрапляють у dist
+
+`vite build` копіює весь `public/` у `dist/`, включно з `instagram-config.php` і `cache/` (token, logs).
+
+**Новий файл `scripts/clean-dist.mjs`** — запускається після `vite build` і `prerender`, видаляє з `dist`:
+- `dist/api/instagram-config.php`
+- `dist/api/cache/` (весь каталог — runtime-generated)
+
+**`package.json` — scripts.build:**
+```
+"build": "vite build && node scripts/prerender.mjs && node scripts/clean-dist.mjs"
+```
+
+Після build у `dist/api/` залишаються тільки: `.htaccess`, `instagram-feed.php`, `instagram-refresh-token.php`, `instagram-config.example.php`.
+
+#### Блок 4 — Dependency Security
+
+`npm audit --omit=dev` показав 10 вразливостей. Аналіз показав:
+
+- **Runtime (браузер):** `react-router-dom 6.30.1` — XSS via open redirects (HIGH). Потребував виправлення.
+- **Build-time тільки:** `glob`, `minimatch`, `picomatch`, `postcss`, `yaml` — всі через `tailwindcss`. Не потрапляють у браузер.
+- **lodash** (через recharts) — Prototype Pollution, але нереалістична для donation landing page.
+
+Виконано `npm audit fix` (22 пакети оновлено, тільки semver-safe зміни). `npm audit fix --force` не запускався — встановив би Vite 8 (major breaking change).
+
+Результат: `npm audit --omit=dev → 0 vulnerabilities`.
+
+#### Блок 5 — Security Headers: HSTS + CSP draft
+
+**`public/.htaccess`** — додано до секції Security Headers:
+
+**HSTS:**
+```apache
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+```
+- `includeSubDomains` — безпечно: субдомен `mitglied.ditib-ahlen-projekte.de` підтверджено HTTPS.
+- `preload` — навмисно пропущено: незворотній commit до browser preload lists; для community-сайту несвоєчасно.
+
+**CSP** — задокументований draft у закоментованому блоці `.htaccess`. Не активований: GA + Clarity + Maps + lottie (`unsafe-eval`) потребують live-тестування всіх consent-сценаріїв. Для активації — розкоментувати, задеплоїти, перевірити в DevTools.
+
+#### Блок 6 — GDPR Compliance: перевірка + виправлення Datenschutz
+
+Перевірено runtime-поведінку: GA/Clarity завантажуються тільки після `analytics: true`; Maps/Instagram — після `external: true`; reject all очищає GA cookies; floating widget дозволяє змінити/відкликати consent. Всі сценарії коректні.
+
+**Виправлено `src/pages/Datenschutz.tsx`** — текст не відповідав фактичній реалізації:
+
+1. Видалено "im Basic Consent Mode betrieben" — код не використовує GA4 Consent Mode API. GA просто завантажується після згоди.
+2. Видалено посилання на Clarity ConsentV2 API — код не викликає `clarity("consent", ...)`. Clarity теж просто завантажується після згоди.
+
+**Підпис:** Claude (claude-sonnet-4-6)
+**Дата/час:** 2026-05-18 CEST
+
+---
+
+*Документ оновлено: 2026-05-18 CEST (Claude — LegalLayout redesign, BreadcrumbList, StickyBar on legal pages, navigation fixes)*

@@ -163,10 +163,22 @@ tr/kontakt/index.html   → /tr/kontakt
 - Потрібні окремі canonical URLs і hreflang
 
 ### Поточна реалізація:
-- `src/components/LegalLayout.tsx` — спільний layout (шапка з логотипом + `Footer`)
-- `src/pages/Impressum.tsx` — Impressum (контент завжди DE, юридична вимога)
+- `src/components/LegalLayout.tsx` — спільний layout для legal сторінок
+- `src/pages/Impressum.tsx` — Impressum
 - `src/pages/Datenschutz.tsx` — Datenschutz
 - `src/pages/Kontakt.tsx` — контакти Bauherr + Entwurfsverfasser
+
+### LegalLayout — структура (актуальна):
+- **Хедер:** `position: absolute`, прозорий фон, не залипає при скролі
+  - логотип — ліворуч, вирівняний по лівому краю контенту
+  - `LangSwitcher` — праворуч, вирівняний по правому краю контенту
+  - ширина хедера: `max-w-3xl` (= ширина контенту)
+- **Кнопка «Zur Startseite»** — знаходиться в зоні контенту, над `h1` сторінки, НЕ в хедері
+- **`StickyDonateBar`** — присутній на всіх legal-сторінках; кнопка веде на `/#spenden` або `/tr/#spenden`; ховається при видимості `<footer>`
+- **Контент:** `max-w-3xl`, `pt-28` (відступ під абсолютний хедер)
+- **Анімація входу:** клас `.legal-page-enter` на контентному `div` (НЕ на `<main>`)
+
+> ⚠️ **Важливо:** `.legal-page-enter` використовує `transform` → не застосовувати до елементів, що містять `position: fixed` дочірні елементи (ламає stacking context).
 
 ### Footer-посилання:
 Footer.tsx тепер використовує React Router `<Link>` з автоматичним мовним prefix:
@@ -175,6 +187,21 @@ Footer.tsx тепер використовує React Router `<Link>` з авто
 
 ### Modal.tsx:
 Залишений у проекті для майбутніх оголошень/повідомлень. Не видаляти.
+
+### useLang — langUrl() (актуальна поведінка):
+`langUrl(target)` зберігає поточний шлях при переключенні мови:
+- `/impressum` → TR: `/tr/impressum`
+- `/tr/datenschutz` → DE: `/datenschutz`
+- `/` → TR: `/tr/`
+
+> ⚠️ Для посилань на **головну** сторінку (лого, «Zur Startseite» в LegalLayout) використовувати напряму `lang === "tr" ? "/tr/" : "/"`, а не `langUrl(lang)` — інакше посилання вестиме на поточну сторінку тією ж мовою.
+
+### BreadcrumbList structured data:
+Всі три legal-сторінки містять `BreadcrumbList` у `@graph`:
+- `Impressum`: `DiTiB Ahlen → Impressum`
+- `Datenschutz`: `DiTiB Ahlen → Datenschutzerklärung / Gizlilik Politikası`
+- `Kontakt`: `DiTiB Ahlen → Kontakt / İletişim`
+Кожен item використовує URL поточної мови.
 
 ---
 

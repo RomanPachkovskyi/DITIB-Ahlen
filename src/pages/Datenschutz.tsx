@@ -366,9 +366,9 @@ const Datenschutz = () => {
             relevant sind und an welchen Stellen wir die Nutzererfahrung verbessern können.
           </p>
           <p className="mt-2">
-            Google Analytics 4 wird erst nach Ihrer Einwilligung geladen und im Basic Consent Mode
-            betrieben. Microsoft Clarity wird ebenfalls erst nach Ihrer Einwilligung geladen. Ohne
-            Ihre Zustimmung werden diese Dienste auf dieser Website nicht aktiviert.
+            Google Analytics 4 und Microsoft Clarity werden ausschließlich nach Ihrer
+            ausdrücklichen Einwilligung geladen. Ohne Ihre Zustimmung werden diese Dienste
+            auf dieser Website nicht aktiviert und es werden keine entsprechenden Cookies gesetzt.
           </p>
           <p className="mt-2">
             <strong className="text-foreground">Google Analytics 4:</strong> Anbieter ist Google
@@ -405,15 +405,6 @@ const Datenschutz = () => {
             >
               Datenschutzerklärung von Microsoft
             </a>{" "}
-            sowie in den Informationen zu{" "}
-            <a
-              href="https://learn.microsoft.com/en-us/clarity/clarity-consent-api-v2"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline"
-            >
-              Clarity ConsentV2
-            </a>
             .
           </p>
           <p className="mt-2">

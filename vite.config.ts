@@ -92,7 +92,7 @@ export default defineConfig(({ mode }) => {
     base: mode === "production" ? `${SITE_ORIGIN}/` : "/",
     server: {
       host: "::",
-      port: 8080,
+      port: 8082,
       hmr: {
         overlay: false,
       },

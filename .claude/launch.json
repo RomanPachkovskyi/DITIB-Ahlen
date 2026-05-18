@@ -5,7 +5,7 @@
       "name": "DITIB Ahlen Dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 8080,
+      "port": 8082,
       "cwd": "${workspaceFolder}"
     }
   ]

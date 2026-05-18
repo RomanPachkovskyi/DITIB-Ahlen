@@ -137,6 +137,213 @@ export const SEO = {
   },
 };
 
+export const LEGAL_PAGES = {
+  impressum: {
+    de: {
+      lang: "de",
+      locale: "de-DE",
+      ogLocale: "de_DE",
+      ogLocaleAlt: "tr_TR",
+      canonical: `${BASE_URL}/impressum`,
+      hreflangDe: `${BASE_URL}/impressum`,
+      hreflangTr: `${BASE_URL}/tr/impressum`,
+      title: "Impressum | DiTiB Ahlen",
+      description:
+        "Pflichtangaben gemäß § 5 DDG — DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V., Rottmannstr. 62, 59229 Ahlen.",
+      ogTitle: "Impressum | DiTiB Ahlen",
+      ogDescription:
+        "Gesetzliche Pflichtangaben gemäß § 5 DDG zur DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
+      twitterTitle: "Impressum | DiTiB Ahlen",
+      twitterDescription:
+        "Gesetzliche Pflichtangaben gemäß § 5 DDG zur DITIB - Türkisch Islamischen Gemeinde zu Ahlen e.V.",
+      ogImageAlt:
+        "Architekturvisualisierung des neuen Bildungs- & Begegnungszentrums von DiTiB Ahlen",
+      pageType: "WebPage",
+    },
+    tr: {
+      lang: "tr",
+      locale: "tr-TR",
+      ogLocale: "tr_TR",
+      ogLocaleAlt: "de_DE",
+      canonical: `${BASE_URL}/tr/impressum`,
+      hreflangDe: `${BASE_URL}/impressum`,
+      hreflangTr: `${BASE_URL}/tr/impressum`,
+      title: "Impressum | DiTiB Ahlen",
+      description:
+        "§ 5 DDG uyarınca zorunlu bilgiler — DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V., Rottmannstr. 62, 59229 Ahlen.",
+      ogTitle: "Impressum | DiTiB Ahlen",
+      ogDescription:
+        "§ 5 DDG uyarınca yasal zorunlu bilgiler — DiTiB Ahlen.",
+      twitterTitle: "Impressum | DiTiB Ahlen",
+      twitterDescription:
+        "§ 5 DDG uyarınca yasal zorunlu bilgiler — DiTiB Ahlen.",
+      ogImageAlt:
+        "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezinin mimari görselleştirmesi",
+      pageType: "WebPage",
+    },
+  },
+  datenschutz: {
+    de: {
+      lang: "de",
+      locale: "de-DE",
+      ogLocale: "de_DE",
+      ogLocaleAlt: "tr_TR",
+      canonical: `${BASE_URL}/datenschutz`,
+      hreflangDe: `${BASE_URL}/datenschutz`,
+      hreflangTr: `${BASE_URL}/tr/datenschutz`,
+      title: "Datenschutzerklärung | DiTiB Ahlen",
+      description:
+        "Informationen zum Datenschutz gemäß DSGVO auf der Projektwebseite von DiTiB Ahlen — Hosting, Cookies, Google Maps, Instagram, Analytics.",
+      ogTitle: "Datenschutzerklärung | DiTiB Ahlen",
+      ogDescription:
+        "Informationen zum Datenschutz gemäß DSGVO auf der Projektwebseite von DiTiB Ahlen.",
+      twitterTitle: "Datenschutzerklärung | DiTiB Ahlen",
+      twitterDescription:
+        "Informationen zum Datenschutz gemäß DSGVO auf der Projektwebseite von DiTiB Ahlen.",
+      ogImageAlt:
+        "Architekturvisualisierung des neuen Bildungs- & Begegnungszentrums von DiTiB Ahlen",
+      pageType: "WebPage",
+    },
+    tr: {
+      lang: "tr",
+      locale: "tr-TR",
+      ogLocale: "tr_TR",
+      ogLocaleAlt: "de_DE",
+      canonical: `${BASE_URL}/tr/datenschutz`,
+      hreflangDe: `${BASE_URL}/datenschutz`,
+      hreflangTr: `${BASE_URL}/tr/datenschutz`,
+      title: "Gizlilik Politikası | DiTiB Ahlen",
+      description:
+        "DiTiB Ahlen proje web sitesinde GDPR kapsamında kişisel verilerin korunmasına ilişkin bilgiler.",
+      ogTitle: "Gizlilik Politikası | DiTiB Ahlen",
+      ogDescription:
+        "DiTiB Ahlen proje web sitesinde GDPR kapsamında kişisel verilerin korunmasına ilişkin bilgiler.",
+      twitterTitle: "Gizlilik Politikası | DiTiB Ahlen",
+      twitterDescription:
+        "DiTiB Ahlen proje web sitesinde GDPR kapsamında kişisel verilerin korunmasına ilişkin bilgiler.",
+      ogImageAlt:
+        "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezinin mimari görselleştirmesi",
+      pageType: "WebPage",
+    },
+  },
+  kontakt: {
+    de: {
+      lang: "de",
+      locale: "de-DE",
+      ogLocale: "de_DE",
+      ogLocaleAlt: "tr_TR",
+      canonical: `${BASE_URL}/kontakt`,
+      hreflangDe: `${BASE_URL}/kontakt`,
+      hreflangTr: `${BASE_URL}/tr/kontakt`,
+      title: "Kontakt | DiTiB Ahlen",
+      description:
+        "Kontaktdaten der DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V. sowie des Ingenieurbüros Theismann & Partner.",
+      ogTitle: "Kontakt | DiTiB Ahlen",
+      ogDescription:
+        "Kontaktdaten und Ansprechpartner für das Bildungs- & Begegnungszentrum DiTiB Ahlen.",
+      twitterTitle: "Kontakt | DiTiB Ahlen",
+      twitterDescription:
+        "Kontaktdaten und Ansprechpartner für das Bildungs- & Begegnungszentrum DiTiB Ahlen.",
+      ogImageAlt:
+        "Architekturvisualisierung des neuen Bildungs- & Begegnungszentrums von DiTiB Ahlen",
+      pageType: "ContactPage",
+    },
+    tr: {
+      lang: "tr",
+      locale: "tr-TR",
+      ogLocale: "tr_TR",
+      ogLocaleAlt: "de_DE",
+      canonical: `${BASE_URL}/tr/kontakt`,
+      hreflangDe: `${BASE_URL}/kontakt`,
+      hreflangTr: `${BASE_URL}/tr/kontakt`,
+      title: "İletişim | DiTiB Ahlen",
+      description:
+        "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V. ve Ingenieurbüro Theismann & Partner iletişim bilgileri.",
+      ogTitle: "İletişim | DiTiB Ahlen",
+      ogDescription:
+        "DiTiB Ahlen Eğitim ve Buluşma Merkezi için iletişim bilgileri ve muhataplar.",
+      twitterTitle: "İletişim | DiTiB Ahlen",
+      twitterDescription:
+        "DiTiB Ahlen Eğitim ve Buluşma Merkezi için iletişim bilgileri ve muhataplar.",
+      ogImageAlt:
+        "DiTiB Ahlen'in yeni Eğitim ve Buluşma Merkezinin mimari görselleştirmesi",
+      pageType: "ContactPage",
+    },
+  },
+};
+
+export function buildLegalStructuredData(config) {
+  const isContact = config.pageType === "ContactPage";
+  const graph = [
+    {
+      "@type": config.pageType,
+      "@id": `${config.canonical}#webpage`,
+      url: config.canonical,
+      name: config.title,
+      description: config.description,
+      inLanguage: config.locale,
+      isPartOf: { "@id": `${BASE_URL}/#website` },
+      about: { "@id": `${BASE_URL}/#organization` },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${BASE_URL}/#organization`,
+      name: "DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.",
+      url: `${BASE_URL}/`,
+      ...(isContact
+        ? {
+            email: "info@ditib-ahlen-projekte.de",
+            telephone: "+492382615990",
+            faxNumber: "+492382702397",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Rottmannstr. 62",
+              addressLocality: "Ahlen",
+              postalCode: "59229",
+              addressRegion: "Nordrhein-Westfalen",
+              addressCountry: "DE",
+            },
+          }
+        : {}),
+    },
+  ];
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+export function buildLegalHeadHtml(config) {
+  const structuredData = JSON.stringify(buildLegalStructuredData(config));
+  const xDefault = config.hreflangDe;
+
+  return `
+  <title data-rh="true">${escapeHtml(config.title)}</title>
+  <meta data-rh="true" name="description" content="${escapeHtml(config.description)}" />
+  <meta data-rh="true" name="language" content="${config.lang}" />
+  <meta data-rh="true" name="robots" content="index, follow" />
+  <link data-rh="true" rel="canonical" href="${config.canonical}" />
+  <link data-rh="true" rel="alternate" hreflang="de" href="${config.hreflangDe}" />
+  <link data-rh="true" rel="alternate" hreflang="tr" href="${config.hreflangTr}" />
+  <link data-rh="true" rel="alternate" hreflang="x-default" href="${xDefault}" />
+  <meta data-rh="true" property="og:type" content="website" />
+  <meta data-rh="true" property="og:site_name" content="DiTiB Ahlen" />
+  <meta data-rh="true" property="og:title" content="${escapeHtml(config.ogTitle)}" />
+  <meta data-rh="true" property="og:description" content="${escapeHtml(config.ogDescription)}" />
+  <meta data-rh="true" property="og:url" content="${config.canonical}" />
+  <meta data-rh="true" property="og:locale" content="${config.ogLocale}" />
+  <meta data-rh="true" property="og:locale:alternate" content="${config.ogLocaleAlt}" />
+  <meta data-rh="true" property="og:image" content="${OG_IMAGE}" />
+  <meta data-rh="true" property="og:image:secure_url" content="${OG_IMAGE}" />
+  <meta data-rh="true" property="og:image:type" content="image/jpeg" />
+  <meta data-rh="true" property="og:image:width" content="1200" />
+  <meta data-rh="true" property="og:image:height" content="630" />
+  <meta data-rh="true" property="og:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
+  <meta data-rh="true" name="twitter:card" content="summary_large_image" />
+  <meta data-rh="true" name="twitter:title" content="${escapeHtml(config.twitterTitle)}" />
+  <meta data-rh="true" name="twitter:description" content="${escapeHtml(config.twitterDescription)}" />
+  <meta data-rh="true" name="twitter:image" content="${TWITTER_IMAGE}" />
+  <meta data-rh="true" name="twitter:image:alt" content="${escapeHtml(config.ogImageAlt)}" />
+  <script data-rh="true" type="application/ld+json">${structuredData}</script>`.trim();
+}
+
 export function escapeHtml(value) {
   return value
     .replaceAll("&", "&amp;")

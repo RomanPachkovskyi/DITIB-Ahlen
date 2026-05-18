@@ -60,39 +60,45 @@ const MapSection = () => {
           return;
         }
 
-        const map = new window.google.maps.Map(liveMapRef.current, {
-          center: SITE_COORDINATES_DECIMAL,
-          zoom: 18,
-          disableDefaultUI: true,
-          zoomControl: true,
-          fullscreenControl: true,
-          gestureHandling: "cooperative",
-          clickableIcons: false,
-          ...getStyledMapOptions(GOOGLE_MAPS_MAP_ID),
-        });
+        try {
+          const map = new window.google.maps.Map(liveMapRef.current, {
+            center: SITE_COORDINATES_DECIMAL,
+            zoom: 18,
+            disableDefaultUI: true,
+            zoomControl: true,
+            fullscreenControl: true,
+            gestureHandling: "cooperative",
+            clickableIcons: false,
+            ...getStyledMapOptions(GOOGLE_MAPS_MAP_ID),
+          });
 
-        const polygon = new window.google.maps.Polygon({
-          map,
-          paths: SITE_POLYGON_PATH,
-          strokeColor: "#c74141",
-          strokeOpacity: 1,
-          strokeWeight: 3,
-          fillColor: "#c74141",
-          fillOpacity: 0.22,
-        });
+          const polygon = new window.google.maps.Polygon({
+            map,
+            paths: SITE_POLYGON_PATH,
+            strokeColor: "#c74141",
+            strokeOpacity: 1,
+            strokeWeight: 3,
+            fillColor: "#c74141",
+            fillOpacity: 0.22,
+          });
 
-        const bounds = new window.google.maps.LatLngBounds();
-        polygon.getPath().forEach((point: google.maps.LatLng) => bounds.extend(point));
-        map.fitBounds(bounds, 56);
-        window.google.maps.event.addListenerOnce(map, "idle", () => {
-          const fittedZoom = map.getZoom();
-          if (typeof fittedZoom === "number") {
-            map.setZoom(fittedZoom - INITIAL_ZOOM_OUT_STEPS);
+          const bounds = new window.google.maps.LatLngBounds();
+          polygon.getPath().forEach((point: google.maps.LatLng) => bounds.extend(point));
+          map.fitBounds(bounds, 56);
+          window.google.maps.event.addListenerOnce(map, "idle", () => {
+            const fittedZoom = map.getZoom();
+            if (typeof fittedZoom === "number") {
+              map.setZoom(fittedZoom - INITIAL_ZOOM_OUT_STEPS);
+            }
+          });
+
+          if (!cancelled) {
+            setMapStatus("ready");
           }
-        });
-
-        if (!cancelled) {
-          setMapStatus("ready");
+        } catch {
+          if (!cancelled) {
+            setMapStatus("error");
+          }
         }
       })
       .catch(() => {

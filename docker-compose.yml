@@ -1,11 +1,11 @@
 services:
   web:
     image: node:20-alpine
-    container_name: ditib-ahlen
+    container_name: ditib-ahlen-landing
     working_dir: /app
-    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 8080"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 8082"
     ports:
-      - "8080:8080"
+      - "8082:8082"
     volumes:
       - .:/app
       - /app/node_modules

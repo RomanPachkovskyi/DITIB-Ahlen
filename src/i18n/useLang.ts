@@ -15,9 +15,15 @@ export function useLang() {
   const lang: Lang =
     pathname === "/tr" || pathname.startsWith("/tr/") ? "tr" : "de";
 
-  /** Returns the canonical URL for the given target language. */
+  /** Returns the equivalent URL for the given target language, preserving the current page path. */
   function langUrl(target: Lang): string {
-    return target === "de" ? "/" : "/tr/";
+    const stripped = pathname.startsWith("/tr/")
+      ? pathname.slice(3)
+      : pathname === "/tr"
+      ? "/"
+      : pathname;
+    const base = stripped === "" ? "/" : stripped;
+    return target === "de" ? base : `/tr${base === "/" ? "/" : base}`;
   }
 
   return {

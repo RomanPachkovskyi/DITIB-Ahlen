@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main pages -->
   <url>
     <loc>https://ditib-ahlen-projekte.de/</loc>
     <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/" />
@@ -19,4 +21,65 @@
     <changefreq>monthly</changefreq>
     <lastmod>2026-04-17</lastmod>
   </url>
+
+  <!-- Kontakt -->
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/kontakt</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/kontakt" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/kontakt" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/kontakt" />
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/tr/kontakt</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/kontakt" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/kontakt" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/kontakt" />
+    <priority>0.4</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+
+  <!-- Impressum -->
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/impressum</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/impressum" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/impressum" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/impressum" />
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/tr/impressum</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/impressum" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/impressum" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/impressum" />
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+
+  <!-- Datenschutz -->
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/datenschutz</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/datenschutz" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/datenschutz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/datenschutz" />
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://ditib-ahlen-projekte.de/tr/datenschutz</loc>
+    <xhtml:link rel="alternate" hreflang="de" href="https://ditib-ahlen-projekte.de/datenschutz" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://ditib-ahlen-projekte.de/tr/datenschutz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ditib-ahlen-projekte.de/datenschutz" />
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+
 </urlset>

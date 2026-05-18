@@ -196,6 +196,15 @@
   .reveal-stagger.is-visible > *:nth-child(5)  { transition-delay: 340ms; }
   .reveal-stagger.is-visible > *:nth-child(6)  { transition-delay: 400ms; }
   .reveal-stagger.is-visible > *:nth-child(n+7){ transition-delay: 440ms; }
+
+  .legal-page-enter {
+    animation: legalFadeIn 0.35s ease-out both;
+  }
+}
+
+@keyframes legalFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Hero entrance animations ────────────────────────────── */

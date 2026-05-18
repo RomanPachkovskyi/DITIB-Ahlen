@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    container_name: ditib-ahlen
+    container_name: ditib-ahlen-landing
     ports:
-      - "8080:80"
+      - "8082:80"
     restart: unless-stopped

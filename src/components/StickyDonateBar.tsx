@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { handleCleanAnchorClick } from "@/lib/clean-anchor-navigation";
 import { useLang } from "@/i18n/useLang";
 import { LangSwitcher } from "@/components/LangSwitcher";
 
 const StickyDonateBar = () => {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const { pathname } = useLocation();
+  const isMainPage = pathname === "/" || pathname === "/tr" || pathname === "/tr/";
+  const spendenHref = isMainPage ? "#spenden" : (lang === "tr" ? "/tr/#spenden" : "/#spenden");
   const [visible, setVisible] = useState(false);
   const [ctaVisible, setCtaVisible] = useState(false);
 
@@ -16,26 +20,26 @@ const StickyDonateBar = () => {
   }, []);
 
   useEffect(() => {
-    let ctaObserver: IntersectionObserver | null = null;
+    let observer: IntersectionObserver | null = null;
     let mutationObserver: MutationObserver | null = null;
 
-    const observeFinalCta = () => {
-      if (ctaObserver) return true;
+    const tryObserve = () => {
+      if (observer) return true;
 
-      const cta = document.getElementById("final-cta");
-      if (!cta) return false;
+      const target = document.getElementById("final-cta") ?? document.querySelector("footer");
+      if (!target) return false;
 
-      ctaObserver = new IntersectionObserver(
+      observer = new IntersectionObserver(
         ([entry]) => setCtaVisible(entry.isIntersecting),
         { threshold: 0.1 }
       );
-      ctaObserver.observe(cta);
+      observer.observe(target);
       return true;
     };
 
-    if (!observeFinalCta()) {
+    if (!tryObserve()) {
       mutationObserver = new MutationObserver(() => {
-        if (observeFinalCta()) {
+        if (tryObserve()) {
           mutationObserver?.disconnect();
           mutationObserver = null;
         }
@@ -45,7 +49,7 @@ const StickyDonateBar = () => {
     }
 
     return () => {
-      ctaObserver?.disconnect();
+      observer?.disconnect();
       mutationObserver?.disconnect();
     };
   }, []);
@@ -62,8 +66,8 @@ const StickyDonateBar = () => {
             <LangSwitcher className="h-full items-center gap-2 text-sm font-semibold tracking-[0.08em] text-white [&_a]:inline-flex [&_a]:items-center [&_a]:px-1.5" />
           </div>
           <a
-            href="#spenden"
-            onClick={(e) => handleCleanAnchorClick(e, "#spenden")}
+            href={spendenHref}
+            onClick={isMainPage ? (e) => handleCleanAnchorClick(e, "#spenden") : undefined}
             className="ml-auto inline-flex h-11 md:h-[52px] items-center justify-center gap-2 bg-white hover:bg-white/90 text-primary font-body text-[13px] md:text-sm font-semibold px-5 md:px-8 py-0 rounded-full transition-all duration-300 hover:scale-[1.04] shrink-0 md:ml-0"
           >
             <Heart className="w-3.5 h-3.5" />

@@ -64,7 +64,7 @@ export function loadGoogleMapsApi(apiKey: string) {
       delete window[GOOGLE_MAPS_CALLBACK];
       window.__googleMapsScriptPromise = undefined;
     };
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly&libraries=places&callback=${GOOGLE_MAPS_CALLBACK}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly&loading=async&libraries=places&callback=${GOOGLE_MAPS_CALLBACK}`;
 
     document.head.append(script);
   });

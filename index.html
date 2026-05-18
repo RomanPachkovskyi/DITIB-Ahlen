@@ -57,15 +57,22 @@
     content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
   />
   <link rel="image_src" href="%VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-preview.jpg" />
-  <link
-    rel="preload"
-    as="image"
-    href="%VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp"
-    imagesrcset="%VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w"
-    imagesizes="100vw"
-    type="image/webp"
-    fetchpriority="high"
-  />
+  <script>
+    (function () {
+      var p = window.location.pathname;
+      if (p === "/" || p === "/tr/" || p === "/tr") {
+        var l = document.createElement("link");
+        l.rel = "preload";
+        l.as = "image";
+        l.href = "%VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp";
+        l.setAttribute("imagesrcset", "%VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-960.webp 960w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-1280.webp 1280w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum-1920.webp 1920w, %VITE_SITE_ORIGIN%/img/ditib-ahlen-bildungs-begegnungszentrum.webp 2400w");
+        l.setAttribute("imagesizes", "100vw");
+        l.type = "image/webp";
+        l.setAttribute("fetchpriority", "high");
+        document.head.appendChild(l);
+      }
+    })();
+  </script>
   <link rel="me" href="https://www.instagram.com/ditib_ahlen_projekte" />
   <link rel="me" href="https://www.facebook.com/people/Ditib-Ahlen-Projekte/61573315285318" />
 

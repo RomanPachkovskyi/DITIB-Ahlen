@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { SEO, buildHeadHtml } from "./seo-config.mjs";
+import { SEO, LEGAL_PAGES, buildHeadHtml, buildLegalHeadHtml } from "./seo-config.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -45,14 +45,37 @@ function renderPage(template, config) {
   return injectHead(withLang, buildHeadHtml(config));
 }
 
+function renderLegalPage(template, config) {
+  const withoutSeo = stripSeo(template);
+  const withLang = setHtmlLang(withoutSeo, config.lang);
+  return injectHead(withLang, buildLegalHeadHtml(config));
+}
+
 async function main() {
   const template = await readFile(distIndexPath, "utf8");
+
+  // Main pages
   const deHtml = renderPage(template, SEO.de);
   const trHtml = renderPage(template, SEO.tr);
-
   await writeFile(distIndexPath, deHtml, "utf8");
   await mkdir(path.join(distDir, "tr"), { recursive: true });
   await writeFile(path.join(distDir, "tr/index.html"), trHtml, "utf8");
+
+  // Legal pages — DE
+  for (const [slug, pages] of Object.entries(LEGAL_PAGES)) {
+    await mkdir(path.join(distDir, slug), { recursive: true });
+    await writeFile(
+      path.join(distDir, slug, "index.html"),
+      renderLegalPage(template, pages.de),
+      "utf8"
+    );
+    await mkdir(path.join(distDir, "tr", slug), { recursive: true });
+    await writeFile(
+      path.join(distDir, "tr", slug, "index.html"),
+      renderLegalPage(template, pages.tr),
+      "utf8"
+    );
+  }
 }
 
 await main();

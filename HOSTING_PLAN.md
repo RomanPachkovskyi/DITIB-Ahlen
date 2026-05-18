@@ -3,7 +3,7 @@
 ## Поточний стан проекту
 - Статичний React SPA (Vite + TypeScript)
 - Немає бекенду, БД або API
-- Локальний preview/site через Docker на порту 8080
+- Локальний preview/site через Docker на порту 8082
 - Мова: German (de)
 
 ---
@@ -12,7 +12,7 @@
 - [x] React компоненти (всі 10 секцій лендінгу)
 - [x] Дизайн-система (Tailwind + shadcn/ui)
 - [x] Адаптивна верстка (mobile-first)
-- [x] Локальний dev-сервер (localhost:8080)
+- [x] Локальний dev-сервер (localhost:8082)
 - [x] Docker multi-stage build + nginx для локального production-preview
 - [x] `npm run build` проходить успішно, `dist/` генерується
 - [x] SPA fallback в nginx налаштований

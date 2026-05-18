@@ -14,7 +14,10 @@
 
 **Репозиторій:** `git@github.com:RomanPachkovskyi/DITIB-Ahlen.git`  
 **Локальний шлях:** `/Users/roman/Project/DITIB-Ahlen/main/`  
-**Порт dev-серверу:** 8080
+**Порт dev-серверу:** 8082
+**Пов'язаний портал:** `../portal/` локально працює тільки на `http://localhost:8000` через `php artisan serve --port=8000`, без Docker Desktop.
+
+> Поточна істина по локальних портах: лендінг `http://localhost:8082`, портал `http://localhost:8000`. Старі згадки `8080`, `8083`, `5173` або `8383` у хронології нижче є історичними і не є актуальними правилами.
 
 ---
 
@@ -1906,7 +1909,7 @@ npm run seo:check        # smoke-check multilingual SEO/head
 npm test                 # базова перевірка проекту
 
 # Docker (локальний preview)
-docker compose up --build   # http://localhost:8080
+docker compose up --build   # http://localhost:8082
 
 # Git
 git log --oneline | head -20
@@ -2096,6 +2099,20 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 
 **Підпис:** Claude (claude-sonnet-4-6)
 **Дата/час:** 2026-05-18 CEST
+
+---
+
+### 2026-05-18 — Фіксація локальних портів DITIB Ahlen
+
+- Остаточно зафіксовано поточну істину по локальних портах:
+  - лендінг `main` працює через Docker на `http://localhost:8082`;
+  - портал `portal` працює окремо через Homebrew PHP на `http://localhost:8000`.
+- Оновлено `CLAUDE.md`, `PROJECT.md`, `HOSTING_PLAN.md` і `playwright.config.ts`, щоб не повертати старий `8080` як актуальний порт лендінгу.
+- Явно заборонено переносити портал у Docker Desktop або повертати старі portal-порти `8083`, `5173` чи `8383`.
+- Старі згадки `8080` у хронології вище залишаються історичними записами, не актуальними правилами.
+
+**Підпис:** Codex
+**Дата/час:** 2026-05-18 15:21 CEST
 
 ---
 

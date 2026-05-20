@@ -88,9 +88,17 @@ const Datenschutz = () => {
 
       <div className="space-y-6 font-body text-sm text-muted-foreground leading-relaxed">
 
+        <p>
+          Diese Datenschutzerklärung gilt für alle digitalen Angebote der DITIB – Türkisch
+          Islamische Gemeinde zu Ahlen e. V., insbesondere für die Projektwebseite{" "}
+          <strong className="text-foreground">ditib-ahlen-projekte.de</strong> und das
+          Mitgliederportal{" "}
+          <strong className="text-foreground">mitglied.ditib-ahlen-projekte.de</strong>.
+        </p>
+
         <div>
           <h2 className="font-semibold text-foreground mb-2">1. Verantwortlicher</h2>
-          <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
+          <p>Verantwortlich für die Datenverarbeitung auf dieser Website und im Mitgliederportal ist:</p>
           <p className="mt-2">
             <strong className="text-foreground">DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.</strong><br />
             Rottmannstr. 62<br />
@@ -424,7 +432,105 @@ const Datenschutz = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold text-foreground mb-2">13. Ihre Rechte</h2>
+          <h2 className="font-semibold text-foreground mb-2">13. Mitgliederportal — Registrierung und Mitgliedschaft</h2>
+          <p>
+            Das Mitgliederportal unter{" "}
+            <strong className="text-foreground">mitglied.ditib-ahlen-projekte.de</strong>{" "}
+            ermöglicht die digitale Beantragung einer Vereinsmitgliedschaft.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.1 Erhobene Daten</h3>
+          <p>Im Rahmen der Mitgliederregistrierung werden folgende Daten erhoben:</p>
+          <p className="mt-2">
+            <strong className="text-foreground">Pflichtangaben:</strong> Anrede, vollständiger
+            Name, Anschrift, Geburtsdatum und Geburtsort, Staatsangehörigkeit,
+            E-Mail-Adresse, Telefonnummer.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Vereinsspezifische Angaben:</strong> Angabe
+            zur Eintragung im Gemeinderegister, Angabe zur Teilnahme am islamischen
+            Bestattungsfonds (Cenaze Fonu) ggf. mit Nummer, Angaben zu Familienangehörigen
+            (im Zusammenhang mit Cenaze Fonu), Heimatstadt (freiwillig), Beruf (freiwillig),
+            Instagram-Profil (freiwillig).
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Zahlungsdaten (SEPA-Lastschriftmandat):</strong>{" "}
+            Zahlungsart, monatlicher Beitrag, Kontoinhaber, IBAN, BIC, Kreditinstitut,
+            digitale Unterschrift für das SEPA-Mandat.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.2 Zweck und Rechtsgrundlage</h3>
+          <p>
+            Die Verarbeitung der Pflichtangaben und Zahlungsdaten erfolgt zur Begründung und
+            Durchführung der Vereinsmitgliedschaft sowie zur Erfüllung der sich daraus
+            ergebenden Verpflichtungen, insbesondere des Beitragseinzugs.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit.
+            b DSGVO. Für freiwillig angegebene Daten: Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.3 Besondere Kategorien personenbezogener Daten</h3>
+          <p>
+            Die Angabe zur Eintragung im Gemeinderegister der Moschee sowie die Teilnahme am
+            islamischen Bestattungsfonds (Cenaze Fonu) ermöglichen Rückschlüsse auf die
+            Religionszugehörigkeit und stellen besondere Kategorien personenbezogener Daten
+            gemäß Art. 9 Abs. 1 DSGVO dar.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 9 Abs. 2 lit.
+            d DSGVO (Verarbeitung durch religiöse Vereinigungen im Rahmen ihrer satzungsgemäßen
+            Tätigkeiten gegenüber ihren Mitgliedern). Die Daten werden nicht ohne Einwilligung
+            der betroffenen Person nach außen weitergegeben.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.4 SEPA-Lastschriftmandat und Kontoverbindungsdaten</h3>
+          <p>
+            IBAN und BIC werden verschlüsselt in der Datenbank gespeichert. Die digitale
+            Unterschrift für das SEPA-Mandat wird als technisch notwendige Bestätigung
+            gespeichert und ist nur für autorisierte Vereinsvertreter einsehbar.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit.
+            b DSGVO.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.5 E-Mail-Kommunikation des Portals</h3>
+          <p>
+            Bei Nutzung des Mitgliederportals versenden wir transaktionale E-Mails: eine
+            Eingangsbestätigung bei Registrierung, eine Bestätigungsmail bei Aufnahme als
+            Mitglied sowie eine Mitteilung bei Löschung des Datensatzes. Diese E-Mails
+            enthalten keine Zahlungsdaten und kein Profilbild.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit.
+            b DSGVO.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.6 Mitgliedskonto</h3>
+          <p>
+            Bestätigte Mitglieder können sich unter{" "}
+            <strong className="text-foreground">/konto</strong> auf dem Mitgliederportal
+            anmelden und ihre hinterlegten Daten einsehen. Jedes Mitglied hat ausschließlich
+            Zugriff auf die eigenen Daten.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit.
+            b DSGVO.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.7 Speicherdauer</h3>
+          <p>
+            Mitgliedschaftsdaten werden für die Dauer der Mitgliedschaft gespeichert. Nach
+            Beendigung der Mitgliedschaft werden die Daten entsprechend den gesetzlichen
+            Aufbewahrungspflichten (insbesondere § 147 AO) aufbewahrt — in der Regel zehn
+            Jahre für buchführungsrelevante Unterlagen (z. B. SEPA-Mandat, Zahlungsdaten)
+            und sechs Jahre für sonstige Unterlagen — und anschließend gelöscht.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-semibold text-foreground mb-2">15. Ihre Rechte</h2>
           <p>
             Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden
             personenbezogenen Daten:
@@ -438,20 +544,27 @@ const Datenschutz = () => {
             <li>Recht auf Widerspruch (Art. 21 DSGVO)</li>
             <li>Recht auf Widerruf erteilter Einwilligungen (Art. 7 Abs. 3 DSGVO)</li>
           </ul>
-        </div>
-
-        <div>
-          <h2 className="font-semibold text-foreground mb-2">14. Beschwerderecht bei einer Aufsichtsbehörde</h2>
-          <p>
-            Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung
-            Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in
-            Nordrhein-Westfalen ist der Landesbeauftragte für Datenschutz und
-            Informationsfreiheit (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf.
+          <p className="mt-2">
+            Zur Ausübung Ihrer Rechte wenden Sie sich bitte an:{" "}
+            <a href="mailto:info@ditib-ahlen-projekte.de" className="text-primary hover:underline">
+              info@ditib-ahlen-projekte.de
+            </a>
           </p>
         </div>
 
         <div>
-          <h2 className="font-semibold text-foreground mb-2">15. Keine automatisierte Entscheidungsfindung</h2>
+          <h2 className="font-semibold text-foreground mb-2">16. Beschwerderecht bei einer Aufsichtsbehörde</h2>
+          <p>
+            Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde über die Verarbeitung
+            Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde in
+            Nordrhein-Westfalen ist die Landesbeauftragte für Datenschutz und
+            Informationsfreiheit NRW (LDI NRW), Postfach 20 04 44, 40102 Düsseldorf
+            (www.ldi.nrw.de).
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-semibold text-foreground mb-2">17. Keine automatisierte Entscheidungsfindung</h2>
           <p>
             Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von
             Art. 22 DSGVO findet im Rahmen dieser Website nicht statt.
@@ -459,10 +572,10 @@ const Datenschutz = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold text-foreground mb-2">16. Aktualisierung dieser Datenschutzerklärung</h2>
+          <h2 className="font-semibold text-foreground mb-2">18. Aktualisierung dieser Datenschutzerklärung</h2>
           <p>
             Wir passen diese Datenschutzerklärung an, wenn dies aufgrund rechtlicher, technischer
-            oder organisatorischer Änderungen erforderlich wird. Stand: Mai 2026.
+            oder organisatorischer Änderungen erforderlich wird. <strong className="text-foreground">Stand: Mai 2026.</strong>
           </p>
         </div>
 

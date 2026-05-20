@@ -88,10 +88,18 @@ const Impressum = () => {
 
       <div className="space-y-6 font-body text-sm text-muted-foreground leading-relaxed">
 
+        <p className="text-sm">
+          Dieses Impressum gilt für alle Webangebote der DITIB – Türkisch Islamische Gemeinde zu
+          Ahlen e. V., einschließlich der Projektwebseite{" "}
+          <strong className="text-foreground">ditib-ahlen-projekte.de</strong> und des
+          Mitgliederportals{" "}
+          <strong className="text-foreground">mitglied.ditib-ahlen-projekte.de</strong>.
+        </p>
+
         <div>
           <h2 className="font-semibold text-foreground mb-2">Angaben gemäß § 5 DDG</h2>
           <p>
-            <strong className="text-foreground">DITIB - Türkisch Islamische Gemeinde zu Ahlen e.V.</strong><br />
+            <strong className="text-foreground">DITIB – Türkisch Islamische Gemeinde zu Ahlen e. V.</strong><br />
             Rottmannstr. 62<br />
             59229 Ahlen<br />
             Deutschland

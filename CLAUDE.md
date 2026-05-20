@@ -163,9 +163,35 @@ tr/kontakt/index.html   → /tr/kontakt
 
 ### Поточна реалізація:
 - `src/components/LegalLayout.tsx` — спільний layout для legal сторінок
-- `src/pages/Impressum.tsx` — Impressum
-- `src/pages/Datenschutz.tsx` — Datenschutz
+- `src/pages/Impressum.tsx` — Impressum (діє також для `mitglied.ditib-ahlen-projekte.de`)
+- `src/pages/Datenschutz.tsx` — Datenschutz (18 розділів; охоплює лендінг **і** портал)
 - `src/pages/Kontakt.tsx` — контакти Bauherr + Entwurfsverfasser
+
+### Datenschutz.tsx — структура розділів (актуальна):
+| № | Тема |
+|---|------|
+| 1 | Verantwortlicher |
+| 2 | Hosting und Server-Logdateien |
+| 3 | Cookie-Einwilligung und Local Storage (тільки лендінг) |
+| 4 | Selbst gehostete Schriftarten |
+| 5 | Kontaktaufnahme per E-Mail und Telefon |
+| 6 | Spenden über externe Zahlungsdienste |
+| 7 | Google Maps |
+| 8 | Instagram-Beiträge |
+| 9 | Externe Links |
+| 10 | SSL-/TLS-Verschlüsselung |
+| 11 | Analyse- und Tracking-Dienste (GA4, Clarity) |
+| 12 | Mitgliederportal — Registrierung und Mitgliedschaft (Art. 9 DSGVO, IBAN/BIC, SEPA) |
+| 13 | *(резерв: Profilbild — додати після liveschaltung фото-функції в порталі)* |
+| 14–18 | Ihre Rechte, Beschwerde, LDI NRW, kein Profiling, Aktualisierung |
+
+> ⚠️ Розділ «Profilbild» **не додавати** до liveschaltung фото-функції в порталі. Авторитетний текст — `docs/legal-texts.md`.
+
+### Авторитетний юридичний текст:
+**`docs/legal-texts.md`** — master-документ для всіх правових текстів обох сервісів.
+- Містить повний текст Datenschutz і Impressum (DE), аналіз gap'ів, строки зберігання, рішення щодо фото-checkbox.
+- **При будь-яких змінах** у `Datenschutz.tsx` або `Impressum.tsx` — спочатку оновити `docs/legal-texts.md`.
+- Турецький переклад в `Datenschutz.tsx` має відповідати цьому документу.
 
 ### LegalLayout — структура (актуальна):
 - **Хедер:** `position: absolute`, прозорий фон, не залипає при скролі
@@ -210,8 +236,8 @@ Footer.tsx тепер використовує React Router `<Link>` з авто
 src/
 ├── pages/
 │   ├── Index.tsx              ← головна (DE + TR)
-│   ├── Impressum.tsx          ← /impressum, /tr/impressum
-│   ├── Datenschutz.tsx        ← /datenschutz, /tr/datenschutz
+│   ├── Impressum.tsx          ← /impressum, /tr/impressum — діє для обох доменів
+│   ├── Datenschutz.tsx        ← /datenschutz, /tr/datenschutz — 18 розділів, лендінг + портал
 │   ├── Kontakt.tsx            ← /kontakt, /tr/kontakt
 │   └── NotFound.tsx
 ├── components/
@@ -234,6 +260,12 @@ public/
 ├── sitemap.xml                ← всі 8 URL з hreflang
 ├── robots.txt
 └── .htaccess                  ← SPA fallback + cache headers
+docs/
+├── legal-texts.md             ← ⚖️ MASTER: авторитетний текст Datenschutz + Impressum (DE)
+├── instagram-live-feed-plan.md
+├── instagram-live-feed-stage-2-php-runtime-spec.md
+├── instagram-cron-setup.md
+└── claude-code-production-cleanup-tz.md
 ```
 
 ---
@@ -278,6 +310,7 @@ npx tsc --noEmit   # перевірка типів без збірки
 6. **Modal.tsx** — не видаляти (зарезервований для оголошень)
 7. **`.htaccess`** — не чіпати SPA fallback правило
 8. **`npm run build`** — запускати тільки за командою користувача
+9. **`docs/legal-texts.md`** — авторитетний юридичний текст. При змінах у `Datenschutz.tsx` / `Impressum.tsx` — спочатку оновити master-документ, потім TSX. Розділ «Profilbild» в `Datenschutz.tsx` не додавати до liveschaltung фото-функції в порталі.
 
 ---
 

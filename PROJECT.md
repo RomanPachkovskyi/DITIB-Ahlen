@@ -2237,4 +2237,40 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 
 ---
 
+### 2026-05-20 — Datenschutz: Profilbild + Administrativer Zugriff + cookie уточнення
+
+**Сесія — Перевірка Datenschutz.tsx перед деплоєм, внесення пропущених розділів**
+
+#### Контекст
+
+Перед деплоєм портальної фото-функції (FOTO_UPLOAD_TZ.md, Етапи 1–6 ✅) виявлено, що
+`Datenschutz.tsx` не містить розділу «Profilbild» і підрозділу «Administrativer Zugriff».
+Фото-функція повністю реалізована (Etap 1–6 done, включаючи `profile_photo_zustimmung` checkbox),
+тому заборона «не додавати до liveschaltung» знімається — функція йде в деплой.
+
+#### Зміни у файлах
+
+**`src/pages/Datenschutz.tsx`**
+- **Новий розділ 14 — Profilbild (freiwillig, Mitgliederportal):** повний текст із `docs/legal-texts.md` §12:
+  мета, що з фото **не** відбувається (не публікується, не в email, не в Excel, немає public URL),
+  технічна обробка (JPEG 800×800, видалення EXIF), хто має доступ, правова підстава
+  Art. 6 Abs. 1 lit. a DSGVO (окрема Einwilligung-checkbox), порядок widerruf, speicherdauer.
+- **Новий підрозділ 13.7 — Administrativer Zugriff:** між 13.6 Mitgliedskonto і колишнім 13.7;
+  колишній 13.7 Speicherdauer став **13.8**.
+- **Розділ 4:** заголовок «Cookie-Einwilligung und Local Storage» доповнено уточненням
+  **(nur Projektwebseite)** — бо портал не використовує цей consent-механізм.
+
+**`docs/legal-texts.md`**
+- Чекліст: відмічено `[x]` пункти Profilbild, Mitgliederportal, Einleitungssatz, Stand.
+
+**`CLAUDE.md`**
+- Таблиця розділів Datenschutz.tsx оновлена: відображає поточну нумерацію (§14 Profilbild,
+  §13.8 Speicherdauer, §4 з уточненням nur Projektwebseite).
+- Знято застарілий запис «⚠️ не додавати Profilbild».
+
+**Підпис:** Claude Code (claude-sonnet-4-6)
+**Дата/час:** 2026-05-20 CEST
+
+---
+
 *Документ оновлено: 2026-05-20 CEST (Claude Code — Mitglied CTA у Spendenfortschritt, i18n DE+TR, CLAUDE.md)*

@@ -171,21 +171,22 @@ tr/kontakt/index.html   → /tr/kontakt
 | № | Тема |
 |---|------|
 | 1 | Verantwortlicher |
-| 2 | Hosting und Server-Logdateien |
-| 3 | Cookie-Einwilligung und Local Storage (тільки лендінг) |
-| 4 | Selbst gehostete Schriftarten |
-| 5 | Kontaktaufnahme per E-Mail und Telefon |
-| 6 | Spenden über externe Zahlungsdienste |
+| 2 | Hosting |
+| 3 | Server-Log-Dateien |
+| 4 | Cookie-Einwilligung und Local Storage (nur Projektwebseite) |
+| 5 | Selbst gehostete Schriftarten |
+| 6 | Kontaktaufnahme per E-Mail und Telefon |
 | 7 | Google Maps |
 | 8 | Instagram-Beiträge |
 | 9 | Externe Links |
-| 10 | SSL-/TLS-Verschlüsselung |
-| 11 | Analyse- und Tracking-Dienste (GA4, Clarity) |
-| 12 | Mitgliederportal — Registrierung und Mitgliedschaft (Art. 9 DSGVO, IBAN/BIC, SEPA) |
-| 13 | *(резерв: Profilbild — додати після liveschaltung фото-функції в порталі)* |
-| 14–18 | Ihre Rechte, Beschwerde, LDI NRW, kein Profiling, Aktualisierung |
+| 10 | Spenden über externe Zahlungsdienste |
+| 11 | SSL-/TLS-Verschlüsselung |
+| 12 | Analyse- und Tracking-Dienste (GA4, Clarity) |
+| 13 | Mitgliederportal — Registrierung und Mitgliedschaft (Art. 9 DSGVO, IBAN/BIC, SEPA; §13.1–13.8) |
+| 14 | Profilbild (freiwillig, Mitgliederportal; окрема Einwilligung-checkbox; Art. 6 Abs. 1 lit. a DSGVO) |
+| 15–18 | Ihre Rechte, Beschwerde, LDI NRW, kein Profiling, Aktualisierung |
 
-> ⚠️ Розділ «Profilbild» **не додавати** до liveschaltung фото-функції в порталі. Авторитетний текст — `docs/legal-texts.md`.
+> Авторитетний юридичний текст — `docs/legal-texts.md`.
 
 ### Авторитетний юридичний текст:
 **`docs/legal-texts.md`** — master-документ для всіх правових текстів обох сервісів.

@@ -149,7 +149,7 @@ const Datenschutz = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold text-foreground mb-2">4. Cookie-Einwilligung und Local Storage</h2>
+          <h2 className="font-semibold text-foreground mb-2">4. Cookie-Einwilligung und Local Storage (nur Projektwebseite)</h2>
           <p>
             Beim ersten Aufruf dieser Website wird Ihnen ein Cookie-Hinweis (Consent-Banner)
             angezeigt. Dort können Sie entscheiden, welche Kategorien von Datenverarbeitungen Sie
@@ -519,13 +519,66 @@ const Datenschutz = () => {
             b DSGVO.
           </p>
 
-          <h3 className="font-semibold text-foreground mt-4 mb-1">13.7 Speicherdauer</h3>
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.7 Administrativer Zugriff</h3>
+          <p>
+            Berechtigte Mitarbeiter des Vereinsvorstands haben über das geschützte Admin-Panel
+            Zugriff auf die Mitgliedsdaten zum Zweck der Mitgliederverwaltung. Der Zugriff ist
+            auf Personen beschränkt, die diese Aufgabe für den Verein wahrnehmen.
+          </p>
+
+          <h3 className="font-semibold text-foreground mt-4 mb-1">13.8 Speicherdauer</h3>
           <p>
             Mitgliedschaftsdaten werden für die Dauer der Mitgliedschaft gespeichert. Nach
             Beendigung der Mitgliedschaft werden die Daten entsprechend den gesetzlichen
             Aufbewahrungspflichten (insbesondere § 147 AO) aufbewahrt — in der Regel zehn
             Jahre für buchführungsrelevante Unterlagen (z. B. SEPA-Mandat, Zahlungsdaten)
             und sechs Jahre für sonstige Unterlagen — und anschließend gelöscht.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-semibold text-foreground mb-2">14. Profilbild (freiwillig, Mitgliederportal)</h2>
+          <p>
+            Im Rahmen der Mitgliederregistrierung können Sie freiwillig ein Profilbild hochladen.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Zweck:</strong> Das Foto dient ausschließlich der
+            internen Identifizierung im Rahmen der Mitgliederverwaltung und wird im Admin-Bereich
+            sowie im persönlichen Mitgliedskonto angezeigt.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Was mit dem Foto nicht geschieht:</strong> Das Foto
+            wird nicht veröffentlicht, nicht in E-Mails übermittelt, nicht in exportierte Dateien
+            (z. B. Excel) aufgenommen und ist nicht über einen öffentlichen URL abrufbar.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Technische Verarbeitung:</strong> Das hochgeladene
+            Bild wird auf 800 × 800 Pixel zugeschnitten und als JPEG gespeichert. Metadaten
+            (z. B. EXIF-Standortinformationen) werden dabei entfernt. Das Bild wird ausschließlich
+            auf dem privaten Server-Speicher des Vereins abgelegt und ist nicht öffentlich zugänglich.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Zugriff:</strong> Nur autorisierte Administratoren
+            des Vereins sowie Sie selbst über Ihr Mitgliedskonto haben Zugriff auf Ihr Profilbild.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a
+            DSGVO (Einwilligung). Die Einwilligung erfolgt durch eine gesonderte Checkbox im
+            Registrierungsformular. Die Angabe ist freiwillig; das Nichtbereitstellen eines Fotos
+            hat keinen Einfluss auf Ihre Mitgliedschaft.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Widerruf:</strong> Sie können die Einwilligung
+            jederzeit mit Wirkung für die Zukunft widerrufen, indem Sie per E-Mail an{" "}
+            <a href="mailto:info@ditib-ahlen-projekte.de" className="text-primary hover:underline">
+              info@ditib-ahlen-projekte.de
+            </a>{" "}
+            die Löschung Ihres Profilbildes beantragen. Nach dem Widerruf wird das Foto umgehend
+            gelöscht; Ihr Mitgliedsdatensatz bleibt davon unberührt.
+          </p>
+          <p className="mt-2">
+            <strong className="text-foreground">Speicherdauer:</strong> Bis zum Widerruf der
+            Einwilligung oder bis zur Beendigung der Mitgliedschaft, je nachdem was früher eintritt.
           </p>
         </div>
 

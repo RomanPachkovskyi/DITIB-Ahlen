@@ -397,10 +397,10 @@ Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unt
 
 ### In `main/src/pages/Datenschutz.tsx` zu aktualisieren
 
-- [ ] Einleitungssatz hinzufügen (gilt für ditib-ahlen-projekte.de **und** mitglied.ditib-ahlen-projekte.de)
-- [ ] Abschnitt 11: Mitgliederportal einfügen (komplett neu)
-- [ ] Abschnitt 12: Profilbild einfügen (nach Liveschaltung der Foto-Funktion, nicht vorher)
-- [ ] Stand aktualisieren wenn Foto-Funktion live geht
+- [x] Einleitungssatz hinzufügen (gilt für ditib-ahlen-projekte.de **und** mitglied.ditib-ahlen-projekte.de)
+- [x] Abschnitt 11: Mitgliederportal einfügen (komplett neu)
+- [x] Abschnitt 12: Profilbild einfügen (2026-05-20 — Foto-Funktion Etap 1–6 implementiert, Deploy geplant)
+- [x] Stand aktualisieren wenn Foto-Funktion live geht
 
 ### In `main/src/pages/Impressum.tsx` zu ergänzen
 

@@ -85,6 +85,8 @@ export interface Translations {
     purpose: string;
     ibanLabel: string;
     bicLabel: string;
+    memberCta: string;
+    memberCtaNote: string;
   };
   companySupport: {
     label: string;

@@ -61,6 +61,7 @@ const DonationProgress = () => {
   const barRef = useScrollReveal({ threshold: 0.08 });
   const ctaRef = useScrollReveal({ threshold: 0.08 });
   const bankDetailsRef = useScrollReveal({ threshold: 0.08 });
+  const memberCtaRef = useScrollReveal({ threshold: 0.08 });
   const desktopDonateRef = useScrollReveal({ threshold: 0.08 });
   const [isPaypalAccentActive, setIsPaypalAccentActive] = useState(false);
 
@@ -164,6 +165,27 @@ const DonationProgress = () => {
                     <p className="font-body text-sm text-muted-foreground">{PAYMENT_REFERENCE}</p>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Mitglied CTA */}
+            <div ref={memberCtaRef} className="reveal reveal-delay-3 mt-6">
+              <div className="flex flex-col items-center sm:flex-row sm:items-center gap-3">
+                <a
+                  href="https://mitglied.ditib-ahlen-projekte.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 font-body text-base sm:text-sm text-foreground/70 hover:text-foreground transition-colors duration-200"
+                >
+                  <span className="border-b border-dotted border-foreground/40 group-hover:border-foreground/70 transition-colors duration-200 pb-px">
+                    {t.donation.memberCta}
+                  </span>
+                  <ArrowUpRight className="w-3 h-3 opacity-40 group-hover:opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" />
+                </a>
+                <span className="hidden sm:block text-border">·</span>
+                <p className="font-body text-xs text-muted-foreground leading-relaxed text-center sm:text-left">
+                  {t.donation.memberCtaNote}
+                </p>
               </div>
             </div>
           </div>

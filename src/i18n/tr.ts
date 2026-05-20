@@ -140,6 +140,8 @@ export const tr: Translations = {
     purpose: "Kullanım Amacı",
     ibanLabel: "IBAN",
     bicLabel: "BIC",
+    memberCta: "Üye Ol",
+    memberCtaNote: "Topluluğumuzun bir parçası olun ve projeyi üye olarak destekleyin.",
   },
 
   // ─── Company Support ──────────────────────────────────────────────

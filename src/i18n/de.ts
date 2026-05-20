@@ -135,6 +135,8 @@ export const de: Translations = {
     purpose: "Verwendungszweck",
     ibanLabel: "IBAN",
     bicLabel: "BIC",
+    memberCta: "Mitglied werden",
+    memberCtaNote: "Werden Sie Teil unserer Gemeinschaft und unterstützen Sie das Projekt als Mitglied.",
   },
 
   // ─── Company Support ──────────────────────────────────────────────

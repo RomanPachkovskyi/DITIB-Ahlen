@@ -1845,7 +1845,7 @@ src/
 │   ├── ImageGallery.tsx         — фото-grid + відео на стику секцій, lightbox, mobile/video behavior
 │   ├── ProjectPartners.tsx      — Projektbeteiligte: 2 головні учасники + 3 партнери, data-driven layout, відіграє роль нижнього стику з відео
 │   ├── PDFDownloadSection.tsx   — 10 PDF для завантаження
-│   ├── DonationProgress.tsx     — прогрес бар + CountUp + CTA
+│   ├── DonationProgress.tsx     — прогрес бар + CountUp + PayPal CTA + банківські реквізити + Mitglied CTA
 │   ├── CompanySupportSection.tsx — підтримка для Unternehmen / Sachleistungen / Dienstleistungen
 │   ├── MapSection.tsx           — Google Maps блок з live map, polygon ділянки та CTA у header
 │   ├── SocialSection.tsx        — Instagram + Facebook CTA
@@ -2191,4 +2191,50 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 
 ---
 
-*Документ оновлено: 2026-05-19 CEST (Claude Code — Datenschutz 18 розділів, портал + Art. 9 DSGVO, docs/legal-texts.md)*
+### 2026-05-20 — Mitglied CTA у блоці Spendenfortschritt
+
+**Сесія — Кнопка «Mitglied werden» під банківськими реквізитами**
+
+#### Мотивація
+
+У секції `#spenden` після банківських реквізитів не було жодного закликy до членства. Додано текстову CTA-кнопку, що веде на форму реєстрації в порталі — як альтернативний спосіб підтримати громаду.
+
+#### Зміни у файлах
+
+**`src/components/DonationProgress.tsx`**
+- Доданий новий блок «Mitglied CTA» між банківськими реквізитами і desktop-aside (QR-код).
+- Стиль: текстовий лінк з пунктирним підкресленням (`border-b border-dotted`), іконка `↗` (ArrowUpRight) — без кольорової кнопки, без червоного.
+- Hover: `text-foreground/70 → text-foreground`, підкреслення насичується, іконка зсувається на `0.5px`.
+- Мобайл: кнопка і текст по центру (`items-center`), шрифт `text-base` (замість `text-sm`).
+- Desktop: кнопка + `·` + пояснювальний текст в один рядок (`sm:flex-row`).
+- Посилання: `https://mitglied.ditib-ahlen-projekte.de/`, `target="_blank"`, `rel="noopener noreferrer"`.
+- Анімація входу: окремий `useScrollReveal` ref (`memberCtaRef`), клас `reveal reveal-delay-3`.
+
+**`src/i18n/types.ts`**
+- Додано два нових ключі до типу `donation`:
+  - `memberCta: string`
+  - `memberCtaNote: string`
+
+**`src/i18n/de.ts`**
+- `memberCta`: `"Mitglied werden"`
+- `memberCtaNote`: `"Werden Sie Teil unserer Gemeinschaft und unterstützen Sie das Projekt als Mitglied."`
+
+**`src/i18n/tr.ts`**
+- `memberCta`: `"Üye Ol"`
+- `memberCtaNote`: `"Topluluğumuzun bir parçası olun ve projeyi üye olarak destekleyin."`
+
+#### Документація
+
+- `CLAUDE.md` — додано новий розділ «DonationProgress — блок Spendenfortschritt» з повною структурою блоку, деталями Mitglied CTA та таблицею констант. У `Структурі проекту` додано `DonationProgress.tsx` з описом.
+- `memory/project_overview.md` — оновлено секцію DonationProgress, додано запис про Mitglied CTA.
+
+#### Build
+
+`npm run build` — ✅ без помилок, `dist/` оновлено.
+
+**Підпис:** Claude Code (claude-sonnet-4-7)
+**Дата/час:** 2026-05-20 CEST
+
+---
+
+*Документ оновлено: 2026-05-20 CEST (Claude Code — Mitglied CTA у Spendenfortschritt, i18n DE+TR, CLAUDE.md)*

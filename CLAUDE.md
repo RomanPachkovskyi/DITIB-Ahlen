@@ -230,6 +230,44 @@ Footer.tsx тепер використовує React Router `<Link>` з авто
 
 ---
 
+## DonationProgress — блок Spendenfortschritt
+
+**Файл:** `src/components/DonationProgress.tsx`
+**Секція:** `#spenden` (anchor на головній сторінці)
+
+### Структура блоку (зверху вниз):
+1. **Хедер** — label, heading, subheading (i18n)
+2. **Прогрес-бар** — анімований, `CURRENT / GOAL`, запускається при scroll-reveal
+3. **PayPal CTA** — червона кнопка з пульс-анімацією після завершення прогрес-бару
+4. **Банківські реквізити** — картка з IBAN, Bank, Empfänger, Verwendungszweck
+5. **Mitglied CTA** *(додано 2026-05-20)* — текстова кнопка «Mitglied werden» / «Üye Ol»
+6. **Desktop aside** — PayPal QR-код (hidden на мобайлі)
+
+### Mitglied CTA — деталі реалізації:
+- **Посилання:** `https://mitglied.ditib-ahlen-projekte.de/` (target=`_blank`, rel=`noopener noreferrer`)
+- **Стиль:** текстовий лінк з пунктирним підкресленням (`border-b border-dotted`), НЕ кольорова кнопка
+- **Hover:** текст темнішає (`text-foreground/70 → text-foreground`), підкреслення насичується, іконка `↗` зсувається
+- **Мобайл:** кнопка і текст по центру (`items-center`), шрифт `text-base`
+- **Desktop:** в одному рядку — лінк · пояснювальний текст (`sm:flex-row`)
+- **i18n ключі** (в `donation` namespace):
+  - `memberCta` — DE: `"Mitglied werden"` / TR: `"Üye Ol"`
+  - `memberCtaNote` — DE: пояснення про членство / TR: переклад
+
+### Константи (захардкоджені в компоненті):
+```ts
+const GOAL = 5_000_000;        // ціль збору в євро
+const CURRENT = 300_000;       // поточна сума (оновлювати вручну)
+const PAYPAL_URL = "https://www.paypal.com/donate/?hosted_button_id=3VHQAUC5S3BMY&locale.x=de_DE";
+const IBAN = "DE34 4005 0150 0001 0040 76";
+const BANK_NAME = "Sparkasse Muensterland Ost";
+const ACCOUNT_HOLDER = "DITIB - Tuerkisch Islamische Gemeinde zu Ahlen e.V.";
+const PAYMENT_REFERENCE = "Spende DiTiB Ahlen Projekt";
+```
+
+> ⚠️ При зміні суми `CURRENT` — також оновлювати `PERCENTAGE` (розраховується автоматично).
+
+---
+
 ## Структура проекту
 
 ```
@@ -241,6 +279,7 @@ src/
 │   ├── Kontakt.tsx            ← /kontakt, /tr/kontakt
 │   └── NotFound.tsx
 ├── components/
+│   ├── DonationProgress.tsx   ← блок #spenden: прогрес-бар, PayPal CTA, банківські реквізити, Mitglied CTA
 │   ├── LegalLayout.tsx        ← layout для legal сторінок
 │   ├── Footer.tsx             ← посилання на legal сторінки (не модалі)
 │   ├── Modal.tsx              ← зберігається для майбутнього
